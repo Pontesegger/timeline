@@ -16,6 +16,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.TimeViewDetails;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
 /**
  * @author christian
@@ -25,8 +26,8 @@ public class OverviewSelectionLayer extends FreeformLayer {
 
 	private final OverviewSelectionFigure fOverviewSelectionFigure;
 
-	public OverviewSelectionLayer() {
-		fOverviewSelectionFigure = new OverviewSelectionFigure();
+	public OverviewSelectionLayer(ITimelineStyleProvider styleProvider) {
+		fOverviewSelectionFigure = new OverviewSelectionFigure(styleProvider);
 		add(fOverviewSelectionFigure);
 	}
 

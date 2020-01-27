@@ -11,9 +11,12 @@
 
 package org.eclipse.nebula.timeline.figures;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.detail.DetailFigure;
@@ -22,16 +25,16 @@ import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
+import org.eclipse.nebula.timeline.jface.DefaultTimelineStyleProvider;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
-public class RootFigure extends Figure {
-
-	private static final int LAYOUT_SPACING = 10;
+public class RootFigure extends Figure implements IStyledFigure {
 
 	private static final double ZOOM_FACTOR = 1.2d;
 
-	private final DetailFigure fDetailFigure;
 	private final TimeViewDetails fTimeViewDetails;
-	private final OverviewFigure fOverviewFigure;
+
+	private ITimelineStyleProvider fStyleProvider = new DefaultTimelineStyleProvider();
 
 	public RootFigure() {
 		fTimeViewDetails = new TimeViewDetails(this);
@@ -41,13 +44,37 @@ public class RootFigure extends Figure {
 		setLayoutManager(layout);
 
 		setOpaque(true);
-		setBackgroundColor(ColorConstants.black);
+		setBackgroundColor(getStyleProvider().getBackgroundColor());
 
-		fDetailFigure = new DetailFigure();
-		add(fDetailFigure, BorderLayout.CENTER);
+		add(new DetailFigure(getStyleProvider()), BorderLayout.CENTER);
+		add(new OverviewFigure(getStyleProvider()), BorderLayout.BOTTOM);
+	}
 
-		fOverviewFigure = new OverviewFigure();
-		add(fOverviewFigure, BorderLayout.BOTTOM);
+	public void setStyleProvider(ITimelineStyleProvider styleProvider) {
+		fStyleProvider = styleProvider;
+
+		fireStyleChanged();
+	}
+
+	/**
+	 * The style provider changed. Update style of all child elements
+	 */
+	private void fireStyleChanged() {
+		final Set<Object> children = new HashSet<>();
+		children.add(this);
+
+		while (!children.isEmpty()) {
+			final Object child = children.iterator().next();
+			children.remove(child);
+			children.addAll(((IFigure) child).getChildren());
+
+			if (child instanceof IStyledFigure)
+				((IStyledFigure) child).updateStyle(getStyleProvider());
+		}
+	}
+
+	public ITimelineStyleProvider getStyleProvider() {
+		return fStyleProvider;
 	}
 
 	/**
@@ -56,10 +83,6 @@ public class RootFigure extends Figure {
 	public void clear() {
 		Helper.getFigure(this, TracksLayer.class).removeAll();
 		Helper.getFigure(this, OverviewLayer.class).removeAll();
-	}
-
-	public OverviewFigure getOverviewFigure() {
-		return fOverviewFigure;
 	}
 
 	public TimeViewDetails getTimeViewDetails() {
@@ -88,5 +111,10 @@ public class RootFigure extends Figure {
 
 	public void zoom(double factor, int zoomCenterX) {
 		getTimeViewDetails().zoom(factor, zoomCenterX);
+	}
+
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setBackgroundColor(styleProvider.getBackgroundColor());
 	}
 }

@@ -11,22 +11,18 @@
 
 package org.eclipse.nebula.timeline.figures.overview;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
-import org.eclipse.nebula.timeline.borders.RoundedRectangleBorder;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.timeline.layouts.OverviewLayout;
 import org.eclipse.nebula.timeline.listeners.OverviewSelector;
 
 public class OverviewLayer extends FreeformLayer {
 
-	public OverviewLayer() {
-		final RoundedRectangleBorder border = new RoundedRectangleBorder(10);
-		border.setWidth(2);
-		border.setColor(ColorConstants.darkGray);
-		setBorder(border);
+	public OverviewLayer(ITimelineStyleProvider styleProvider) {
+		setBorder(styleProvider.getOverviewAreaBorder());
 
 		setLayoutManager(new OverviewLayout());
 

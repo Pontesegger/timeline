@@ -11,21 +11,16 @@
 
 package org.eclipse.nebula.timeline.figures.overview;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.nebula.timeline.borders.LeftRightBorder;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.timeline.listeners.OverviewSelectionMover;
 
 public class OverviewSelectionFigure extends RectangleFigure {
 
-	public OverviewSelectionFigure() {
-		setForegroundColor(ColorConstants.red);
-		setBackgroundColor(ColorConstants.white);
-
-		setAlpha(40);
-
-		setLineWidth(1);
-		setBorder(new LeftRightBorder(getForegroundColor()));
+	public OverviewSelectionFigure(ITimelineStyleProvider styleProvider) {
+		setBackgroundColor(styleProvider.getOverviewSelectionBackgroundColor());
+		setAlpha(styleProvider.getOverviewSelectionBackgroundAlpha());
+		setBorder(styleProvider.getOverviewSelectionBorder());
 
 		new OverviewSelectionMover(this);
 	}

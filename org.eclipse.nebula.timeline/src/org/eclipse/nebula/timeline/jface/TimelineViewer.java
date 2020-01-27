@@ -71,6 +71,14 @@ public class TimelineViewer extends StructuredViewer {
 		this(parent, SWT.NONE);
 	}
 
+	public void setStyleProvider(ITimelineStyleProvider styleProvider) {
+		getControl().getRootFigure().setStyleProvider(styleProvider);
+	}
+
+	public ITimelineStyleProvider getStyleProvider() {
+		return getControl().getRootFigure().getStyleProvider();
+	}
+
 	@Override
 	protected void inputChanged(Object input, Object oldInput) {
 		unregisterFigure(oldInput);

@@ -16,6 +16,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.borders.EmptyBorder;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
 public class OverviewFigure extends LayeredPane {
 
@@ -28,15 +29,12 @@ public class OverviewFigure extends LayeredPane {
 
 	private final int fPreferredHeight = DEFAULT_HEIGHT;
 
-	public OverviewFigure() {
+	public OverviewFigure(ITimelineStyleProvider styleProvider) {
 
 		setBorder(new EmptyBorder(new Insets(0, 10, 10, 10)));
 
-		final OverviewLayer overviewLayer = new OverviewLayer();
-		add(overviewLayer);
-
-		final OverviewSelectionLayer selectionLayer = new OverviewSelectionLayer();
-		add(selectionLayer);
+		add(new OverviewLayer(styleProvider));
+		add(new OverviewSelectionLayer(styleProvider));
 	}
 
 	@Override

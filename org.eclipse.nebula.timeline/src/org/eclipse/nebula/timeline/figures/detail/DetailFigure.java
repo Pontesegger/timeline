@@ -25,6 +25,7 @@ import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.borders.EmptyBorder;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksFigure;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.timeline.listeners.TimelineMover;
 
 public class DetailFigure extends Figure {
@@ -33,9 +34,7 @@ public class DetailFigure extends Figure {
 
 	private static final List<Integer> STEP_SIZE_CANDIDATES = Arrays.asList(1, 2, 5, 10, 20, 25, 50, 100);
 
-	private final TracksFigure fTracksFigure;
-
-	public DetailFigure() {
+	public DetailFigure(ITimelineStyleProvider styleProvider) {
 		final BorderLayout layout = new BorderLayout();
 		layout.setHorizontalSpacing(0);
 		layout.setVerticalSpacing(0);
@@ -43,8 +42,7 @@ public class DetailFigure extends Figure {
 
 		setBorder(new EmptyBorder(new Insets(10)));
 
-		fTracksFigure = new TracksFigure();
-		add(fTracksFigure, BorderLayout.CENTER);
+		add(new TracksFigure(styleProvider), BorderLayout.CENTER);
 
 		final TimeAxisFigure timeAxisFigure = new TimeAxisFigure();
 		add(timeAxisFigure, BorderLayout.BOTTOM);
@@ -110,8 +108,4 @@ public class DetailFigure extends Figure {
 
 		return positions;
 	}
-
-	// public void addCursor(double absolutePosition) {
-	// fTracksFigure.addCursor(absolutePosition);
-	// }
 }

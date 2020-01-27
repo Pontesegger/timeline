@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.nebula.timeline/src-gen" modelPluginID="org.eclipse.nebula.timeline"
+    modelName="Timeline" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
+    importOrganizing="true">
+  <foreignModel>Timeline.ecore</foreignModel>
+  <genPackages prefix="Timeline" basePackage="org.eclipse.nebula" disposableProviderFactory="true"
+      ecorePackage="Timeline.ecore#/">
+    <genDataTypes ecoreDataType="Timeline.ecore#//TimeUnit"/>
+    <genClasses ecoreClass="Timeline.ecore#//Timeline">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/tracks"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/cursors"/>
+      <genOperations ecoreOperation="Timeline.ecore#//Timeline/createTrack">
+        <genParameters ecoreParameter="Timeline.ecore#//Timeline/createTrack/title"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Timeline.ecore#//Track">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//Track/timeline"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Track/lanes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Track/title"/>
+      <genOperations ecoreOperation="Timeline.ecore#//Track/createLane"/>
+    </genClasses>
+    <genClasses ecoreClass="Timeline.ecore#//Lane">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//Lane/track"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Lane/timeEvents"/>
+      <genOperations ecoreOperation="Timeline.ecore#//Lane/addEvent">
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/title"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/message"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/startTimestamp"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/endTimestamp"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/timeUnit"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Timeline.ecore#//TimelineEvent">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//TimelineEvent/lane"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/startTimestamp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/endTimestamp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/message"/>
+    </genClasses>
+    <genClasses ecoreClass="Timeline.ecore#//Cursor">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//Cursor/timeline"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Cursor/timestamp"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

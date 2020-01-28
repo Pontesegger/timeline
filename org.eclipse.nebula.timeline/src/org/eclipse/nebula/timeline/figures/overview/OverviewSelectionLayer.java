@@ -41,6 +41,8 @@ public class OverviewSelectionLayer extends FreeformLayer {
 		bounds.setY(getBounds().y());
 		bounds.setHeight(getBounds().height());
 		bounds.performTranslate(getBounds().x(), 0);
+		if (bounds.width() < 3)
+			bounds.setWidth(3);
 
 		fOverviewSelectionFigure.setBounds(bounds);
 

@@ -249,4 +249,19 @@ public class TimeViewDetails {
 		if (fOffset.x() < getEventArea().x())
 			fOffset.setX(getEventArea().x());
 	}
+
+	/**
+	 * Reveal a given area on screen and center it. Zoom is adjusted in case the event cannot be displayed as a whole on screen.
+	 *
+	 * @param revealArea
+	 *            area (x dimensions) to reveal
+	 */
+	public void revealEvent(PrecisionRectangle revealArea) {
+		if (getVisibleEventArea().width() <= revealArea.width())
+			fScaleFactor = getScreenArea().width() / (revealArea.width() * 3.0d);
+
+		fOffset.setX(revealArea.x() - ((getVisibleEventArea().width() - revealArea.width()) / 2));
+
+		fRootFigure.fireTimebaseChanged();
+	}
 }

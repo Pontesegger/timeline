@@ -13,8 +13,10 @@ package org.eclipse.nebula.timeline.jface;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
@@ -27,6 +29,7 @@ import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ITimeline;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.ITimelineFactory;
+import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.TimelineComposite;
 import org.eclipse.nebula.timeline.figures.RootFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
@@ -157,6 +160,7 @@ public class TimelineViewer extends StructuredViewer {
 	 */
 	@Override
 	protected List getSelectionFromWidget() {
+		System.out.println("getSelection");
 		// TODO fix implementation - never return null here!
 		return Collections.EMPTY_LIST;
 	}
@@ -270,8 +274,14 @@ public class TimelineViewer extends StructuredViewer {
 	 */
 	@Override
 	public void reveal(Object element) {
-		// TODO Auto-generated method stub
+		if (element instanceof ITimelineEvent) {
+			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
+			timeViewDetails.revealEvent(new PrecisionRectangle(((ITimelineEvent) element).getStartTimestamp(), 0, ((ITimelineEvent) element).getDuration(), 1));
 
+		} else if (element instanceof ICursor) {
+			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
+			timeViewDetails.revealEvent(new PrecisionRectangle(((ICursor) element).getTimestamp(), 0, 1, 1));
+		}
 	}
 
 	/*
@@ -282,11 +292,42 @@ public class TimelineViewer extends StructuredViewer {
 	@Override
 	protected void setSelectionToWidget(List l, boolean reveal) {
 		// TODO Auto-generated method stub
+		System.out.println("setSelection");
 
 	}
 
 	@Override
 	public TimelineComposite getControl() {
 		return fControl;
+	}
+
+	private class ModelMap extends HashMap<Object, IFigure> {
+
+		private static final long serialVersionUID = 6568720330224087046L;
+
+		private final Map<IFigure, Object> fReverseMap = new HashMap<>();
+
+		@Override
+		public IFigure put(Object key, IFigure value) {
+			fReverseMap.put(value, key);
+
+			return super.put(key, value);
+		}
+
+		public Object getKey(IFigure value) {
+			return fReverseMap.get(value);
+		}
+
+		@Override
+		public IFigure remove(Object key) {
+			final IFigure value = super.remove(key);
+			fReverseMap.remove(value);
+
+			return value;
+		}
+
+		public IFigure removeValue(Object modelElement) {
+			return remove(fReverseMap.get(modelElement));
+		}
 	}
 }

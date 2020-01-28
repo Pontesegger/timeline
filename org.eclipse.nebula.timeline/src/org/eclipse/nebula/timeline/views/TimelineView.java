@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.nebula.timeline.ILane;
 import org.eclipse.nebula.timeline.ITimeline;
+import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.ITrack;
 import org.eclipse.nebula.timeline.TimelineComposite;
 import org.eclipse.nebula.timeline.jface.TimelineViewer;
@@ -53,6 +54,7 @@ public class TimelineView extends ViewPart {
 		final List<ILane> lanes = Arrays.asList(apdus, apduResponses, commands, responses, another, another2);
 
 		final Random random = new Random(12);
+		ITimelineEvent event = null;
 		int lastPosition = 0;
 		for (int item = 0; item < 40; item++) {
 			final int laneIndex = random.nextInt(lanes.size());
@@ -60,7 +62,7 @@ public class TimelineView extends ViewPart {
 
 			final int offset = random.nextInt(20);
 			final int width = random.nextInt(150);
-			lane.addEvent("Item " + item, (lastPosition + offset) + " - " + (lastPosition + offset + width), lastPosition + offset,
+			event = lane.addEvent("Item " + item, (lastPosition + offset) + " - " + (lastPosition + offset + width), lastPosition + offset,
 					lastPosition + offset + width, TimeUnit.NANOSECONDS);
 
 			lastPosition += offset + width;

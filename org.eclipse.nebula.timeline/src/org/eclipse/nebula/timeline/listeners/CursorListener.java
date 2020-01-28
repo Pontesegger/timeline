@@ -90,6 +90,7 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 
 				fFigure.getParent().revalidate();
 
+				Helper.getFigure(fFigure, CursorTimingsLayer.class).revalidate();
 				Helper.getFigure(fFigure, OverviewCursorLayer.class).revalidate();
 			}
 		}
@@ -182,6 +183,6 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 
 	private void hideCursorTimings() {
 		final CursorTimingsLayer cursorTimingsLayer = Helper.getFigure(fFigure, CursorTimingsLayer.class);
-		cursorTimingsLayer.setVisible(false);
+		cursorTimingsLayer.hideTimings();
 	}
 }

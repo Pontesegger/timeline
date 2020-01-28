@@ -46,7 +46,17 @@ public class CursorTimingsLayer extends FreeformLayer {
 		setVisible(false);
 	}
 
+	@Override
+	public void validate() {
+		// cursor might have been deleted already
+		for (final Object connection : getChildren())
+			((CursorConnection) connection).updateDistance();
+
+		super.validate();
+	}
+
 	public void showTimingsFor(CursorFigure cursorFigure, MouseEvent me) {
+
 		removeAll();
 
 		// get all cursors except the highlighted one
@@ -57,30 +67,16 @@ public class CursorTimingsLayer extends FreeformLayer {
 		Collections.sort(cursors,
 				(o1, o2) -> (int) (Math.abs(cursorFigure.getEventTime() - o1.getEventTime()) - Math.abs(cursorFigure.getEventTime() - o2.getEventTime())));
 
-		final Point distance = new Point(20, me.y);
+		// final Point distance = new Point(20, me.y);
+		final Dimension distance = new Dimension(20, me.y);
 		for (final CursorFigure cursor : cursors) {
-			final PolylineConnection connection = new PolylineConnection();
-			connection.setForegroundColor(ColorConstants.yellow);
-			connection.setLineStyle(SWT.LINE_DOT);
+			add(new CursorConnection(cursorFigure, cursor, distance));
 
-			connection.setSourceAnchor(new CursorAnchor(cursorFigure, distance.y()));
-			connection.setTargetAnchor(new CursorAnchor(cursor, distance.y()));
-			connection.setTargetDecoration(new PolygonDecoration());
-			connection.add(new CursorLabel(getDistanceAsText(cursorFigure, cursor)), new CursorConnectionLocator(connection, distance.x()));
-
-			add(connection);
-
-			distance.performTranslate(20, 30);
+			distance.expand(20, 30);
 		}
 
 		fConnectionsLocation = me.getLocation();
 		setVisible(true);
-	}
-
-	private String getDistanceAsText(CursorFigure cursorA, CursorFigure cursorB) {
-		final double eventTime = Math.abs(cursorA.getEventTime() - cursorB.getEventTime());
-
-		return eventTime + " ns";
 	}
 
 	private List<CursorFigure> getAllCursors() {
@@ -111,6 +107,35 @@ public class CursorTimingsLayer extends FreeformLayer {
 			}
 
 			revalidate();
+		}
+	}
+
+	private class CursorConnection extends PolylineConnection {
+		private final CursorFigure fSorce;
+		private final CursorFigure fTarget;
+		private final CursorLabel fCursorLabel;
+
+		public CursorConnection(CursorFigure sorce, CursorFigure target, Dimension distance) {
+			fSorce = sorce;
+			fTarget = target;
+			setForegroundColor(ColorConstants.yellow);
+			setLineStyle(SWT.LINE_DOT);
+
+			setSourceAnchor(new CursorAnchor(sorce, distance.height()));
+			setTargetAnchor(new CursorAnchor(target, distance.height()));
+			setTargetDecoration(new PolygonDecoration());
+			fCursorLabel = new CursorLabel(getDistanceAsText(sorce, target));
+			add(fCursorLabel, new CursorConnectionLocator(this, distance.width()));
+		}
+
+		public void updateDistance() {
+			fCursorLabel.setText(getDistanceAsText(fSorce, fTarget));
+		}
+
+		private String getDistanceAsText(CursorFigure cursorA, CursorFigure cursorB) {
+			final double eventTime = Math.abs(cursorA.getEventTime() - cursorB.getEventTime());
+
+			return eventTime + " ns";
 		}
 	}
 
@@ -165,9 +190,14 @@ public class CursorTimingsLayer extends FreeformLayer {
 			add(label);
 		}
 
+		public void setText(String text) {
+			final Label label = (Label) getChildren().get(0);
+			label.setText(text);
+		}
+
 		@Override
 		public Dimension getPreferredSize(int w, int h) {
-			Dimension dimension = super.getPreferredSize(-1, -1);
+			Dimension dimension = super.getPreferredSize(w, h);
 			if (dimension.width > 150)
 				dimension = super.getPreferredSize(150, -1);
 
@@ -197,5 +227,10 @@ public class CursorTimingsLayer extends FreeformLayer {
 
 			return point;
 		}
+	}
+
+	public void hideTimings() {
+		removeAll();
+		setVisible(false);
 	}
 }

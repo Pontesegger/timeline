@@ -255,18 +255,23 @@ public class TimelineViewer extends StructuredViewer {
 					overview.addEvent(eventFigure);
 				}
 			} else if (figure instanceof CursorFigure) {
+				final RootFigure rootFigure = Helper.getRootFigure(figure);
+
 				if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
 					// this cursor is still available in the model
-					Helper.getFigure(figure, CursorLayer.class).revalidate();
-					Helper.getFigure(figure, OverviewCursorLayer.class).revalidate();
 
 				} else {
 					// cursor got deleted from the model
 					Helper.getFigure(figure, CursorLayer.class).remove(figure);
+					unregisterModelElement(element);
+
 					final IFigure overviewCursor = fElementToOverviewFigureMap.get(element);
 					if (overviewCursor != null)
 						Helper.getFigure(overviewCursor, OverviewCursorLayer.class).remove(overviewCursor);
 				}
+
+				Helper.getFigure(rootFigure, CursorLayer.class).revalidate();
+				Helper.getFigure(rootFigure, OverviewCursorLayer.class).revalidate();
 			}
 
 			// TODO refresh cursors, timeevents
@@ -298,6 +303,7 @@ public class TimelineViewer extends StructuredViewer {
 
 	private void unregisterModelElement(Object modelElement) {
 		fElementToFigureMap.remove(modelElement);
+		fElementToOverviewFigureMap.remove(modelElement);
 	}
 
 	private void unregisterFigures(Collection<?> figures) {

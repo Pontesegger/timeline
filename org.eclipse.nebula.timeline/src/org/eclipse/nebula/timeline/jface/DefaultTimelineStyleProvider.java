@@ -22,11 +22,6 @@ import org.eclipse.swt.graphics.Color;
 public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 
 	@Override
-	public void dispose() {
-		// nothing to do
-	}
-
-	@Override
 	public Color getBackgroundColor() {
 		return ColorConstants.black;
 	}
@@ -83,5 +78,15 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	@Override
 	public Color getSelectedCursorColor() {
 		return ColorConstants.red;
+	}
+
+	@Override
+	public boolean showGrid() {
+		return true;
+	}
+
+	@Override
+	public boolean showTimeAxis() {
+		return false;
 	}
 }

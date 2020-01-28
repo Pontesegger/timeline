@@ -13,7 +13,6 @@ package org.eclipse.nebula.timeline.listeners;
 
 import java.util.List;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -30,6 +29,7 @@ import org.eclipse.nebula.timeline.figures.detail.cursor.CursorTimingsLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
 public class CursorListener extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
 
@@ -152,8 +152,9 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 
 	@Override
 	public void mouseEntered(MouseEvent me) {
-		fFigure.setForegroundColor(ColorConstants.red);
-		fFigure.setBackgroundColor(ColorConstants.red);
+		final ITimelineStyleProvider styleProvider = Helper.getRootFigure(fFigure).getStyleProvider();
+		fFigure.setForegroundColor(styleProvider.getSelectedCursorColor());
+		fFigure.setBackgroundColor(styleProvider.getSelectedCursorColor());
 
 		final CursorTimingsLayer cursorTimingsLayer = Helper.getFigure(fFigure, CursorTimingsLayer.class);
 		cursorTimingsLayer.showTimingsFor(fFigure, me);
@@ -161,8 +162,9 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 
 	@Override
 	public void mouseExited(MouseEvent me) {
-		fFigure.setForegroundColor(ColorConstants.yellow);
-		fFigure.setBackgroundColor(ColorConstants.yellow);
+		final ITimelineStyleProvider styleProvider = Helper.getRootFigure(fFigure).getStyleProvider();
+		fFigure.setForegroundColor(styleProvider.getCursorColor());
+		fFigure.setBackgroundColor(styleProvider.getCursorColor());
 
 		hideCursorTimings();
 	}

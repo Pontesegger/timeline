@@ -27,7 +27,7 @@ public class TimelineComposite extends Composite {
 		lightWeightSystem.setContents(fRootFigure);
 
 		// draw2d does not directly support mousewheelevents, so register on canvas
-		canvas.addMouseWheelListener(new TimelineScaler(fRootFigure));
+		canvas.addMouseWheelListener(new TimelineScaler(this));
 	}
 
 	public RootFigure getRootFigure() {

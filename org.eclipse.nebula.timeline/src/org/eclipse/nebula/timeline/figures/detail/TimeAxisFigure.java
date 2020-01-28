@@ -21,12 +21,20 @@ import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.swt.SWT;
 
-public class TimeAxisFigure extends Figure {
+public class TimeAxisFigure extends Figure implements IStyledFigure {
 
-	public TimeAxisFigure() {
+	public TimeAxisFigure(ITimelineStyleProvider styleProvider) {
 		setOpaque(false);
+		updateStyle(styleProvider);
+	}
+
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setVisible(styleProvider.showTimeAxis());
 	}
 
 	@Override

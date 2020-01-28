@@ -11,23 +11,23 @@
 
 package org.eclipse.nebula.timeline.listeners;
 
-import org.eclipse.nebula.timeline.figures.RootFigure;
+import org.eclipse.nebula.timeline.TimelineComposite;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseWheelListener;
 
 public class TimelineScaler implements MouseWheelListener {
 
-	private final RootFigure fRootFigure;
+	private final TimelineComposite fTimelineComposite;
 
-	public TimelineScaler(RootFigure rootFigure) {
-		fRootFigure = rootFigure;
+	public TimelineScaler(TimelineComposite timelineComposite) {
+		fTimelineComposite = timelineComposite;
 	}
 
 	@Override
 	public void mouseScrolled(MouseEvent e) {
 		if (e.count > 0)
-			fRootFigure.zoomIn(e.x);
+			fTimelineComposite.getRootFigure().zoomIn(e.x);
 		else
-			fRootFigure.zoomOut(e.x);
+			fTimelineComposite.getRootFigure().zoomOut(e.x);
 	}
 }

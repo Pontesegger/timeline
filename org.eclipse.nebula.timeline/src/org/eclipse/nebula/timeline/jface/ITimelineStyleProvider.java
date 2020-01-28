@@ -17,9 +17,10 @@ import org.eclipse.swt.graphics.Color;
 public interface ITimelineStyleProvider {
 
 	/**
-	 * Called when composite gets disposed. Clean up colors and fonts.
+	 * Called when the composite gets disposed. Clean up colors and fonts.
 	 */
-	void dispose();
+	default void dispose() {
+	};
 
 	/**
 	 * Get diagram background color.
@@ -41,6 +42,20 @@ public interface ITimelineStyleProvider {
 	 * @return overview area border
 	 */
 	Border getOverviewAreaBorder();
+
+	/**
+	 * Display the time axis below the detail area.
+	 *
+	 * @return <code>true</code> to display the time axis, <code>false</code> to hide
+	 */
+	boolean showTimeAxis();
+
+	/**
+	 * Display the grid in the detail area.
+	 *
+	 * @return <code>true</code> to display the grid, <code>false</code> to hide
+	 */
+	boolean showGrid();
 
 	/**
 	 * Get the color of the grid.

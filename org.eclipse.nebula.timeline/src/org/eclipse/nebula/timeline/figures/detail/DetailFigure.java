@@ -44,7 +44,7 @@ public class DetailFigure extends Figure {
 
 		add(new TracksFigure(styleProvider), BorderLayout.CENTER);
 
-		final TimeAxisFigure timeAxisFigure = new TimeAxisFigure();
+		final TimeAxisFigure timeAxisFigure = new TimeAxisFigure(styleProvider);
 		add(timeAxisFigure, BorderLayout.BOTTOM);
 
 		new TimelineMover(this);

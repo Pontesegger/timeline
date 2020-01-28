@@ -52,5 +52,6 @@ public class GridLayer extends FreeformLayer implements IStyledFigure {
 	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setForegroundColor(styleProvider.getGridColor());
+		setVisible(styleProvider.showGrid());
 	}
 }

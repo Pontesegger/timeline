@@ -15,17 +15,62 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 
+/**
+ * Content provider for {@link TimelineViewer}. The provider links between the model and the SWT component. As cursors may
+ */
 public interface ITimelineContentProvider extends IStructuredContentProvider {
 
+	/**
+	 * Get tracks for the provided input. Tracks contain lanes to display events.
+	 *
+	 * @param input
+	 *            viewer input root element
+	 * @return tracks to display
+	 */
 	Object[] getTracks(Object input);
 
+	/**
+	 * Get lanes for a given track. Lanes contain display events.
+	 *
+	 * @param track
+	 *            track to get lanes for
+	 * @return lanes to display
+	 */
 	Object[] getLanes(Object track);
 
+	/**
+	 * Get events for a given lane.
+	 *
+	 * @param lane
+	 *            lane to fetch events for
+	 * @return timing events
+	 */
 	Object[] getEvents(Object lane);
 
+	/**
+	 * Get cursors for the provided input
+	 *
+	 * @param input
+	 *            viewer input root element
+	 * @return cursors to display
+	 */
 	Object[] getCursors(Object input);
 
+	/**
+	 * Convert an event object provided from {@link #getEvents(Object)} to an {@link ITimelineEvent}.
+	 *
+	 * @param eventElement
+	 *            viewer event
+	 * @return timeline event
+	 */
 	ITimelineEvent toEvent(Object eventElement);
 
-	ICursor toCursor(Object element);
+	/**
+	 * Convert a cursor object provided from {@link #getCursors(Object)} to an {@link ICursor}.
+	 *
+	 * @param cursorElement
+	 *            viewer cursor
+	 * @return cursor
+	 */
+	ICursor toCursor(Object cursorElement);
 }

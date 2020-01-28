@@ -17,6 +17,7 @@ import java.util.Set;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ITimelineFactory;
@@ -33,6 +34,7 @@ import org.eclipse.nebula.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.nebula.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
+import org.eclipse.nebula.timeline.jface.TimelineViewer;
 
 public class RootFigure extends Figure implements IStyledFigure {
 
@@ -41,6 +43,8 @@ public class RootFigure extends Figure implements IStyledFigure {
 	private final TimeViewDetails fTimeViewDetails;
 
 	private ITimelineStyleProvider fStyleProvider = new DefaultTimelineStyleProvider();
+
+	private TimelineViewer fViewer;
 
 	public RootFigure() {
 		fTimeViewDetails = new TimeViewDetails(this);
@@ -156,6 +160,53 @@ public class RootFigure extends Figure implements IStyledFigure {
 	public ICursor createCursor(long eventTime) {
 		final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
 		cursor.setTimestamp(eventTime);
+
+		if ((fViewer != null) && (fViewer.getEditingSupport() != null)) {
+			// let viewer take care of cursor addition
+			fViewer.createCursor(cursor);
+
+		} else {
+			// manually add cursor
+			addCursorFigure(cursor);
+			addOverviewCursorFigure(cursor);
+		}
+
 		return cursor;
+	}
+
+	/**
+	 * Remove a cursor.
+	 *
+	 * @param cursor
+	 *            cursor to remove
+	 */
+	public void removeCursor(ICursor cursor) {
+		if ((fViewer != null) && (fViewer.getEditingSupport() != null)) {
+			// let viewer take care of cursor removal
+			fViewer.removeCursor(cursor);
+
+		} else {
+			// manually remove figures
+			for (final Class clazz : new Class[] { CursorLayer.class, OverviewCursorLayer.class }) {
+				final IFigure cursorLayer = (IFigure) Helper.getFigure(this, clazz);
+				final LayoutManager layoutManager = cursorLayer.getLayoutManager();
+				for (final Object child : cursorLayer.getChildren()) {
+					if (cursor.equals(layoutManager.getConstraint((IFigure) child))) {
+						cursorLayer.remove((IFigure) child);
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Set the JFace viewer.
+	 *
+	 * @param viewer
+	 *            JFace viewer
+	 */
+	public void setViewer(TimelineViewer viewer) {
+		fViewer = viewer;
 	}
 }

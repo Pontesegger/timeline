@@ -11,6 +11,7 @@
 
 package org.eclipse.nebula.timeline.jface;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,11 +34,13 @@ import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.TimelineComposite;
 import org.eclipse.nebula.timeline.figures.RootFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
+import org.eclipse.nebula.timeline.figures.detail.cursor.CursorLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.TrackFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorFigure;
+import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -49,6 +52,8 @@ public class TimelineViewer extends StructuredViewer {
 
 	private final ModelMap fElementToFigureMap = new ModelMap();
 	private final ModelMap fElementToOverviewFigureMap = new ModelMap();
+
+	private ITimelineEditingSupport fEditingSupport = null;
 
 	/**
 	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. To get the model, use
@@ -62,10 +67,20 @@ public class TimelineViewer extends StructuredViewer {
 	public TimelineViewer(Composite parent, int flags) {
 
 		fControl = new TimelineComposite(parent, flags);
+		fControl.getRootFigure().setViewer(this);
 
 		setContentProvider(new DefaultTimelineContentProvider());
 		setLabelProvider(new DefaultTimelineLabelProvider());
+		setEditingSupport(new DefaultTimelineEditingSupport());
 		setInput(ITimelineFactory.eINSTANCE.createTimeline());
+	}
+
+	public void setEditingSupport(ITimelineEditingSupport editingSupport) {
+		fEditingSupport = editingSupport;
+	}
+
+	public ITimelineEditingSupport getEditingSupport() {
+		return fEditingSupport;
 	}
 
 	/**
@@ -89,8 +104,17 @@ public class TimelineViewer extends StructuredViewer {
 
 	@Override
 	protected void inputChanged(Object input, Object oldInput) {
-		unregisterFigure(oldInput);
+		fElementToFigureMap.clear();
+		fElementToOverviewFigureMap.clear();
 		registerFigure(input, getControl().getRootFigure());
+
+		final ITimelineContentProvider contentProvider = getContentProvider();
+		if (contentProvider != null)
+			contentProvider.inputChanged(this, oldInput, input);
+
+		final ITimelineEditingSupport editingSupport = getEditingSupport();
+		if (editingSupport != null)
+			editingSupport.inputChanged(this, oldInput, input);
 
 		super.inputChanged(input, oldInput);
 	}
@@ -230,11 +254,37 @@ public class TimelineViewer extends StructuredViewer {
 					final OverviewLayer overview = Helper.getFigure(figure, OverviewLayer.class);
 					overview.addEvent(eventFigure);
 				}
+			} else if (figure instanceof CursorFigure) {
+				if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
+					// this cursor is still available in the model
+					Helper.getFigure(figure, CursorLayer.class).revalidate();
+					Helper.getFigure(figure, OverviewCursorLayer.class).revalidate();
+
+				} else {
+					// cursor got deleted from the model
+					Helper.getFigure(figure, CursorLayer.class).remove(figure);
+					final IFigure overviewCursor = fElementToOverviewFigureMap.get(element);
+					if (overviewCursor != null)
+						Helper.getFigure(overviewCursor, OverviewCursorLayer.class).remove(overviewCursor);
+				}
 			}
 
 			// TODO refresh cursors, timeevents
-		}
 
+		} else {
+			// the object does not have a figure representation
+			if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
+				// this is a new cursor
+				final ICursor cursor = getContentProvider().toCursor(element);
+				final RootFigure rootFigure = (RootFigure) fElementToFigureMap.get(getInput());
+
+				final CursorFigure cursorFigure = rootFigure.addCursorFigure(cursor);
+				registerFigure(element, cursorFigure);
+
+				final OverviewCursorFigure overviewCursorFigure = rootFigure.addOverviewCursorFigure(cursor);
+				registerOverviewFigure(element, overviewCursorFigure);
+			}
+		}
 	}
 
 	private Object getModelElementFor(IFigure figure) {
@@ -267,8 +317,29 @@ public class TimelineViewer extends StructuredViewer {
 		fElementToOverviewFigureMap.put(modelElement, figure);
 	}
 
+	public void createCursor(ICursor cursor) {
+		final Object cursorObject = getEditingSupport().addCursor(cursor);
+		cursor = getContentProvider().toCursor(cursorObject);
+
+		refresh(cursorObject);
+	}
+
+	public void removeCursor(ICursor cursor) {
+		Object cursorObject = null;
+		for (final Object candidate : getContentProvider().getCursors(getInput())) {
+			if (cursor.equals(getContentProvider().toCursor(candidate))) {
+				cursorObject = candidate;
+				break;
+			}
+		}
+
+		if (cursorObject != null) {
+			getEditingSupport().removeCursor(cursorObject);
+			refresh(cursor);
+		}
+	}
+
 	/*
-	 * (non-Javadoc)
 	 *
 	 * @see org.eclipse.jface.viewers.StructuredViewer#reveal(java.lang.Object)
 	 */

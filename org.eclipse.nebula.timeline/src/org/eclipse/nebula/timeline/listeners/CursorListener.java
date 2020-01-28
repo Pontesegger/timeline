@@ -24,6 +24,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.TimeViewDetails;
+import org.eclipse.nebula.timeline.figures.RootFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorTimingsLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
@@ -56,7 +57,8 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 	public void mouseReleased(MouseEvent me) {
 		if (me.button == 3) {
 			hideCursorTimings();
-			fFigure.getParent().remove(fFigure);
+			final ICursor cursor = (ICursor) fFigure.getParent().getLayoutManager().getConstraint(fFigure);
+			Helper.getFigure(fFigure, RootFigure.class).removeCursor(cursor);
 		}
 
 		if (fLocation != null) {

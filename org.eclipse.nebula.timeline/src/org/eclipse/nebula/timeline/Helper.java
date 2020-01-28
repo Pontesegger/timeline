@@ -19,6 +19,7 @@ import org.eclipse.nebula.timeline.figures.RootFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
+import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 
 /**
@@ -90,6 +91,9 @@ public class Helper {
 			return null;
 
 		if (figure instanceof OverviewLayer)
+			return null;
+
+		if (figure instanceof OverviewCursorLayer)
 			return null;
 
 		for (final Object child : figure.getChildren()) {

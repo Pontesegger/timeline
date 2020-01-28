@@ -13,17 +13,17 @@ package org.eclipse.nebula.timeline.figures.detail.track;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.ToolbarLayout;
-import org.eclipse.nebula.timeline.borders.TrackBorder;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
 public class TrackFigure extends Figure {
 
-	public TrackFigure(String title) {
+	public TrackFigure(String title, ITimelineStyleProvider styleProvider) {
 
 		final ToolbarLayout layout = new ToolbarLayout(false);
 		layout.setStretchMinorAxis(true);
 		layout.setSpacing(5);
 		setLayoutManager(layout);
 
-		setBorder(new TrackBorder(title));
+		setBorder(styleProvider.getTrackBorder(title));
 	}
 }

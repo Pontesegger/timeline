@@ -15,10 +15,16 @@ import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.nebula.timeline.borders.LeftRightBorder;
 import org.eclipse.nebula.timeline.borders.RoundedRectangleBorder;
+import org.eclipse.nebula.timeline.borders.TrackBorder;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
 public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
+
+	@Override
+	public void dispose() {
+		// nothing to do
+	}
 
 	@Override
 	public Color getBackgroundColor() {
@@ -29,7 +35,7 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	public Border getDetailAreaBorder() {
 		final RoundedRectangleBorder border = new RoundedRectangleBorder(10);
 		border.setWidth(2);
-		border.setColor(ColorConstants.darkGray);
+		border.setColor(getGridColor());
 
 		return border;
 	}
@@ -62,5 +68,10 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	@Override
 	public int getOverviewSelectionBackgroundAlpha() {
 		return 40;
+	}
+
+	@Override
+	public Border getTrackBorder(String title) {
+		return new TrackBorder(title);
 	}
 }

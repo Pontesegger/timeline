@@ -2,6 +2,7 @@
  */
 package org.eclipse.nebula.timeline;
 
+import java.util.concurrent.TimeUnit;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -144,5 +145,29 @@ public interface ITimelineEvent extends EObject {
 	 * @generated
 	 */
 	long getDuration();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model timeUnitDataType="org.eclipse.nebula.timeline.TimeUnit"
+	 * @generated
+	 */
+	void setStartTimestamp(long value, TimeUnit timeUnit);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model timeUnitDataType="org.eclipse.nebula.timeline.TimeUnit"
+	 * @generated
+	 */
+	void setEndTimestamp(long value, TimeUnit timeUnit);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model timeUnitDataType="org.eclipse.nebula.timeline.TimeUnit"
+	 * @generated
+	 */
+	void setDuration(long value, TimeUnit timeUnit);
 
 } // ITimelineEvent

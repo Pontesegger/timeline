@@ -16,13 +16,13 @@ import org.eclipse.nebula.timeline.ITimelineEvent;
 
 public interface ITimelineContentProvider extends IStructuredContentProvider {
 
-	Object[] getTracks();
+	Object[] getTracks(Object input);
 
 	Object[] getLanes(Object track);
 
 	Object[] getEvents(Object lane);
 
-	Object[] getCursors();
+	Object[] getCursors(Object input);
 
 	ITimelineEvent toEvent(Object eventElement);
 }

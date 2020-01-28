@@ -33,6 +33,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimelineEvent">
     <eOperations name="getDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eOperations name="setStartTimestamp">
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eParameters name="timeUnit" eType="#//TimeUnit"/>
+    </eOperations>
+    <eOperations name="setEndTimestamp">
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eParameters name="timeUnit" eType="#//TimeUnit"/>
+    </eOperations>
+    <eOperations name="setDuration">
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eParameters name="timeUnit" eType="#//TimeUnit"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="lane" lowerBound="1" eType="#//Lane"
         eOpposite="#//Lane/timeEvents"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="startTimestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>

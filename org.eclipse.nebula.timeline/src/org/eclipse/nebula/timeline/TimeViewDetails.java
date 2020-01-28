@@ -91,6 +91,10 @@ public class TimeViewDetails {
 		return fRequiredEventArea.getCopy();
 	}
 
+	public void resetEventArea() {
+		fRequiredEventArea = new PrecisionRectangle();
+	}
+
 	public Rectangle getScreenArea() {
 		return fScreenArea;
 	}

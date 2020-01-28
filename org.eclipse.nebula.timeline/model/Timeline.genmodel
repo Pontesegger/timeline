@@ -39,6 +39,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/endTimestamp"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//TimelineEvent/message"/>
+      <genOperations ecoreOperation="Timeline.ecore#//TimelineEvent/getDuration"/>
+      <genOperations ecoreOperation="Timeline.ecore#//TimelineEvent/setStartTimestamp">
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setStartTimestamp/value"/>
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setStartTimestamp/timeUnit"/>
+      </genOperations>
+      <genOperations ecoreOperation="Timeline.ecore#//TimelineEvent/setEndTimestamp">
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setEndTimestamp/value"/>
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setEndTimestamp/timeUnit"/>
+      </genOperations>
+      <genOperations ecoreOperation="Timeline.ecore#//TimelineEvent/setDuration">
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setDuration/value"/>
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setDuration/timeUnit"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="Timeline.ecore#//Cursor">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//Cursor/timeline"/>

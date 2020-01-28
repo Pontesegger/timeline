@@ -13,6 +13,7 @@ package org.eclipse.nebula.timeline.jface;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
@@ -162,13 +163,14 @@ public class TimelineViewer extends StructuredViewer {
 		final IFigure figure = fElementToFigureMap.get(element);
 		if (figure != null) {
 			if (figure instanceof RootFigure) {
-				unregisterModelElements(fElementToFigureMap.keySet());
+				unregisterModelElements(new HashSet<>(fElementToFigureMap.keySet()));
 				registerFigure(getInput(), getControl().getRootFigure());
 				((RootFigure) figure).clear();
+				Helper.getTimeViewDetails(figure).resetEventArea();
 
 				final TracksLayer tracksLayer = Helper.getFigure(figure, TracksLayer.class);
-				for (final Object track : getContentProvider().getTracks()) {
-					final TrackFigure trackFigure = new TrackFigure(getLabelProvider().getText(track));
+				for (final Object track : getContentProvider().getTracks(getInput())) {
+					final TrackFigure trackFigure = ((RootFigure) figure).createTrackFigure(getLabelProvider().getText(track));
 
 					tracksLayer.add(trackFigure);
 					registerFigure(track, trackFigure);

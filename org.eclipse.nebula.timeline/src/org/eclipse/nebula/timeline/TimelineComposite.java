@@ -33,4 +33,11 @@ public class TimelineComposite extends Composite {
 	public RootFigure getRootFigure() {
 		return fRootFigure;
 	}
+
+	@Override
+	public void dispose() {
+		fRootFigure.getStyleProvider().dispose();
+
+		super.dispose();
+	}
 }

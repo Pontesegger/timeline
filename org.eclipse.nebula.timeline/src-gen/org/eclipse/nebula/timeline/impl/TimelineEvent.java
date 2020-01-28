@@ -3,6 +3,7 @@
 package org.eclipse.nebula.timeline.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,7 +35,7 @@ import org.eclipse.nebula.timeline.ITimelinePackage;
 public class TimelineEvent extends MinimalEObjectImpl.Container implements ITimelineEvent {
 	/**
 	 * The default value of the '{@link #getStartTimestamp() <em>Start Timestamp</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getStartTimestamp()
 	 * @generated
 	 * @ordered
@@ -43,7 +44,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The cached value of the '{@link #getStartTimestamp() <em>Start Timestamp</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getStartTimestamp()
 	 * @generated
 	 * @ordered
@@ -52,7 +53,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The default value of the '{@link #getEndTimestamp() <em>End Timestamp</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getEndTimestamp()
 	 * @generated
 	 * @ordered
@@ -61,7 +62,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The cached value of the '{@link #getEndTimestamp() <em>End Timestamp</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getEndTimestamp()
 	 * @generated
 	 * @ordered
@@ -70,7 +71,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getTitle()
 	 * @generated
 	 * @ordered
@@ -79,7 +80,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getTitle()
 	 * @generated
 	 * @ordered
@@ -88,7 +89,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -97,7 +98,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -106,7 +107,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	protected TimelineEvent() {
@@ -115,7 +116,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -125,7 +126,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -137,7 +138,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetLane(ILane newLane, NotificationChain msgs) {
@@ -147,7 +148,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -169,7 +170,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -179,7 +180,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -192,7 +193,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -202,7 +203,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -215,7 +216,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -225,7 +226,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -238,7 +239,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -248,7 +249,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -271,7 +272,37 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public void setStartTimestamp(long value, TimeUnit timeUnit) {
+		setStartTimestamp(timeUnit.toNanos(value));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public void setEndTimestamp(long value, TimeUnit timeUnit) {
+		setEndTimestamp(timeUnit.toNanos(value));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public void setDuration(long value, TimeUnit timeUnit) {
+		setEndTimestamp(getStartTimestamp() + timeUnit.toNanos(value));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -287,7 +318,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -301,7 +332,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -315,7 +346,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -337,7 +368,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -364,7 +395,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -391,7 +422,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -413,7 +444,7 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -421,6 +452,15 @@ public class TimelineEvent extends MinimalEObjectImpl.Container implements ITime
 		switch (operationID) {
 		case ITimelinePackage.TIMELINE_EVENT___GET_DURATION:
 			return getDuration();
+		case ITimelinePackage.TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT:
+			setStartTimestamp((Long) arguments.get(0), (TimeUnit) arguments.get(1));
+			return null;
+		case ITimelinePackage.TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT:
+			setEndTimestamp((Long) arguments.get(0), (TimeUnit) arguments.get(1));
+			return null;
+		case ITimelinePackage.TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT:
+			setDuration((Long) arguments.get(0), (TimeUnit) arguments.get(1));
+			return null;
 		}
 		return super.eInvoke(operationID, arguments);
 	}

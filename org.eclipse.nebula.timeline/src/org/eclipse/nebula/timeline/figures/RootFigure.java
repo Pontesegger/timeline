@@ -21,6 +21,7 @@ import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.detail.DetailFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorLayer;
+import org.eclipse.nebula.timeline.figures.detail.track.TrackFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewFigure;
@@ -116,5 +117,9 @@ public class RootFigure extends Figure implements IStyledFigure {
 	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setBackgroundColor(styleProvider.getBackgroundColor());
+	}
+
+	public TrackFigure createTrackFigure(String title) {
+		return new TrackFigure(title, getStyleProvider());
 	}
 }

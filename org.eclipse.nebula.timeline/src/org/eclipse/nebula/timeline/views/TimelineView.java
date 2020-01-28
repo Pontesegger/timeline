@@ -18,6 +18,7 @@ import org.eclipse.ui.part.ViewPart;
 public class TimelineView extends ViewPart {
 
 	private TimelineComposite fTimingChart;
+	private TimelineViewer fTimelineViewer;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -25,11 +26,15 @@ public class TimelineView extends ViewPart {
 		// fTimingChart = new TimelineComposite(parent, SWT.NULL);
 		// createRandomContent();
 
-		final TimelineViewer timelineViewer = new TimelineViewer(parent, SWT.NULL);
-		final ITimeline model = timelineViewer.getModel();
+		fTimelineViewer = new TimelineViewer(parent, SWT.NULL);
+		final ITimeline model = fTimelineViewer.getModel();
 		createRandomContent(model);
 
-		timelineViewer.refresh();
+		fTimelineViewer.refresh();
+	}
+
+	public TimelineViewer getTimelineViewer() {
+		return fTimelineViewer;
 	}
 
 	private void createRandomContent(ITimeline model) {

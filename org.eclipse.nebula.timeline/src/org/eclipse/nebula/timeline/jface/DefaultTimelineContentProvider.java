@@ -11,7 +11,6 @@
 
 package org.eclipse.nebula.timeline.jface;
 
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.nebula.timeline.ILane;
 import org.eclipse.nebula.timeline.ITimeline;
 import org.eclipse.nebula.timeline.ITimelineEvent;
@@ -22,24 +21,17 @@ import org.eclipse.nebula.timeline.ITrack;
  */
 public class DefaultTimelineContentProvider implements ITimelineContentProvider {
 
-	private ITimeline fTimeline;
-
-	@Override
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		if (!(newInput instanceof ITimeline))
-			throw new IllegalArgumentException("Input needs to implement ITimeline");
-
-		fTimeline = (ITimeline) newInput;
-	}
-
 	@Override
 	public Object[] getElements(Object inputElement) {
-		return getTracks();
+		return getTracks(inputElement);
 	}
 
 	@Override
-	public Object[] getTracks() {
-		return fTimeline.getTracks().toArray();
+	public Object[] getTracks(Object input) {
+		if (input instanceof ITimeline)
+			return ((ITimeline) input).getTracks().toArray();
+
+		return new Object[0];
 	}
 
 	@Override
@@ -53,8 +45,11 @@ public class DefaultTimelineContentProvider implements ITimelineContentProvider 
 	}
 
 	@Override
-	public Object[] getCursors() {
-		return fTimeline.getCursors().toArray();
+	public Object[] getCursors(Object input) {
+		if (input instanceof ITimeline)
+			return ((ITimeline) input).getCursors().toArray();
+
+		return new Object[0];
 	}
 
 	@Override

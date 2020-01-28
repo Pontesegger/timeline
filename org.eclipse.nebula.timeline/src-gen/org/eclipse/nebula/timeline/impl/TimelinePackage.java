@@ -336,6 +336,36 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EOperation getTimelineEvent__SetStartTimestamp__long_TimeUnit() {
+		return timelineEventEClass.getEOperations().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EOperation getTimelineEvent__SetEndTimestamp__long_TimeUnit() {
+		return timelineEventEClass.getEOperations().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EOperation getTimelineEvent__SetDuration__long_TimeUnit() {
+		return timelineEventEClass.getEOperations().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getCursor() {
 		return cursorEClass;
 	}
@@ -422,6 +452,9 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		createEAttribute(timelineEventEClass, TIMELINE_EVENT__TITLE);
 		createEAttribute(timelineEventEClass, TIMELINE_EVENT__MESSAGE);
 		createEOperation(timelineEventEClass, TIMELINE_EVENT___GET_DURATION);
+		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT);
+		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT);
+		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT);
 
 		cursorEClass = createEClass(CURSOR);
 		createEReference(cursorEClass, CURSOR__TIMELINE);
@@ -494,6 +527,18 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		initEAttribute(getTimelineEvent_Message(), ecorePackage.getEString(), "message", null, 0, 1, ITimelineEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getTimelineEvent__GetDuration(), ecorePackage.getELong(), "getDuration", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getTimelineEvent__SetStartTimestamp__long_TimeUnit(), null, "setStartTimestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTimeUnit(), "timeUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getTimelineEvent__SetEndTimestamp__long_TimeUnit(), null, "setEndTimestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTimeUnit(), "timeUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getTimelineEvent__SetDuration__long_TimeUnit(), null, "setDuration", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTimeUnit(), "timeUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(cursorEClass, ICursor.class, "Cursor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCursor_Timeline(), this.getTimeline(), this.getTimeline_Cursors(), "timeline", null, 1, 1, ICursor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

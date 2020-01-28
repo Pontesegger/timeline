@@ -17,6 +17,11 @@ import org.eclipse.swt.graphics.Color;
 public interface ITimelineStyleProvider {
 
 	/**
+	 * Called when composite gets disposed. Clean up colors and fonts.
+	 */
+	void dispose();
+
+	/**
 	 * Get diagram background color.
 	 *
 	 * @return background color
@@ -72,4 +77,13 @@ public interface ITimelineStyleProvider {
 	 */
 	int getOverviewSelectionBackgroundAlpha();
 
+	/**
+	 * Get the border for a track.
+	 *
+	 * @param title
+	 *            track title
+	 *
+	 * @return track border
+	 */
+	Border getTrackBorder(String title);
 }

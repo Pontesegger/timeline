@@ -101,11 +101,23 @@
               <styles xmi:type="notation:FontStyle" xmi:id="_Iu6noUEBEeqYZeQWk3tAMg" fontName="Segoe UI" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_Iu6nokEBEeqYZeQWk3tAMg"/>
             </children>
+            <children xmi:type="notation:Node" xmi:id="_-ttxAEEXEeqCy7Z1RoG_jg" type="3010" element="_-tPP4EEXEeqCy7Z1RoG_jg">
+              <styles xmi:type="notation:FontStyle" xmi:id="_-ttxAUEXEeqCy7Z1RoG_jg" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_-ttxAkEXEeqCy7Z1RoG_jg"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_3V6nkEEYEeqCy7Z1RoG_jg" type="3010" element="_3VuaVkEYEeqCy7Z1RoG_jg">
+              <styles xmi:type="notation:FontStyle" xmi:id="_3V6nkUEYEeqCy7Z1RoG_jg" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_3V6nkkEYEeqCy7Z1RoG_jg"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_5xYkiEEYEeqCy7Z1RoG_jg" type="3010" element="_5xSd2kEYEeqCy7Z1RoG_jg">
+              <styles xmi:type="notation:FontStyle" xmi:id="_5xYkiUEYEeqCy7Z1RoG_jg" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_5xYkikEYEeqCy7Z1RoG_jg"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_D8sxdUDjEeqFQZ5tBFZgrQ"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_D8sxdkDjEeqFQZ5tBFZgrQ"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_D8sxcUDjEeqFQZ5tBFZgrQ" fontName="Segoe UI" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D8sxckDjEeqFQZ5tBFZgrQ" x="675" y="310" width="163" height="168"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D8sxckDjEeqFQZ5tBFZgrQ" x="675" y="310" width="318" height="168"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_HvoQgEDjEeqFQZ5tBFZgrQ" type="2003" element="_HvgUsEDjEeqFQZ5tBFZgrQ">
           <children xmi:type="notation:Node" xmi:id="_Hvo3kEDjEeqFQZ5tBFZgrQ" type="5007"/>
@@ -180,7 +192,7 @@
           <styles xmi:type="notation:FontStyle" xmi:id="_aG5iwkDjEeqFQZ5tBFZgrQ" fontName="Segoe UI" fontHeight="8"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_aG5iw0DjEeqFQZ5tBFZgrQ" points="[-1, 0, -1, 60]$[-1, -60, -1, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aG6J1kDjEeqFQZ5tBFZgrQ" id="(0.38961038961038963,0.0)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aG6J10DjEeqFQZ5tBFZgrQ" id="(0.5031055900621118,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aG6J10DjEeqFQZ5tBFZgrQ" id="(0.2563291139240506,1.0)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_kqRa4EDjEeqFQZ5tBFZgrQ" type="4001" element="_kqJfFkDjEeqFQZ5tBFZgrQ" source="_9eLO0EDiEeqFQZ5tBFZgrQ" target="_HvoQgEDjEeqFQZ5tBFZgrQ">
           <children xmi:type="notation:Node" xmi:id="_kqSB8EDjEeqFQZ5tBFZgrQ" type="6001">
@@ -277,7 +289,7 @@
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_OVq69EDkEeqFQZ5tBFZgrQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="Liquid" foregroundColor="255,252,216">
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_6u5Vl0EYEeqCy7Z1RoG_jg" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="Liquid" foregroundColor="255,252,216">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
@@ -317,6 +329,36 @@
         <target xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/getDuration"/>
         <semanticElements xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/getDuration"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_IuqI8EEBEeqYZeQWk3tAMg" labelAlignment="LEFT">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_-tPP4EEXEeqCy7Z1RoG_jg" name="setStartTimestamp(value ELong, timeUnit TimeUnit)" tooltipText="setStartTimestamp(value, timeUnit)">
+        <target xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/setStartTimestamp"/>
+        <semanticElements xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/setStartTimestamp"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//TimelineEvent/setStartTimestamp/timeUnit"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//TimelineEvent/setStartTimestamp/value"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_-tP28EEXEeqCy7Z1RoG_jg" labelAlignment="LEFT">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_3VuaVkEYEeqCy7Z1RoG_jg" name="setEndTimestamp(value ELong, timeUnit TimeUnit)" tooltipText="setEndTimestamp(value, timeUnit)">
+        <target xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/setEndTimestamp"/>
+        <semanticElements xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/setEndTimestamp"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//TimelineEvent/setEndTimestamp/timeUnit"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//TimelineEvent/setEndTimestamp/value"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_3VuaV0EYEeqCy7Z1RoG_jg" labelAlignment="LEFT">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_5xSd2kEYEeqCy7Z1RoG_jg" name="setDuration(value ELong, timeUnit TimeUnit)" tooltipText="setDuration(value, timeUnit)">
+        <target xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/setDuration"/>
+        <semanticElements xmi:type="ecore:EOperation" href="Timeline.ecore#//TimelineEvent/setDuration"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//TimelineEvent/setDuration/timeUnit"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//TimelineEvent/setDuration/value"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_5xSd20EYEeqCy7Z1RoG_jg" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>

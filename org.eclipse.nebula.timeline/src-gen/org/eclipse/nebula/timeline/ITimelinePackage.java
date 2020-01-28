@@ -306,13 +306,40 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE_EVENT___GET_DURATION = 0;
 
 	/**
+	 * The operation id for the '<em>Set Start Timestamp</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT = 1;
+
+	/**
+	 * The operation id for the '<em>Set End Timestamp</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT = 2;
+
+	/**
+	 * The operation id for the '<em>Set Duration</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = 3;
+
+	/**
 	 * The number of operations of the '<em>Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT_OPERATION_COUNT = 1;
+	int TIMELINE_EVENT_OPERATION_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Cursor <em>Cursor</em>}' class.
@@ -585,6 +612,36 @@ public interface ITimelinePackage extends EPackage {
 	EOperation getTimelineEvent__GetDuration();
 
 	/**
+	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setStartTimestamp(long, java.util.concurrent.TimeUnit) <em>Set Start Timestamp</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Set Start Timestamp</em>' operation.
+	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setStartTimestamp(long, java.util.concurrent.TimeUnit)
+	 * @generated
+	 */
+	EOperation getTimelineEvent__SetStartTimestamp__long_TimeUnit();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setEndTimestamp(long, java.util.concurrent.TimeUnit) <em>Set End Timestamp</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Set End Timestamp</em>' operation.
+	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setEndTimestamp(long, java.util.concurrent.TimeUnit)
+	 * @generated
+	 */
+	EOperation getTimelineEvent__SetEndTimestamp__long_TimeUnit();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long, java.util.concurrent.TimeUnit) <em>Set Duration</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Set Duration</em>' operation.
+	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long, java.util.concurrent.TimeUnit)
+	 * @generated
+	 */
+	EOperation getTimelineEvent__SetDuration__long_TimeUnit();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ICursor <em>Cursor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -817,6 +874,30 @@ public interface ITimelinePackage extends EPackage {
 		 * @generated
 		 */
 		EOperation TIMELINE_EVENT___GET_DURATION = eINSTANCE.getTimelineEvent__GetDuration();
+
+		/**
+		 * The meta object literal for the '<em><b>Set Start Timestamp</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT = eINSTANCE.getTimelineEvent__SetStartTimestamp__long_TimeUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Set End Timestamp</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT = eINSTANCE.getTimelineEvent__SetEndTimestamp__long_TimeUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Set Duration</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = eINSTANCE.getTimelineEvent__SetDuration__long_TimeUnit();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Cursor <em>Cursor</em>}' class.

@@ -20,7 +20,7 @@ import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 public class TracksFigure extends LayeredPane implements IStyledFigure {
 
 	public TracksFigure(ITimelineStyleProvider styleProvider) {
-		setBorder(styleProvider.getDetailAreaBorder());
+		updateStyle(styleProvider);
 
 		add(new GridLayer(styleProvider));
 		add(new TracksLayer());

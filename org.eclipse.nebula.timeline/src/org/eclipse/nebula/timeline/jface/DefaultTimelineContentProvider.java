@@ -11,6 +11,7 @@
 
 package org.eclipse.nebula.timeline.jface;
 
+import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ILane;
 import org.eclipse.nebula.timeline.ITimeline;
 import org.eclipse.nebula.timeline.ITimelineEvent;
@@ -55,5 +56,10 @@ public class DefaultTimelineContentProvider implements ITimelineContentProvider 
 	@Override
 	public ITimelineEvent toEvent(Object eventElement) {
 		return (ITimelineEvent) eventElement;
+	}
+
+	@Override
+	public ICursor toCursor(Object element) {
+		return (ICursor) element;
 	}
 }

@@ -11,16 +11,17 @@
 
 package org.eclipse.nebula.timeline.figures.overview;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.swt.SWT;
 
-public class OverviewCursorFigure extends Shape {
+public class OverviewCursorFigure extends Shape implements IStyledFigure {
 
-	public OverviewCursorFigure() {
-		setForegroundColor(ColorConstants.yellow);
+	public OverviewCursorFigure(ITimelineStyleProvider styleProvider) {
+		updateStyle(styleProvider);
 	}
 
 	@Override
@@ -42,5 +43,10 @@ public class OverviewCursorFigure extends Shape {
 	@Override
 	protected void fillShape(Graphics graphics) {
 		// nothing to do
+	}
+
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setForegroundColor(styleProvider.getCursorColor());
 	}
 }

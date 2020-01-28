@@ -86,4 +86,18 @@ public interface ITimelineStyleProvider {
 	 * @return track border
 	 */
 	Border getTrackBorder(String title);
+
+	/**
+	 * Get the color for a non-selected cursor.
+	 *
+	 * @return cursor color
+	 */
+	Color getCursorColor();
+
+	/**
+	 * Get the color for a selected cursor.
+	 *
+	 * @return selected cursor color
+	 */
+	Color getSelectedCursorColor();
 }

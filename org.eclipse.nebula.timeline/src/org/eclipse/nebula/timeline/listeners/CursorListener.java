@@ -20,14 +20,15 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorTimingsLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
+import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
 
 public class CursorListener extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
 
@@ -82,10 +83,12 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 			}
 
 			if (targetEventTime != null) {
-				final PrecisionRectangle constraint = (PrecisionRectangle) fFigure.getParent().getLayoutManager().getConstraint(fFigure);
-				constraint.setPreciseX(targetEventTime);
+				final ICursor cursor = (ICursor) fFigure.getParent().getLayoutManager().getConstraint(fFigure);
+				cursor.setTimestamp(targetEventTime);
 
 				fFigure.getParent().revalidate();
+
+				Helper.getFigure(fFigure, OverviewCursorLayer.class).revalidate();
 			}
 		}
 

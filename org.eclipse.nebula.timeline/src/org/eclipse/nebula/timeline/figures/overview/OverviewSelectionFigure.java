@@ -12,16 +12,22 @@
 package org.eclipse.nebula.timeline.figures.overview;
 
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.timeline.listeners.OverviewSelectionMover;
 
-public class OverviewSelectionFigure extends RectangleFigure {
+public class OverviewSelectionFigure extends RectangleFigure implements IStyledFigure {
 
 	public OverviewSelectionFigure(ITimelineStyleProvider styleProvider) {
+		updateStyle(styleProvider);
+
+		new OverviewSelectionMover(this);
+	}
+
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setBackgroundColor(styleProvider.getOverviewSelectionBackgroundColor());
 		setAlpha(styleProvider.getOverviewSelectionBackgroundAlpha());
 		setBorder(styleProvider.getOverviewSelectionBorder());
-
-		new OverviewSelectionMover(this);
 	}
 }

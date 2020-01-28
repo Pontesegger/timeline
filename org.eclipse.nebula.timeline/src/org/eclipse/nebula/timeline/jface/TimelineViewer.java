@@ -23,15 +23,18 @@ import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ITimeline;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.ITimelineFactory;
 import org.eclipse.nebula.timeline.TimelineComposite;
 import org.eclipse.nebula.timeline.figures.RootFigure;
+import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TrackFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
+import org.eclipse.nebula.timeline.figures.overview.OverviewCursorFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -42,6 +45,7 @@ public class TimelineViewer extends StructuredViewer {
 	private final TimelineComposite fControl;
 
 	private final ModelMap fElementToFigureMap = new ModelMap();
+	private final ModelMap fElementToOverviewFigureMap = new ModelMap();
 
 	/**
 	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. To get the model, use
@@ -178,6 +182,16 @@ public class TimelineViewer extends StructuredViewer {
 					internalRefresh(track);
 				}
 
+				for (final Object cursorElement : getContentProvider().getCursors(getInput())) {
+					final ICursor cursor = getContentProvider().toCursor(cursorElement);
+
+					final CursorFigure cursorFigure = ((RootFigure) figure).addCursorFigure(cursor);
+					registerFigure(cursorElement, cursorFigure);
+
+					final OverviewCursorFigure overviewCursorFigure = ((RootFigure) figure).addOverviewCursorFigure(cursor);
+					registerOverviewFigure(cursorElement, overviewCursorFigure);
+				}
+
 			} else if (figure instanceof TrackFigure) {
 				unregisterFigures(figure.getChildren());
 				((TrackFigure) figure).removeAll();
@@ -243,6 +257,10 @@ public class TimelineViewer extends StructuredViewer {
 
 	private void registerFigure(Object modelElement, IFigure figure) {
 		fElementToFigureMap.put(modelElement, figure);
+	}
+
+	private void registerOverviewFigure(Object modelElement, IFigure figure) {
+		fElementToOverviewFigureMap.put(modelElement, figure);
 	}
 
 	/*

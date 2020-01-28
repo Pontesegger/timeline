@@ -12,17 +12,18 @@
 package org.eclipse.nebula.timeline.figures.detail.cursor;
 
 import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Triangle;
-import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.timeline.ICursor;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.timeline.listeners.CursorListener;
 
-public class CursorFigure extends Figure {
+public class CursorFigure extends Figure implements IStyledFigure {
 
 	public static final int CURSOR_WIDTH = 14;
 
@@ -30,13 +31,10 @@ public class CursorFigure extends Figure {
 
 	private final RectangleFigure fLineFigure;
 
-	// private final CursorMover fCursorMover = new CursorMover();
-
-	public CursorFigure() {
+	public CursorFigure(ITimelineStyleProvider styleProvider) {
 		setLayoutManager(new CursorFigureLayout());
 
-		setForegroundColor(ColorConstants.yellow);
-		setBackgroundColor(ColorConstants.yellow);
+		updateStyle(styleProvider);
 
 		final Triangle topTriangle = new Triangle();
 		topTriangle.setSize(TRIANGLE_SIZE, TRIANGLE_SIZE);
@@ -58,10 +56,16 @@ public class CursorFigure extends Figure {
 		new CursorListener(this);
 	}
 
-	public double getEventTime() {
-		final PrecisionRectangle bounds = (PrecisionRectangle) getParent().getLayoutManager().getConstraint(this);
+	public long getEventTime() {
+		final ICursor cursor = (ICursor) getParent().getLayoutManager().getConstraint(this);
 
-		return bounds.preciseX();
+		return cursor.getTimestamp();
+	}
+
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setForegroundColor(styleProvider.getCursorColor());
+		setBackgroundColor(styleProvider.getCursorColor());
 	}
 
 	private class CursorFigureLayout extends BorderLayout {

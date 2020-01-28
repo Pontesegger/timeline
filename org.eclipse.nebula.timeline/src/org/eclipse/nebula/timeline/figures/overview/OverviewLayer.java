@@ -12,17 +12,23 @@
 package org.eclipse.nebula.timeline.figures.overview;
 
 import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.timeline.TimeViewDetails;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
-import org.eclipse.nebula.timeline.layouts.OverviewLayout;
 import org.eclipse.nebula.timeline.listeners.OverviewSelector;
 
-public class OverviewLayer extends FreeformLayer {
+public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 
 	public OverviewLayer(ITimelineStyleProvider styleProvider) {
-		setBorder(styleProvider.getOverviewAreaBorder());
+		updateStyle(styleProvider);
 
 		setLayoutManager(new OverviewLayout());
 
@@ -45,7 +51,29 @@ public class OverviewLayer extends FreeformLayer {
 		return getBounds().contains(pt);
 	}
 
-	public void createCursor(long eventTime) {
-		add(new OverviewCursorFigure(), new PrecisionRectangle(eventTime, 0, 1, 1));
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setBorder(styleProvider.getOverviewAreaBorder());
+	}
+
+	private class OverviewLayout extends XYLayout {
+
+		@Override
+		public Rectangle getConstraint(IFigure figure) {
+			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(figure);
+
+			final EventFigure eventFigure = (EventFigure) super.getConstraint(figure);
+			final ITimelineEvent event = eventFigure.getEvent();
+			final Rectangle eventRectangle = new PrecisionRectangle(event.getStartTimestamp(), 0, event.getDuration(), 1);
+
+			final Rectangle overviewEventArea = timeViewDetails.scaleToOverview(eventRectangle);
+			overviewEventArea.setHeight(OverviewFigure.EVENT_HEIGHT);
+			overviewEventArea
+					.setY(OverviewFigure.VERTICAL_INDENT + ((OverviewFigure.EVENT_HEIGHT + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)));
+			if (overviewEventArea.width() == 0)
+				overviewEventArea.setWidth(1);
+
+			return overviewEventArea;
+		}
 	}
 }

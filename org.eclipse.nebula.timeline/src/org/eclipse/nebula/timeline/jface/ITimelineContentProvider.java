@@ -12,6 +12,7 @@
 package org.eclipse.nebula.timeline.jface;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 
 public interface ITimelineContentProvider extends IStructuredContentProvider {
@@ -25,4 +26,6 @@ public interface ITimelineContentProvider extends IStructuredContentProvider {
 	Object[] getCursors(Object input);
 
 	ITimelineEvent toEvent(Object eventElement);
+
+	ICursor toCursor(Object element);
 }

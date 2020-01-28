@@ -65,6 +65,8 @@ public class TimelineView extends ViewPart {
 
 			lastPosition += offset + width;
 		}
+
+		model.createCursor(1000, TimeUnit.NANOSECONDS);
 	}
 
 	@Override

@@ -2,6 +2,7 @@
  */
 package org.eclipse.nebula.timeline;
 
+import java.util.concurrent.TimeUnit;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -59,5 +60,13 @@ public interface ITimeline extends EObject {
 	 * @generated
 	 */
 	ITrack createTrack(String title);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true" timeUnitDataType="org.eclipse.nebula.timeline.TimeUnit"
+	 * @generated
+	 */
+	ICursor createCursor(long timestamp, TimeUnit timeUnit);
 
 } // ITimeline

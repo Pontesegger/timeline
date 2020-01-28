@@ -11,9 +11,17 @@
 
 package org.eclipse.nebula.timeline.figures.detail.cursor;
 
+import java.util.Iterator;
+
 import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
-import org.eclipse.nebula.timeline.layouts.CursorLayout;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ICursor;
+import org.eclipse.nebula.timeline.TimeViewDetails;
 
 public class CursorLayer extends FreeformLayer {
 
@@ -21,7 +29,32 @@ public class CursorLayer extends FreeformLayer {
 		setLayoutManager(new CursorLayout());
 	}
 
-	public void createCursor(long eventTime) {
-		add(new CursorFigure(), new PrecisionRectangle(eventTime, 0, 1, 1));
+	private class CursorLayout extends XYLayout {
+
+		@Override
+		public void layout(IFigure parent) {
+			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(parent);
+
+			final Iterator<?> children = parent.getChildren().iterator();
+			final Point offset = getOrigin(parent);
+			IFigure f;
+			while (children.hasNext()) {
+				f = (IFigure) children.next();
+				final ICursor cursor = (ICursor) getConstraint(f);
+
+				final Rectangle bounds = new PrecisionRectangle(cursor.getTimestamp(), 0, 1, 1);
+				bounds.performTranslate(-timeViewDetails.getOffset().x(), 0);
+				bounds.performScale(timeViewDetails.getScaleFactor());
+				bounds.performTranslate(offset.x(), 0);
+
+				bounds.setWidth(CursorFigure.CURSOR_WIDTH);
+				bounds.setY(parent.getBounds().y());
+				bounds.setHeight(parent.getBounds().height());
+
+				bounds.performTranslate(-CursorFigure.CURSOR_WIDTH / 2, 0);
+
+				f.setBounds(bounds);
+			}
+		}
 	}
 }

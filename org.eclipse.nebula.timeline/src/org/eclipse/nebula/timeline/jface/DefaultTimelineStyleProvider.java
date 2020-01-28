@@ -74,4 +74,14 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	public Border getTrackBorder(String title) {
 		return new TrackBorder(title);
 	}
+
+	@Override
+	public Color getCursorColor() {
+		return ColorConstants.yellow;
+	}
+
+	@Override
+	public Color getSelectedCursorColor() {
+		return ColorConstants.red;
+	}
 }

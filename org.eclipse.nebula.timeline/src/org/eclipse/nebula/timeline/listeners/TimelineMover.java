@@ -18,9 +18,9 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.TimeViewDetails;
-import org.eclipse.nebula.timeline.figures.detail.cursor.CursorLayer;
-import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
+import org.eclipse.nebula.timeline.figures.RootFigure;
 
 public class TimelineMover extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
 
@@ -49,16 +49,17 @@ public class TimelineMover extends MouseMotionListener.Stub implements MouseList
 	public void mouseReleased(MouseEvent me) {
 		if ((System.currentTimeMillis() - fPressTimeStamp) < CLICK_TIMEOUT) {
 			// create new cursor
-
+			final RootFigure rootFigure = Helper.getFigure(fFigure, RootFigure.class);
 			final long eventTime = Helper.getTimeViewDetails(fFigure).screenOffsetToEventTime(me.x);
-			Helper.getFigure(fFigure, CursorLayer.class).createCursor(eventTime);
-			Helper.getFigure(fFigure, OverviewLayer.class).createCursor(eventTime);
+			final ICursor cursor = rootFigure.createCursor(eventTime);
+
+			rootFigure.addCursorFigure(cursor);
+			rootFigure.addOverviewCursorFigure(cursor);
 		}
 
 		if (fLocation != null) {
 			fLocation = null;
 			me.consume();
-
 		}
 	}
 

@@ -15,6 +15,10 @@
       <genOperations ecoreOperation="Timeline.ecore#//Timeline/createTrack">
         <genParameters ecoreParameter="Timeline.ecore#//Timeline/createTrack/title"/>
       </genOperations>
+      <genOperations ecoreOperation="Timeline.ecore#//Timeline/createCursor">
+        <genParameters ecoreParameter="Timeline.ecore#//Timeline/createCursor/timestamp"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Timeline/createCursor/timeUnit"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="Timeline.ecore#//Track">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//Track/timeline"/>

@@ -25,7 +25,7 @@ import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 public class GridLayer extends FreeformLayer implements IStyledFigure {
 
 	public GridLayer(ITimelineStyleProvider styleProvider) {
-		setForegroundColor(styleProvider.getGridColor());
+		updateStyle(styleProvider);
 	}
 
 	private DetailFigure getDetailFigure() {
@@ -41,14 +41,12 @@ public class GridLayer extends FreeformLayer implements IStyledFigure {
 
 	private void paintGrid(Graphics graphics) {
 		final ITimelineStyleProvider styleProvider = Helper.getFigure(this, RootFigure.class).getStyleProvider();
-
 		graphics.setLineStyle(styleProvider.getGridLineStyle());
 
 		final Rectangle bounds = getBounds();
 		final Map<Long, Integer> markerPositions = getDetailFigure().getMarkerPositions();
-		for (final int position : markerPositions.values()) {
+		for (final int position : markerPositions.values())
 			graphics.drawLine(position, bounds.y, position, bounds.y + bounds.height);
-		}
 	}
 
 	@Override

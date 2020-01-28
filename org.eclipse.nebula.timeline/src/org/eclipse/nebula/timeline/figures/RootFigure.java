@@ -18,12 +18,17 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ICursor;
+import org.eclipse.nebula.timeline.ITimelineFactory;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.detail.DetailFigure;
+import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.TrackFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
+import org.eclipse.nebula.timeline.figures.overview.OverviewCursorFigure;
+import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.nebula.timeline.jface.DefaultTimelineStyleProvider;
@@ -45,7 +50,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 		setLayoutManager(layout);
 
 		setOpaque(true);
-		setBackgroundColor(getStyleProvider().getBackgroundColor());
+		updateStyle(fStyleProvider);
 
 		add(new DetailFigure(getStyleProvider()), BorderLayout.CENTER);
 		add(new OverviewFigure(getStyleProvider()), BorderLayout.BOTTOM);
@@ -121,5 +126,36 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 	public TrackFigure createTrackFigure(String title) {
 		return new TrackFigure(title, getStyleProvider());
+	}
+
+	public CursorFigure addCursorFigure(ICursor cursor) {
+		final CursorFigure cursorFigure = new CursorFigure(getStyleProvider());
+
+		final CursorLayer cursorLayer = Helper.getFigure(this, CursorLayer.class);
+		cursorLayer.add(cursorFigure, cursor);
+
+		return cursorFigure;
+	}
+
+	public OverviewCursorFigure addOverviewCursorFigure(ICursor cursor) {
+		final OverviewCursorFigure cursorFigure = new OverviewCursorFigure(getStyleProvider());
+
+		final OverviewCursorLayer cursorLayer = Helper.getFigure(this, OverviewCursorLayer.class);
+		cursorLayer.add(cursorFigure, cursor);
+
+		return cursorFigure;
+	}
+
+	/**
+	 * Create a new cursor model instance.
+	 *
+	 * @param eventTime
+	 *            time to set cursor to
+	 * @return cursor instance
+	 */
+	public ICursor createCursor(long eventTime) {
+		final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
+		cursor.setTimestamp(eventTime);
+		return cursor;
 	}
 }

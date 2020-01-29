@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.jface.TimelineViewer;
 import org.eclipse.nebula.timeline.listeners.ICursorListener;
@@ -30,7 +32,7 @@ import org.eclipse.ui.progress.UIJob;
  * Data binding that automatically updates the viewer on model updates. The model needs to be an instance of the ITimeline EMF model to correctly receive
  * notifications.
  */
-public class TimelineDataBinding extends AdapterImpl implements ICursorListener {
+public class TimelineDataBinding extends AdapterImpl implements ICursorListener, ISelectionChangedListener {
 
 	private final TimelineViewer fViewer;
 	private final ITimeline fModel;
@@ -44,6 +46,7 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener 
 		fModel = model;
 
 		fViewer.getControl().getRootFigure().addCursorListener(this);
+		fViewer.addSelectionChangedListener(this);
 
 		fModel.eAdapters().add(this);
 	}
@@ -59,6 +62,19 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener 
 	public synchronized void notifyCursorDeleted(ICursor cursor) {
 		fIgnoreModelChanges = true;
 		fModel.getCursors().remove(cursor);
+		fIgnoreModelChanges = false;
+	}
+
+	@Override
+	public void selectionChanged(SelectionChangedEvent event) {
+		fIgnoreModelChanges = true;
+
+		if (event.getStructuredSelection().isEmpty())
+			fModel.setSelectedEvent(null);
+		
+		else if (event.getStructuredSelection().getFirstElement() instanceof ITimelineEvent)
+			fModel.setSelectedEvent((ITimelineEvent) event.getStructuredSelection().getFirstElement());
+
 		fIgnoreModelChanges = false;
 	}
 
@@ -88,6 +104,9 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener 
 				final Object value = msg.getOldValue();
 				if (value instanceof Notifier)
 					((Notifier) value).eAdapters().remove(this);
+
+			} else if (msg.getEventType() == Notification.SET) {
+				// TODO check for selection and update
 			}
 
 			refreshElement(msg.getNotifier());

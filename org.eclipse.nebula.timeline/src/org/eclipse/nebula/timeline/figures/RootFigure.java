@@ -226,7 +226,9 @@ public class RootFigure extends Figure implements IStyledFigure {
 			getStyleProvider().unselectEvent(fSelection);
 
 		fSelection = eventFigure;
-		getStyleProvider().selectEvent(fSelection);
+
+		if (fSelection != null)
+			getStyleProvider().selectEvent(fSelection);
 	}
 
 	/**

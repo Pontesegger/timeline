@@ -313,7 +313,9 @@ public class TimelineViewer extends StructuredViewer {
 			final IFigure eventFigure = fElementToFigureMap.get(event);
 			if (eventFigure instanceof EventFigure)
 				getControl().getRootFigure().setSelection((EventFigure) eventFigure);
-		}
+
+		} else
+			getControl().getRootFigure().setSelection(null);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.nebula.timeline.ITimeline#getTracks <em>Tracks</em>}</li>
  *   <li>{@link org.eclipse.nebula.timeline.ITimeline#getCursors <em>Cursors</em>}</li>
+ *   <li>{@link org.eclipse.nebula.timeline.ITimeline#getSelectedEvent <em>Selected Event</em>}</li>
  * </ul>
  *
  * @see org.eclipse.nebula.timeline.ITimelinePackage#getTimeline()
@@ -52,6 +53,28 @@ public interface ITimeline extends EObject {
 	 * @generated
 	 */
 	EList<ICursor> getCursors();
+
+	/**
+	 * Returns the value of the '<em><b>Selected Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Selected Event</em>' reference.
+	 * @see #setSelectedEvent(ITimelineEvent)
+	 * @see org.eclipse.nebula.timeline.ITimelinePackage#getTimeline_SelectedEvent()
+	 * @model
+	 * @generated
+	 */
+	ITimelineEvent getSelectedEvent();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.nebula.timeline.ITimeline#getSelectedEvent <em>Selected Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Selected Event</em>' reference.
+	 * @see #getSelectedEvent()
+	 * @generated
+	 */
+	void setSelectedEvent(ITimelineEvent value);
 
 	/**
 	 * <!-- begin-user-doc -->

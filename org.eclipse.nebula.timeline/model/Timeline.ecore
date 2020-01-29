@@ -16,6 +16,7 @@
         eType="#//Track" containment="true" eOpposite="#//Track/timeline"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cursors" upperBound="-1"
         eType="#//Cursor" containment="true" eOpposite="#//Cursor/timeline"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="selectedEvent" eType="#//TimelineEvent"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Track">
     <eOperations name="createLane" lowerBound="1" eType="#//Lane"/>

@@ -222,9 +222,25 @@
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kqSB9kDjEeqFQZ5tBFZgrQ" id="(0.5084745762711864,0.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kqSB90DjEeqFQZ5tBFZgrQ" id="(0.5084745762711864,1.0)"/>
         </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_-l6wsEKoEeqbCvso8gvleQ" type="4001" element="_-llZgEKoEeqbCvso8gvleQ" source="_9eLO0EDiEeqFQZ5tBFZgrQ" target="_D8sxcEDjEeqFQZ5tBFZgrQ">
+          <children xmi:type="notation:Node" xmi:id="_-mHlAEKoEeqbCvso8gvleQ" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-mHlAUKoEeqbCvso8gvleQ" x="-99" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-mIMEEKoEeqbCvso8gvleQ" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-mIMEUKoEeqbCvso8gvleQ" x="10" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-mIzIEKoEeqbCvso8gvleQ" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-mIzIUKoEeqbCvso8gvleQ" x="-4" y="22"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_-l6wsUKoEeqbCvso8gvleQ" routing="Rectilinear"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_-l6wskKoEeqbCvso8gvleQ" fontColor="7490599" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-l6ws0KoEeqbCvso8gvleQ" points="[180, 0, -320, -152]$[180, 67, -320, -85]$[500, 67, 0, -85]$[500, 152, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-mMdgEKoEeqbCvso8gvleQ" id="(0.41033434650455924,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-mMdgUKoEeqbCvso8gvleQ" id="(0.6012658227848101,0.0)"/>
+        </edges>
       </data>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_9d1QkEDiEeqFQZ5tBFZgrQ" name="Timeline" tooltipText="" outgoingEdges="_OE_3IEDjEeqFQZ5tBFZgrQ _kqJfFkDjEeqFQZ5tBFZgrQ" width="12" height="10">
+    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_9d1QkEDiEeqFQZ5tBFZgrQ" name="Timeline" tooltipText="" outgoingEdges="_OE_3IEDjEeqFQZ5tBFZgrQ _kqJfFkDjEeqFQZ5tBFZgrQ _-llZgEKoEeqbCvso8gvleQ" width="12" height="10">
       <target xmi:type="ecore:EClass" href="Timeline.ecore#//Timeline"/>
       <semanticElements xmi:type="ecore:EClass" href="Timeline.ecore#//Timeline"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -326,7 +342,7 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
       </ownedElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_D8mq0EDjEeqFQZ5tBFZgrQ" name="TimelineEvent" tooltipText="" incomingEdges="_aGvxwEDjEeqFQZ5tBFZgrQ" width="12" height="10">
+    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_D8mq0EDjEeqFQZ5tBFZgrQ" name="TimelineEvent" tooltipText="" incomingEdges="_aGvxwEDjEeqFQZ5tBFZgrQ _-llZgEKoEeqbCvso8gvleQ" width="12" height="10">
       <target xmi:type="ecore:EClass" href="Timeline.ecore#//TimelineEvent"/>
       <semanticElements xmi:type="ecore:EClass" href="Timeline.ecore#//TimelineEvent"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -488,6 +504,20 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EDataType']/@subNodeMappings[name='EC_DataType_InstanceClassName']"/>
       </ownedElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_-llZgEKoEeqbCvso8gvleQ" name="[0..1] selectedEvent" sourceNode="_9d1QkEDiEeqFQZ5tBFZgrQ" targetNode="_D8mq0EDjEeqFQZ5tBFZgrQ">
+      <target xmi:type="ecore:EReference" href="Timeline.ecore#//Timeline/selectedEvent"/>
+      <semanticElements xmi:type="ecore:EReference" href="Timeline.ecore#//Timeline/selectedEvent"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_-lmAkEKoEeqbCvso8gvleQ" routingStyle="manhattan" strokeColor="0,0,0">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_-lmnoEKoEeqbCvso8gvleQ" showIcon="false">
+          <customFeatures>labelSize</customFeatures>
+        </centerLabelStyle>
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_-lmAkUKoEeqbCvso8gvleQ" showIcon="false" labelColor="39,76,114">
+          <customFeatures>labelSize</customFeatures>
+        </endLabelStyle>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_77bpsEDiEeqFQZ5tBFZgrQ"/>

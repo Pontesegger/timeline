@@ -166,6 +166,16 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EReference getTimeline_SelectedEvent() {
+		return (EReference)timelineEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EOperation getTimeline__CreateTrack__String() {
 		return timelineEClass.getEOperations().get(0);
 	}
@@ -462,6 +472,7 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		timelineEClass = createEClass(TIMELINE);
 		createEReference(timelineEClass, TIMELINE__TRACKS);
 		createEReference(timelineEClass, TIMELINE__CURSORS);
+		createEReference(timelineEClass, TIMELINE__SELECTED_EVENT);
 		createEOperation(timelineEClass, TIMELINE___CREATE_TRACK__STRING);
 		createEOperation(timelineEClass, TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT);
 		createEOperation(timelineEClass, TIMELINE___CREATE_CURSOR__LONG);
@@ -530,6 +541,7 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		initEClass(timelineEClass, ITimeline.class, "Timeline", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTimeline_Tracks(), this.getTrack(), this.getTrack_Timeline(), "tracks", null, 0, -1, ITimeline.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTimeline_Cursors(), this.getCursor(), this.getCursor_Timeline(), "cursors", null, 0, -1, ITimeline.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimeline_SelectedEvent(), this.getTimelineEvent(), null, "selectedEvent", null, 0, 1, ITimeline.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = initEOperation(getTimeline__CreateTrack__String(), this.getTrack(), "createTrack", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "title", 0, 1, IS_UNIQUE, IS_ORDERED);

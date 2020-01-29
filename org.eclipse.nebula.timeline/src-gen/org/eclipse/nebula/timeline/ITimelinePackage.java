@@ -87,13 +87,22 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE__CURSORS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Selected Event</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE__SELECTED_EVENT = 2;
+
+	/**
 	 * The number of structural features of the '<em>Timeline</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_FEATURE_COUNT = 2;
+	int TIMELINE_FEATURE_COUNT = 3;
 
 	/**
 	 * The operation id for the '<em>Create Track</em>' operation.
@@ -459,6 +468,17 @@ public interface ITimelinePackage extends EPackage {
 	EReference getTimeline_Cursors();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.nebula.timeline.ITimeline#getSelectedEvent <em>Selected Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Selected Event</em>'.
+	 * @see org.eclipse.nebula.timeline.ITimeline#getSelectedEvent()
+	 * @see #getTimeline()
+	 * @generated
+	 */
+	EReference getTimeline_SelectedEvent();
+
+	/**
 	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimeline#createTrack(java.lang.String) <em>Create Track</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -789,6 +809,14 @@ public interface ITimelinePackage extends EPackage {
 		 * @generated
 		 */
 		EReference TIMELINE__CURSORS = eINSTANCE.getTimeline_Cursors();
+
+		/**
+		 * The meta object literal for the '<em><b>Selected Event</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TIMELINE__SELECTED_EVENT = eINSTANCE.getTimeline_SelectedEvent();
 
 		/**
 		 * The meta object literal for the '<em><b>Create Track</b></em>' operation.

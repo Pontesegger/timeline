@@ -6,15 +6,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.ITimeline;
+import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.ITimelineFactory;
 import org.eclipse.nebula.timeline.ITimelinePackage;
 import org.eclipse.nebula.timeline.ITrack;
@@ -27,6 +30,7 @@ import org.eclipse.nebula.timeline.ITrack;
  * <ul>
  *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getTracks <em>Tracks</em>}</li>
  *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getCursors <em>Cursors</em>}</li>
+ *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getSelectedEvent <em>Selected Event</em>}</li>
  * </ul>
  *
  * @generated
@@ -49,6 +53,16 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 	 * @ordered
 	 */
 	protected EList<ICursor> cursors;
+
+	/**
+	 * The cached value of the '{@link #getSelectedEvent() <em>Selected Event</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSelectedEvent()
+	 * @generated
+	 * @ordered
+	 */
+	protected ITimelineEvent selectedEvent;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -89,6 +103,46 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 			cursors = new EObjectContainmentWithInverseEList<ICursor>(ICursor.class, this, ITimelinePackage.TIMELINE__CURSORS, ITimelinePackage.CURSOR__TIMELINE);
 		}
 		return cursors;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ITimelineEvent getSelectedEvent() {
+		if (selectedEvent != null && selectedEvent.eIsProxy()) {
+			InternalEObject oldSelectedEvent = (InternalEObject)selectedEvent;
+			selectedEvent = (ITimelineEvent)eResolveProxy(oldSelectedEvent);
+			if (selectedEvent != oldSelectedEvent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ITimelinePackage.TIMELINE__SELECTED_EVENT, oldSelectedEvent, selectedEvent));
+			}
+		}
+		return selectedEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ITimelineEvent basicGetSelectedEvent() {
+		return selectedEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSelectedEvent(ITimelineEvent newSelectedEvent) {
+		ITimelineEvent oldSelectedEvent = selectedEvent;
+		selectedEvent = newSelectedEvent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ITimelinePackage.TIMELINE__SELECTED_EVENT, oldSelectedEvent, selectedEvent));
 	}
 
 	/**
@@ -173,6 +227,9 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 				return getTracks();
 			case ITimelinePackage.TIMELINE__CURSORS:
 				return getCursors();
+			case ITimelinePackage.TIMELINE__SELECTED_EVENT:
+				if (resolve) return getSelectedEvent();
+				return basicGetSelectedEvent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -193,6 +250,9 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 				getCursors().clear();
 				getCursors().addAll((Collection<? extends ICursor>)newValue);
 				return;
+			case ITimelinePackage.TIMELINE__SELECTED_EVENT:
+				setSelectedEvent((ITimelineEvent)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -210,6 +270,9 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 			case ITimelinePackage.TIMELINE__CURSORS:
 				getCursors().clear();
 				return;
+			case ITimelinePackage.TIMELINE__SELECTED_EVENT:
+				setSelectedEvent((ITimelineEvent)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -225,6 +288,8 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 				return tracks != null && !tracks.isEmpty();
 			case ITimelinePackage.TIMELINE__CURSORS:
 				return cursors != null && !cursors.isEmpty();
+			case ITimelinePackage.TIMELINE__SELECTED_EVENT:
+				return selectedEvent != null;
 		}
 		return super.eIsSet(featureID);
 	}

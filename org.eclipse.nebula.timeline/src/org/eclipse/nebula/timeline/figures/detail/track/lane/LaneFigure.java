@@ -11,48 +11,41 @@
 
 package org.eclipse.nebula.timeline.figures.detail.track.lane;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.PrecisionRectangle;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.timeline.layouts.LaneLayout;
-import org.eclipse.swt.graphics.Color;
 
-public class LaneFigure extends Figure {
+public class LaneFigure extends Figure implements IStyledFigure {
 
-	private static final Color[] LANE_COLORS = new Color[] { ColorConstants.lightBlue, ColorConstants.yellow, ColorConstants.red, ColorConstants.lightGreen,
-			ColorConstants.lightGray, ColorConstants.orange };
+	private int fPreferredHeight;
 
-	private static final int DEFAULT_HEIGHT = 40;
+	public LaneFigure(ITimelineStyleProvider styleProvider) {
+		setLayoutManager(new LaneLayout());
 
-	private static int fNextLaneColor = 0;
+		updateStyle(styleProvider);
+	}
 
-	private final LaneLayout fLaneLayout;
-
-	private int fPreferredHeight = DEFAULT_HEIGHT;
-
-	private final Rectangle fPreferredSize = new PrecisionRectangle();
-
-	public LaneFigure() {
-		fLaneLayout = new LaneLayout();
-		setLayoutManager(fLaneLayout);
-
-		setForegroundColor(LANE_COLORS[fNextLaneColor]);
-		fNextLaneColor = (fNextLaneColor + 1) % LANE_COLORS.length;
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setForegroundColor(styleProvider.getLaneColor());
+		fPreferredHeight = styleProvider.getLaneHeight();
 	}
 
 	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
-		return new Dimension(Math.max(fPreferredSize.width(), wHint), fPreferredHeight);
+		return new Dimension(wHint, fPreferredHeight);
 	}
 
-	public Rectangle getTotalTimeArea() {
-		return fPreferredSize;
+	@Override
+	public void add(IFigure figure, Object constraint, int index) {
+		super.add(figure, constraint, index);
+
+		getChildren().sort((o1, o2) -> {
+			return ((EventFigure) o1).compareTo((EventFigure) o2);
+		});
 	}
 
-	public void setHeight(int height) {
-		fPreferredHeight = height;
-	}
 }

@@ -11,8 +11,6 @@
 
 package org.eclipse.nebula.timeline.listeners;
 
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -26,12 +24,13 @@ import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.RootFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorTimingsLayer;
+import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
-public class CursorListener extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
+public class CursorMover extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
 
 	private static final int SNAP_TO_FIGURE_OFFSET = 10;
 
@@ -39,7 +38,7 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 
 	private Point fLocation = null;
 
-	public CursorListener(CursorFigure figure) {
+	public CursorMover(CursorFigure figure) {
 		fFigure = figure;
 
 		figure.addMouseListener(this);
@@ -50,7 +49,6 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 	public void mousePressed(MouseEvent me) {
 		fLocation = me.getLocation();
 		me.consume();
-
 	}
 
 	@Override
@@ -106,44 +104,35 @@ public class CursorListener extends MouseMotionListener.Stub implements MouseLis
 	 * @return timestamp in eventTime to set cursor to or <code>null</code>
 	 */
 	private Long snapToEvent(Point mouseCursorLocation) {
-		final List<LaneFigure> lanes = Helper.getLanes(fFigure);
-		LaneFigure laneUnderCursor = null;
-		for (final LaneFigure lane : lanes) {
-			if (lane.getBounds().contains(mouseCursorLocation)) {
-				laneUnderCursor = lane;
-				break;
+		IFigure figureUnderCursor = Helper.getFigure(fFigure, TracksLayer.class).findFigureAt(mouseCursorLocation);
+		if (figureUnderCursor instanceof LaneFigure) {
+			for (int offset = 0; offset <= SNAP_TO_FIGURE_OFFSET; offset += 2) {
+				IFigure figure = figureUnderCursor.findFigureAt(mouseCursorLocation.x() - offset, mouseCursorLocation.y());
+				if (figure instanceof EventFigure) {
+					figureUnderCursor = figure;
+					break;
+				}
+
+				figure = figureUnderCursor.findFigureAt(mouseCursorLocation.x() + offset, mouseCursorLocation.y());
+				if (figure instanceof EventFigure) {
+					figureUnderCursor = figure;
+					break;
+				}
 			}
 		}
 
-		if (laneUnderCursor != null) {
-			if (laneUnderCursor != null) {
-				EventFigure figureToSnapTo = null;
-				for (int offset = 0; offset <= SNAP_TO_FIGURE_OFFSET; offset += 2) {
-					IFigure figure = laneUnderCursor.findFigureAt(mouseCursorLocation.x() - offset, mouseCursorLocation.y());
-					if (figure instanceof EventFigure) {
-						figureToSnapTo = (EventFigure) figure;
-						break;
-					}
+		if (figureUnderCursor instanceof EventFigure) {
+			final Rectangle figureBounds = figureUnderCursor.getBounds();
+			final int diffToStart = Math.abs(figureBounds.x() - mouseCursorLocation.x());
+			final int diffToEnd = Math.abs((figureBounds.x() + figureBounds.width()) - mouseCursorLocation.x());
 
-					figure = laneUnderCursor.findFigureAt(mouseCursorLocation.x() + offset, mouseCursorLocation.y());
-					if (figure instanceof EventFigure) {
-						figureToSnapTo = (EventFigure) figure;
-						break;
-					}
-				}
-
-				if (figureToSnapTo != null) {
-					final Rectangle figureBounds = figureToSnapTo.getBounds();
-					final int diffToStart = Math.abs(figureBounds.x() - mouseCursorLocation.x());
-					final int diffToEnd = Math.abs((figureBounds.x() + figureBounds.width()) - mouseCursorLocation.x());
-
-					if (diffToStart <= diffToEnd) {
-						// snap to start of figure
-						return figureToSnapTo.getEvent().getStartTimestamp();
-					} else {
-						// snap to end of figure
-						return figureToSnapTo.getEvent().getEndTimestamp();
-					}
+			if (Math.min(diffToStart, diffToEnd) <= SNAP_TO_FIGURE_OFFSET) {
+				if (diffToStart <= diffToEnd) {
+					// snap to start of figure
+					return ((EventFigure) figureUnderCursor).getEvent().getStartTimestamp();
+				} else {
+					// snap to end of figure
+					return ((EventFigure) figureUnderCursor).getEvent().getEndTimestamp();
 				}
 			}
 		}

@@ -175,18 +175,7 @@ public class TimelineViewer extends StructuredViewer {
 	protected void doUpdateItem(Widget item, Object element, boolean fullMap) {
 		// TODO Auto-generated method stub
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.jface.viewers.StructuredViewer#getSelectionFromWidget()
-	 */
-	@Override
-	protected List getSelectionFromWidget() {
-		System.out.println("getSelection");
-		// TODO fix implementation - never return null here!
-		return Collections.EMPTY_LIST;
+		System.out.println("doUpdateItem called");
 	}
 
 	@Override
@@ -226,7 +215,7 @@ public class TimelineViewer extends StructuredViewer {
 
 				final Object track = getModelElementFor(figure);
 				for (final Object lane : getContentProvider().getLanes(track)) {
-					final LaneFigure laneFigure = new LaneFigure();
+					final LaneFigure laneFigure = new LaneFigure(getStyleProvider());
 
 					figure.add(laneFigure);
 					fElementToFigureMap.put(lane, laneFigure);
@@ -345,12 +334,12 @@ public class TimelineViewer extends StructuredViewer {
 		}
 	}
 
-	/*
-	 *
-	 * @see org.eclipse.jface.viewers.StructuredViewer#reveal(java.lang.Object)
-	 */
 	@Override
 	public void reveal(Object element) {
+		element = getContentProvider().toEvent(element);
+		if (element == null)
+			element = getContentProvider().toCursor(element);
+
 		if (element instanceof ITimelineEvent) {
 			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
 			timeViewDetails.revealEvent(new PrecisionRectangle(((ITimelineEvent) element).getStartTimestamp(), 0, ((ITimelineEvent) element).getDuration(), 1));
@@ -361,16 +350,26 @@ public class TimelineViewer extends StructuredViewer {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.jface.viewers.StructuredViewer#setSelectionToWidget(java.util.List, boolean)
-	 */
+	@Override
+	protected List getSelectionFromWidget() {
+		final EventFigure selectedFigure = getControl().getRootFigure().getSelection();
+		if (selectedFigure != null) {
+			final Object modelElement = fElementToFigureMap.getKey(selectedFigure);
+			if (modelElement != null)
+				return Arrays.asList(modelElement);
+		}
+
+		return Collections.EMPTY_LIST;
+	}
+
 	@Override
 	protected void setSelectionToWidget(List l, boolean reveal) {
-		// TODO Auto-generated method stub
-		System.out.println("setSelection");
-
+		if (!l.isEmpty()) {
+			final ITimelineEvent event = getContentProvider().toEvent(l.get(0));
+			final IFigure eventFigure = fElementToFigureMap.get(event);
+			if (eventFigure instanceof EventFigure)
+				getControl().getRootFigure().setSelection((EventFigure) eventFigure);
+		}
 	}
 
 	@Override

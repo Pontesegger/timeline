@@ -55,11 +55,17 @@ public class DefaultTimelineContentProvider implements ITimelineContentProvider 
 
 	@Override
 	public ITimelineEvent toEvent(Object eventElement) {
-		return (ITimelineEvent) eventElement;
+		if (eventElement instanceof ITimelineEvent)
+			return (ITimelineEvent) eventElement;
+
+		return null;
 	}
 
 	@Override
 	public ICursor toCursor(Object element) {
-		return (ICursor) element;
+		if (element instanceof ICursor)
+			return (ICursor) element;
+
+		return null;
 	}
 }

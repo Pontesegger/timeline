@@ -26,7 +26,7 @@ import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.borders.EmptyBorder;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksFigure;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
-import org.eclipse.nebula.timeline.listeners.TimelineMover;
+import org.eclipse.nebula.timeline.listeners.DetailAreaListener;
 
 public class DetailFigure extends Figure {
 
@@ -47,7 +47,7 @@ public class DetailFigure extends Figure {
 		final TimeAxisFigure timeAxisFigure = new TimeAxisFigure(styleProvider);
 		add(timeAxisFigure, BorderLayout.BOTTOM);
 
-		new TimelineMover(this);
+		new DetailAreaListener(this);
 	}
 
 	/**

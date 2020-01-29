@@ -9,6 +9,9 @@
       <eParameters name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eParameters name="timeUnit" eType="#//TimeUnit"/>
     </eOperations>
+    <eOperations name="createCursor" lowerBound="1" eType="#//Cursor">
+      <eParameters name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tracks" upperBound="-1"
         eType="#//Track" containment="true" eOpposite="#//Track/timeline"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cursors" upperBound="-1"

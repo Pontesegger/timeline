@@ -260,7 +260,7 @@ public class TimeViewDetails {
 		if (getVisibleEventArea().width() <= revealArea.width())
 			fScaleFactor = getScreenArea().width() / (revealArea.width() * 3.0d);
 
-		fOffset.setX(revealArea.x() - ((getVisibleEventArea().width() - revealArea.width()) / 2));
+		setOffset(revealArea.x() - ((getVisibleEventArea().width() - revealArea.width()) / 2));
 
 		fRootFigure.fireTimebaseChanged();
 	}

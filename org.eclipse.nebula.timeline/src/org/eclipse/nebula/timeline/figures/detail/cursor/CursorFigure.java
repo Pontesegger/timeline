@@ -21,7 +21,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
-import org.eclipse.nebula.timeline.listeners.CursorListener;
+import org.eclipse.nebula.timeline.listeners.CursorMover;
 
 public class CursorFigure extends Figure implements IStyledFigure {
 
@@ -53,7 +53,7 @@ public class CursorFigure extends Figure implements IStyledFigure {
 		fLineFigure.getBounds().setWidth(2);
 		add(fLineFigure, BorderLayout.CENTER);
 
-		new CursorListener(this);
+		new CursorMover(this);
 	}
 
 	public long getEventTime() {

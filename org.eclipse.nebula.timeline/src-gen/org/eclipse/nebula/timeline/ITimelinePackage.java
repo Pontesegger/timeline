@@ -114,13 +114,22 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT = 1;
 
 	/**
+	 * The operation id for the '<em>Create Cursor</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE___CREATE_CURSOR__LONG = 2;
+
+	/**
 	 * The number of operations of the '<em>Timeline</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_OPERATION_COUNT = 2;
+	int TIMELINE_OPERATION_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Track <em>Track</em>}' class.
@@ -461,6 +470,16 @@ public interface ITimelinePackage extends EPackage {
 	EOperation getTimeline__CreateCursor__long_TimeUnit();
 
 	/**
+	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimeline#createCursor(long) <em>Create Cursor</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Create Cursor</em>' operation.
+	 * @see org.eclipse.nebula.timeline.ITimeline#createCursor(long)
+	 * @generated
+	 */
+	EOperation getTimeline__CreateCursor__long();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ITrack <em>Track</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -767,6 +786,14 @@ public interface ITimelinePackage extends EPackage {
 		 * @generated
 		 */
 		EOperation TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT = eINSTANCE.getTimeline__CreateCursor__long_TimeUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Create Cursor</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TIMELINE___CREATE_CURSOR__LONG = eINSTANCE.getTimeline__CreateCursor__long();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Track <em>Track</em>}' class.

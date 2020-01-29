@@ -29,13 +29,14 @@ public class OverviewSelectionMover extends MouseMotionListener.Stub implements 
 		fFigure = figure;
 
 		figure.addMouseListener(this);
-		figure.addMouseMotionListener(this);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent me) {
 		fLocation = me.getLocation();
 		me.consume();
+
+		fFigure.addMouseMotionListener(this);
 	}
 
 	@Override
@@ -44,12 +45,13 @@ public class OverviewSelectionMover extends MouseMotionListener.Stub implements 
 			fLocation = null;
 			me.consume();
 		}
+
+		fFigure.removeMouseMotionListener(this);
 	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent me) {
-		Helper.getRootFigure(fFigure).getTimeViewDetails().resetDisplaySettings();
-		me.consume();
+		// nothing to do
 	}
 
 	@Override

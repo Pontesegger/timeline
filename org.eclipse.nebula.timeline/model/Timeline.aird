@@ -46,6 +46,10 @@
               <styles xmi:type="notation:FontStyle" xmi:id="_lLd46UGmEeqCy7Z1RoG_jg" fontName="Segoe UI" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_lLd46kGmEeqCy7Z1RoG_jg"/>
             </children>
+            <children xmi:type="notation:Node" xmi:id="_chh60EHjEeqbCvso8gvleQ" type="3010" element="_chNKskHjEeqbCvso8gvleQ">
+              <styles xmi:type="notation:FontStyle" xmi:id="_chh60UHjEeqbCvso8gvleQ" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_chh60kHjEeqbCvso8gvleQ"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_9ePgQUDiEeqFQZ5tBFZgrQ"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_9ePgQkDiEeqFQZ5tBFZgrQ"/>
           </children>
@@ -222,7 +226,7 @@
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_rSuK9UGmEeqCy7Z1RoG_jg" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="Liquid" foregroundColor="255,252,216">
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_dV0egUHjEeqbCvso8gvleQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="Liquid" foregroundColor="255,252,216">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
@@ -241,6 +245,15 @@
         <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//Timeline/createCursor/timeUnit"/>
         <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//Timeline/createCursor/timestamp"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_lLRrkEGmEeqCy7Z1RoG_jg" labelAlignment="LEFT">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_chNKskHjEeqbCvso8gvleQ" name="createCursor(timestamp ELong) : Cursor" tooltipText="createCursor(timestamp) : Cursor">
+        <target xmi:type="ecore:EOperation" href="Timeline.ecore#//Timeline/createCursor.1"/>
+        <semanticElements xmi:type="ecore:EOperation" href="Timeline.ecore#//Timeline/createCursor.1"/>
+        <semanticElements xmi:type="ecore:EParameter" href="Timeline.ecore#//Timeline/createCursor.1/timestamp"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_chO_4EHjEeqbCvso8gvleQ" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>

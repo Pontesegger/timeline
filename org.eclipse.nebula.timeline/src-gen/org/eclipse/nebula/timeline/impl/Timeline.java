@@ -129,6 +129,16 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public ICursor createCursor(long timestamp) {
+		return createCursor(timestamp, TimeUnit.NANOSECONDS);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -242,6 +252,8 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 			return createTrack((String) arguments.get(0));
 		case ITimelinePackage.TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT:
 			return createCursor((Long) arguments.get(0), (TimeUnit) arguments.get(1));
+		case ITimelinePackage.TIMELINE___CREATE_CURSOR__LONG:
+			return createCursor((Long) arguments.get(0));
 		}
 		return super.eInvoke(operationID, arguments);
 	}

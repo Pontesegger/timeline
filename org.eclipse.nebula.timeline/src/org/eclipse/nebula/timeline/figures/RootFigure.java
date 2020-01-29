@@ -27,6 +27,7 @@ import org.eclipse.nebula.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.timeline.figures.detail.cursor.CursorLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.TrackFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
+import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
@@ -45,6 +46,8 @@ public class RootFigure extends Figure implements IStyledFigure {
 	private ITimelineStyleProvider fStyleProvider = new DefaultTimelineStyleProvider();
 
 	private TimelineViewer fViewer;
+
+	private EventFigure fSelection;
 
 	public RootFigure() {
 		fTimeViewDetails = new TimeViewDetails(this);
@@ -208,5 +211,28 @@ public class RootFigure extends Figure implements IStyledFigure {
 	 */
 	public void setViewer(TimelineViewer viewer) {
 		fViewer = viewer;
+	}
+
+	/**
+	 * Set the selection figure. Stores the selected element and highlights the figure.
+	 *
+	 * @param eventFigure
+	 *            event figure to select
+	 */
+	public void setSelection(EventFigure eventFigure) {
+		if (fSelection != null)
+			getStyleProvider().unselectEvent(fSelection);
+
+		fSelection = eventFigure;
+		getStyleProvider().selectEvent(fSelection);
+	}
+
+	/**
+	 * Get the selected figure.
+	 * 
+	 * @return selected figure or null
+	 */
+	public EventFigure getSelection() {
+		return fSelection;
 	}
 }

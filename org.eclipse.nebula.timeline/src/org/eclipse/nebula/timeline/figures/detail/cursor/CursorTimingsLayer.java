@@ -67,7 +67,6 @@ public class CursorTimingsLayer extends FreeformLayer {
 		Collections.sort(cursors,
 				(o1, o2) -> (int) (Math.abs(cursorFigure.getEventTime() - o1.getEventTime()) - Math.abs(cursorFigure.getEventTime() - o2.getEventTime())));
 
-		// final Point distance = new Point(20, me.y);
 		final Dimension distance = new Dimension(20, me.y);
 		for (final CursorFigure cursor : cursors) {
 			add(new CursorConnection(cursorFigure, cursor, distance));
@@ -77,6 +76,11 @@ public class CursorTimingsLayer extends FreeformLayer {
 
 		fConnectionsLocation = me.getLocation();
 		setVisible(true);
+	}
+
+	public void hideTimings() {
+		removeAll();
+		setVisible(false);
 	}
 
 	private List<CursorFigure> getAllCursors() {
@@ -227,10 +231,5 @@ public class CursorTimingsLayer extends FreeformLayer {
 
 			return point;
 		}
-	}
-
-	public void hideTimings() {
-		removeAll();
-		setVisible(false);
 	}
 }

@@ -13,8 +13,8 @@ package org.eclipse.nebula.timeline.figures.overview;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.timeline.Helper;
@@ -44,16 +44,18 @@ public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 
 	@Override
 	public boolean containsPoint(int x, int y) {
-		final Point pt = Point.SINGLETON;
-		pt.setLocation(x, y);
-		translateFromParent(pt);
-
-		return getBounds().contains(pt);
+		return getBounds().contains(x, y);
 	}
 
 	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setBorder(styleProvider.getOverviewAreaBorder());
+	}
+
+	@Override
+	protected IFigure findDescendantAtExcluding(int x, int y, TreeSearch search) {
+		// do not dig deeper in the figure hierarchy
+		return null;
 	}
 
 	private class OverviewLayout extends XYLayout {

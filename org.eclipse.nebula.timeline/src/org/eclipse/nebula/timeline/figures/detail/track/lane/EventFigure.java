@@ -12,10 +12,12 @@
 package org.eclipse.nebula.timeline.figures.detail.track.lane;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.ToolbarLayout;
+import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.layouts.CenterLayout;
 import org.eclipse.swt.graphics.Color;
@@ -25,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 public class EventFigure extends RoundedRectangle implements Comparable<EventFigure> {
 
 	private final ITimelineEvent fEvent;
+	private Color fEventColor;
 
 	public EventFigure(ITimelineEvent event) {
 		fEvent = event;
@@ -46,11 +49,21 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 	}
 
 	public void setEventColor(Color color) {
+		fEventColor = color;
 		setBackgroundColor(color);
 
 		final float[] hsb = color.getRGB().getHSB();
 		setForegroundColor(new Color(Display.getDefault(), new RGB(hsb[0], Math.min(1, hsb[1] * 2f), hsb[2] * 0.8f)));
 		setAlpha(150);
+	}
+
+	/**
+	 * Get the event color that was set on this event, even if the foreground/background colors got changed in the meantime.
+	 *
+	 * @return event color set on this event
+	 */
+	public Color getEventColor() {
+		return fEventColor;
 	}
 
 	public ITimelineEvent getEvent() {
@@ -66,5 +79,11 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 			return 1;
 		else
 			return 0;
+	}
+
+	@Override
+	protected IFigure findDescendantAtExcluding(int x, int y, TreeSearch search) {
+		// do not dig deeper in the figure hierarchy
+		return null;
 	}
 }

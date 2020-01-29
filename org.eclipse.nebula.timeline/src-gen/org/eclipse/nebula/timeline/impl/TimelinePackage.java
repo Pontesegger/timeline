@@ -186,6 +186,16 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EOperation getTimeline__CreateCursor__long() {
+		return timelineEClass.getEOperations().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getTrack() {
 		return trackEClass;
 	}
@@ -444,6 +454,7 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		createEReference(timelineEClass, TIMELINE__CURSORS);
 		createEOperation(timelineEClass, TIMELINE___CREATE_TRACK__STRING);
 		createEOperation(timelineEClass, TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT);
+		createEOperation(timelineEClass, TIMELINE___CREATE_CURSOR__LONG);
 
 		trackEClass = createEClass(TRACK);
 		createEReference(trackEClass, TRACK__TIMELINE);
@@ -515,6 +526,9 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		op = initEOperation(getTimeline__CreateCursor__long_TimeUnit(), this.getCursor(), "createCursor", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getELong(), "timestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTimeUnit(), "timeUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getTimeline__CreateCursor__long(), this.getCursor(), "createCursor", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "timestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(trackEClass, ITrack.class, "Track", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTrack_Timeline(), this.getTimeline(), this.getTimeline_Tracks(), "timeline", null, 1, 1, ITrack.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

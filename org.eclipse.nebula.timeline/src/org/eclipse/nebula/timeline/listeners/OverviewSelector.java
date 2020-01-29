@@ -14,6 +14,7 @@ package org.eclipse.nebula.timeline.listeners;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 
@@ -31,13 +32,9 @@ public class OverviewSelector extends MouseListener.Stub {
 	public void mouseReleased(MouseEvent me) {
 		if (me.button == 1) {
 			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(fFigure);
-			long eventTime = timeViewDetails.overviewScreenOffsetToEventTime(me.x);
+			final long eventTime = timeViewDetails.overviewScreenOffsetToEventTime(me.x);
 
-			// eventTime should now be centered on screen
-
-			eventTime -= timeViewDetails.getVisibleEventArea().width() / 2;
-
-			timeViewDetails.setOffset(eventTime);
+			timeViewDetails.revealEvent(new PrecisionRectangle(eventTime, 0, 1, 1));
 		}
 	}
 }

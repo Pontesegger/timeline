@@ -12,6 +12,7 @@
 package org.eclipse.nebula.timeline.jface;
 
 import org.eclipse.draw2d.Border;
+import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.swt.graphics.Color;
 
 public interface ITimelineStyleProvider {
@@ -115,4 +116,34 @@ public interface ITimelineStyleProvider {
 	 * @return selected cursor color
 	 */
 	Color getSelectedCursorColor();
+
+	/**
+	 * Get the color for the next lane.
+	 *
+	 * @return lane color
+	 */
+	Color getLaneColor();
+
+	/**
+	 * Get height for a given lane.
+	 *
+	 * @return height in pixels
+	 */
+	int getLaneHeight();
+
+	/**
+	 * Apply styling to select an event figure.
+	 * 
+	 * @param eventFigure
+	 *            figure to style
+	 */
+	void selectEvent(EventFigure eventFigure);
+
+	/**
+	 * Revert styling of an event figure selection.
+	 * 
+	 * @param eventFigure
+	 *            figure to revert style
+	 */
+	void unselectEvent(EventFigure eventFigure);
 }

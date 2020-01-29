@@ -69,4 +69,12 @@ public interface ITimeline extends EObject {
 	 */
 	ICursor createCursor(long timestamp, TimeUnit timeUnit);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	ICursor createCursor(long timestamp);
+
 } // ITimeline

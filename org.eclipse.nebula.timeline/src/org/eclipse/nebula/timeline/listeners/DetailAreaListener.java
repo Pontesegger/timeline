@@ -20,17 +20,24 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.TimeViewDetails;
-import org.eclipse.nebula.timeline.figures.RootFigure;
+import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 
-public class TimelineMover extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
-
-	private static final int CLICK_TIMEOUT = 300;
+/**
+ * This listener has 3 tasks:
+ * <ul>
+ * <li>move x offset of detail area (mouse drag)</li>
+ * <li>create cursor (mouse click in empty area)</li>
+ * <li>select event (mouse click on event)</li>
+ * </ul>
+ */
+public class DetailAreaListener extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
 
 	private Point fLocation = null;
 	private final Figure fFigure;
-	private long fPressTimeStamp;
 
-	public TimelineMover(Figure figure) {
+	private boolean fDragged = false;
+
+	public DetailAreaListener(Figure figure) {
 		fFigure = figure;
 
 		figure.addMouseListener(this);
@@ -39,22 +46,25 @@ public class TimelineMover extends MouseMotionListener.Stub implements MouseList
 
 	@Override
 	public void mousePressed(MouseEvent me) {
+		fDragged = false;
 		fLocation = me.getLocation();
-		me.consume();
 
-		fPressTimeStamp = System.currentTimeMillis();
+		me.consume();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		final RootFigure rootFigure = Helper.getRootFigure(fFigure);
-		final IFigure findMouseEventTargetAt = rootFigure.findMouseEventTargetAt(me.x, me.y);
-		System.out.println("Event: " + findMouseEventTargetAt);
+		if (!fDragged) {
+			final IFigure figureUnderCursor = fFigure.findFigureAt(me.x, me.y);
 
-		if ((System.currentTimeMillis() - fPressTimeStamp) < CLICK_TIMEOUT) {
-			// create new cursor
-			final long eventTime = Helper.getTimeViewDetails(fFigure).screenOffsetToEventTime(me.x);
-			Helper.getRootFigure(fFigure).createCursor(eventTime);
+			if (figureUnderCursor instanceof EventFigure) {
+				// selection
+				Helper.getRootFigure(fFigure).setSelection((EventFigure) figureUnderCursor);
+			} else {
+				// create cursor
+				final long eventTime = Helper.getTimeViewDetails(fFigure).screenOffsetToEventTime(me.x);
+				Helper.getRootFigure(fFigure).createCursor(eventTime);
+			}
 		}
 
 		if (fLocation != null) {
@@ -65,15 +75,13 @@ public class TimelineMover extends MouseMotionListener.Stub implements MouseList
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent me) {
-		Helper.getRootFigure(fFigure).getTimeViewDetails().resetDisplaySettings();
-		me.consume();
+		// nothing to do
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent me) {
 		if (fLocation != null) {
-			// invalidate timestamp for cursor creation
-			fPressTimeStamp = 0;
+			fDragged = true;
 
 			final Point targetLocation = me.getLocation();
 

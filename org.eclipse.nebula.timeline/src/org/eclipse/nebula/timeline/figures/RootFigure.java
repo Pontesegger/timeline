@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
@@ -39,6 +40,7 @@ import org.eclipse.nebula.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.nebula.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
+import org.eclipse.nebula.timeline.listeners.ICursorListener;
 
 public class RootFigure extends Figure implements IStyledFigure {
 
@@ -50,6 +52,8 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 	/** Maps a given detail figure to its counterpart in the overview area. */
 	private final Map<IFigure, IFigure> fDetailToOverviewMap = new HashMap<>();
+
+	private final ListenerList<ICursorListener> fCursorListener = new ListenerList<>();
 
 	public RootFigure() {
 		fTimeViewDetails = new TimeViewDetails(this);
@@ -69,6 +73,26 @@ public class RootFigure extends Figure implements IStyledFigure {
 		fStyleProvider = styleProvider;
 
 		fireStyleChanged();
+	}
+
+	/**
+	 * Registers the given listener as a ICursorListener of this IFigure. Will be notified of cursor creation and deletion.
+	 *
+	 * @param listener
+	 *            listener to register
+	 */
+	public void addCursorListener(ICursorListener listener) {
+		fCursorListener.add(listener);
+	}
+
+	/**
+	 * Unregisters the given listener, so that it will no longer receive notifications of cursor events
+	 *
+	 * @param listener
+	 *            listener to unregister
+	 */
+	public void removeCursorListener(ICursorListener listener) {
+		fCursorListener.remove(listener);
 	}
 
 	/**
@@ -149,7 +173,15 @@ public class RootFigure extends Figure implements IStyledFigure {
 		final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
 		cursor.setTimestamp(eventTime);
 
-		createCursorFigure(cursor);
+		final CursorFigure cursorFigure = createCursorFigure(cursor);
+
+		for (final ICursorListener listener : fCursorListener) {
+			try {
+				listener.notifyCursorCreated(cursor, cursorFigure);
+			} catch (final Throwable t) {
+				// silently ignore
+			}
+		}
 
 		return cursor;
 	}
@@ -166,6 +198,15 @@ public class RootFigure extends Figure implements IStyledFigure {
 		for (final Object child : cursorLayer.getChildren()) {
 			if (cursor.equals(layoutManager.getConstraint((IFigure) child))) {
 				deleteCursorFigure((CursorFigure) child);
+
+				for (final ICursorListener listener : fCursorListener) {
+					try {
+						listener.notifyCursorDeleted(cursor);
+					} catch (final Throwable t) {
+						// silently ignore
+					}
+				}
+
 				break;
 			}
 		}

@@ -40,11 +40,12 @@ import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
+import org.eclipse.nebula.timeline.listeners.ICursorListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 
-public class TimelineViewer extends StructuredViewer {
+public class TimelineViewer extends StructuredViewer implements ICursorListener {
 
 	private final TimelineComposite fControl;
 
@@ -73,6 +74,25 @@ public class TimelineViewer extends StructuredViewer {
 
 	public void setEditingSupport(ITimelineEditingSupport editingSupport) {
 		fEditingSupport = editingSupport;
+
+		if (fEditingSupport != null)
+			getControl().getRootFigure().addCursorListener(this);
+		else
+			getControl().getRootFigure().removeCursorListener(this);
+	}
+
+	@Override
+	public void notifyCursorCreated(ICursor cursor, CursorFigure figure) {
+		final ITimelineEditingSupport editingSupport = getEditingSupport();
+		if (editingSupport != null)
+			editingSupport.addCursor(cursor);
+	}
+
+	@Override
+	public void notifyCursorDeleted(ICursor cursor) {
+		final ITimelineEditingSupport editingSupport = getEditingSupport();
+		if (editingSupport != null)
+			editingSupport.removeCursor(cursor);
 	}
 
 	public ITimelineEditingSupport getEditingSupport() {

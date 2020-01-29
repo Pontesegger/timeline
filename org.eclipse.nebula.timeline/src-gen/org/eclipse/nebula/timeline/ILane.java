@@ -71,4 +71,12 @@ public interface ILane extends EObject {
 	 */
 	ITimelineEvent addEvent(String title, String message, long startTimestamp, long endTimestamp, TimeUnit timeUnit);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	ITimelineEvent addEvent(String title, String message, long startTimestamp, long endTimestamp);
+
 } // ILane

@@ -40,18 +40,15 @@ import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
-import org.eclipse.nebula.timeline.listeners.ICursorListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 
-public class TimelineViewer extends StructuredViewer implements ICursorListener {
+public class TimelineViewer extends StructuredViewer {
 
 	private final TimelineComposite fControl;
 
 	private final ModelMap fElementToFigureMap = new ModelMap();
-
-	private ITimelineEditingSupport fEditingSupport = null;
 
 	/**
 	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. To get the model, use
@@ -68,35 +65,7 @@ public class TimelineViewer extends StructuredViewer implements ICursorListener 
 
 		setContentProvider(new DefaultTimelineContentProvider());
 		setLabelProvider(new DefaultTimelineLabelProvider());
-		setEditingSupport(new DefaultTimelineEditingSupport());
 		setInput(ITimelineFactory.eINSTANCE.createTimeline());
-	}
-
-	public void setEditingSupport(ITimelineEditingSupport editingSupport) {
-		fEditingSupport = editingSupport;
-
-		if (fEditingSupport != null)
-			getControl().getRootFigure().addCursorListener(this);
-		else
-			getControl().getRootFigure().removeCursorListener(this);
-	}
-
-	@Override
-	public void notifyCursorCreated(ICursor cursor, CursorFigure figure) {
-		final ITimelineEditingSupport editingSupport = getEditingSupport();
-		if (editingSupport != null)
-			editingSupport.addCursor(cursor);
-	}
-
-	@Override
-	public void notifyCursorDeleted(ICursor cursor) {
-		final ITimelineEditingSupport editingSupport = getEditingSupport();
-		if (editingSupport != null)
-			editingSupport.removeCursor(cursor);
-	}
-
-	public ITimelineEditingSupport getEditingSupport() {
-		return fEditingSupport;
 	}
 
 	/**
@@ -127,10 +96,6 @@ public class TimelineViewer extends StructuredViewer implements ICursorListener 
 		final ITimelineContentProvider contentProvider = getContentProvider();
 		if (contentProvider != null)
 			contentProvider.inputChanged(this, oldInput, input);
-
-		final ITimelineEditingSupport editingSupport = getEditingSupport();
-		if (editingSupport != null)
-			editingSupport.inputChanged(this, oldInput, input);
 
 		super.inputChanged(input, oldInput);
 	}
@@ -306,25 +271,11 @@ public class TimelineViewer extends StructuredViewer implements ICursorListener 
 	}
 
 	public void createCursor(ICursor cursor) {
-		final Object cursorObject = getEditingSupport().addCursor(cursor);
-		cursor = getContentProvider().toCursor(cursorObject);
-
-		refresh(cursorObject);
+		getControl().getRootFigure().createCursorFigure(cursor);
 	}
 
-	public void removeCursor(ICursor cursor) {
-		Object cursorObject = null;
-		for (final Object candidate : getContentProvider().getCursors(getInput())) {
-			if (cursor.equals(getContentProvider().toCursor(candidate))) {
-				cursorObject = candidate;
-				break;
-			}
-		}
-
-		if (cursorObject != null) {
-			getEditingSupport().removeCursor(cursorObject);
-			refresh(cursor);
-		}
+	public void deleteCursor(ICursor cursor) {
+		getControl().getRootFigure().deleteCursor(cursor);
 	}
 
 	@Override

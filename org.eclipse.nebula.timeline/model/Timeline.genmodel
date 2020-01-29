@@ -39,6 +39,12 @@
         <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/endTimestamp"/>
         <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent/timeUnit"/>
       </genOperations>
+      <genOperations ecoreOperation="Timeline.ecore#//Lane/addEvent.1">
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent.1/title"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent.1/message"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent.1/startTimestamp"/>
+        <genParameters ecoreParameter="Timeline.ecore#//Lane/addEvent.1/endTimestamp"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="Timeline.ecore#//TimelineEvent">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//TimelineEvent/lane"/>

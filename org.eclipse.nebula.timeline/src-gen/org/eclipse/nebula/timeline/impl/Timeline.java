@@ -25,16 +25,16 @@ import org.eclipse.nebula.timeline.ITrack;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getTracks <em>Tracks</em>}</li>
- * <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getCursors <em>Cursors</em>}</li>
+ *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getTracks <em>Tracks</em>}</li>
+ *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getCursors <em>Cursors</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class Timeline extends MinimalEObjectImpl.Container implements ITimeline {
 	/**
-	 * The cached value of the '{@link #getTracks() <em>Tracks</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTracks() <em>Tracks</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTracks()
 	 * @generated
 	 * @ordered
@@ -42,8 +42,8 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 	protected EList<ITrack> tracks;
 
 	/**
-	 * The cached value of the '{@link #getCursors() <em>Cursors</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getCursors() <em>Cursors</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getCursors()
 	 * @generated
 	 * @ordered
@@ -52,7 +52,6 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected Timeline() {
@@ -61,7 +60,6 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -71,27 +69,24 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public EList<ITrack> getTracks() {
 		if (tracks == null) {
-			tracks = new EObjectContainmentWithInverseEList<>(ITrack.class, this, ITimelinePackage.TIMELINE__TRACKS, ITimelinePackage.TRACK__TIMELINE);
+			tracks = new EObjectContainmentWithInverseEList<ITrack>(ITrack.class, this, ITimelinePackage.TIMELINE__TRACKS, ITimelinePackage.TRACK__TIMELINE);
 		}
 		return tracks;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public EList<ICursor> getCursors() {
 		if (cursors == null) {
-			cursors = new EObjectContainmentWithInverseEList<>(ICursor.class, this, ITimelinePackage.TIMELINE__CURSORS,
-					ITimelinePackage.CURSOR__TIMELINE);
+			cursors = new EObjectContainmentWithInverseEList<ICursor>(ICursor.class, this, ITimelinePackage.TIMELINE__CURSORS, ITimelinePackage.CURSOR__TIMELINE);
 		}
 		return cursors;
 	}
@@ -138,122 +133,115 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case ITimelinePackage.TIMELINE__TRACKS:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getTracks()).basicAdd(otherEnd, msgs);
-		case ITimelinePackage.TIMELINE__CURSORS:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getCursors()).basicAdd(otherEnd, msgs);
+			case ITimelinePackage.TIMELINE__TRACKS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTracks()).basicAdd(otherEnd, msgs);
+			case ITimelinePackage.TIMELINE__CURSORS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCursors()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case ITimelinePackage.TIMELINE__TRACKS:
-			return ((InternalEList<?>) getTracks()).basicRemove(otherEnd, msgs);
-		case ITimelinePackage.TIMELINE__CURSORS:
-			return ((InternalEList<?>) getCursors()).basicRemove(otherEnd, msgs);
+			case ITimelinePackage.TIMELINE__TRACKS:
+				return ((InternalEList<?>)getTracks()).basicRemove(otherEnd, msgs);
+			case ITimelinePackage.TIMELINE__CURSORS:
+				return ((InternalEList<?>)getCursors()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case ITimelinePackage.TIMELINE__TRACKS:
-			return getTracks();
-		case ITimelinePackage.TIMELINE__CURSORS:
-			return getCursors();
+			case ITimelinePackage.TIMELINE__TRACKS:
+				return getTracks();
+			case ITimelinePackage.TIMELINE__CURSORS:
+				return getCursors();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case ITimelinePackage.TIMELINE__TRACKS:
-			getTracks().clear();
-			getTracks().addAll((Collection<? extends ITrack>) newValue);
-			return;
-		case ITimelinePackage.TIMELINE__CURSORS:
-			getCursors().clear();
-			getCursors().addAll((Collection<? extends ICursor>) newValue);
-			return;
+			case ITimelinePackage.TIMELINE__TRACKS:
+				getTracks().clear();
+				getTracks().addAll((Collection<? extends ITrack>)newValue);
+				return;
+			case ITimelinePackage.TIMELINE__CURSORS:
+				getCursors().clear();
+				getCursors().addAll((Collection<? extends ICursor>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case ITimelinePackage.TIMELINE__TRACKS:
-			getTracks().clear();
-			return;
-		case ITimelinePackage.TIMELINE__CURSORS:
-			getCursors().clear();
-			return;
+			case ITimelinePackage.TIMELINE__TRACKS:
+				getTracks().clear();
+				return;
+			case ITimelinePackage.TIMELINE__CURSORS:
+				getCursors().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case ITimelinePackage.TIMELINE__TRACKS:
-			return (tracks != null) && !tracks.isEmpty();
-		case ITimelinePackage.TIMELINE__CURSORS:
-			return (cursors != null) && !cursors.isEmpty();
+			case ITimelinePackage.TIMELINE__TRACKS:
+				return tracks != null && !tracks.isEmpty();
+			case ITimelinePackage.TIMELINE__CURSORS:
+				return cursors != null && !cursors.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-		case ITimelinePackage.TIMELINE___CREATE_TRACK__STRING:
-			return createTrack((String) arguments.get(0));
-		case ITimelinePackage.TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT:
-			return createCursor((Long) arguments.get(0), (TimeUnit) arguments.get(1));
-		case ITimelinePackage.TIMELINE___CREATE_CURSOR__LONG:
-			return createCursor((Long) arguments.get(0));
+			case ITimelinePackage.TIMELINE___CREATE_TRACK__STRING:
+				return createTrack((String)arguments.get(0));
+			case ITimelinePackage.TIMELINE___CREATE_CURSOR__LONG_TIMEUNIT:
+				return createCursor((Long)arguments.get(0), (TimeUnit)arguments.get(1));
+			case ITimelinePackage.TIMELINE___CREATE_CURSOR__LONG:
+				return createCursor((Long)arguments.get(0));
 		}
 		return super.eInvoke(operationID, arguments);
 	}

@@ -286,6 +286,16 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EOperation getLane__AddEvent__String_String_long_long() {
+		return laneEClass.getEOperations().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getTimelineEvent() {
 		return timelineEventEClass;
 	}
@@ -466,6 +476,7 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		createEReference(laneEClass, LANE__TRACK);
 		createEReference(laneEClass, LANE__TIME_EVENTS);
 		createEOperation(laneEClass, LANE___ADD_EVENT__STRING_STRING_LONG_LONG_TIMEUNIT);
+		createEOperation(laneEClass, LANE___ADD_EVENT__STRING_STRING_LONG_LONG);
 
 		timelineEventEClass = createEClass(TIMELINE_EVENT);
 		createEReference(timelineEventEClass, TIMELINE_EVENT__LANE);
@@ -547,6 +558,12 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		addEParameter(op, ecorePackage.getELong(), "startTimestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getELong(), "endTimestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTimeUnit(), "timeUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getLane__AddEvent__String_String_long_long(), this.getTimelineEvent(), "addEvent", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "title", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "message", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "startTimestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "endTimestamp", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(timelineEventEClass, ITimelineEvent.class, "TimelineEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTimelineEvent_Lane(), this.getLane(), this.getLane_TimeEvents(), "lane", null, 1, 1, ITimelineEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

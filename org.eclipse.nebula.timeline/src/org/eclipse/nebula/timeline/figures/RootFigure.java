@@ -122,6 +122,9 @@ public class RootFigure extends Figure implements IStyledFigure {
 	public void clear() {
 		Helper.getFigure(this, TracksLayer.class).removeAll();
 		Helper.getFigure(this, OverviewLayer.class).removeAll();
+
+		Helper.getFigure(this, CursorLayer.class).removeAll();
+		Helper.getFigure(this, OverviewCursorLayer.class).removeAll();
 	}
 
 	public TimeViewDetails getTimeViewDetails() {

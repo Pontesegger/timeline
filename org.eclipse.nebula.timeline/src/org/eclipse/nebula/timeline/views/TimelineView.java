@@ -10,6 +10,7 @@ import org.eclipse.nebula.timeline.ITimeline;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.ITrack;
 import org.eclipse.nebula.timeline.TimelineComposite;
+import org.eclipse.nebula.timeline.TimelineDataBinding;
 import org.eclipse.nebula.timeline.jface.TimelineViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -29,9 +30,12 @@ public class TimelineView extends ViewPart {
 
 		fTimelineViewer = new TimelineViewer(parent, SWT.NULL);
 		final ITimeline model = fTimelineViewer.getModel();
+		new TimelineDataBinding(fTimelineViewer, model);
+
 		createRandomContent(model);
 
-		fTimelineViewer.refresh();
+		// not needed when we use databinding
+		// fTimelineViewer.refresh();
 	}
 
 	public TimelineViewer getTimelineViewer() {

@@ -11,6 +11,9 @@
 
 package org.eclipse.nebula.timeline.jface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
@@ -22,6 +25,7 @@ import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
 public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
@@ -37,10 +41,16 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	/** Custom font for selected events. Managed by styleProvider. */
 	private Font fSelectedFont = null;
 
+	/** Colors managed by styleProvider. */
+	private final Map<RGB, Color> fManagedColors = new HashMap<>();
+
 	@Override
 	public void dispose() {
 		if (fSelectedFont != null)
 			fSelectedFont.dispose();
+
+		for (final Color color : fManagedColors.values())
+			color.dispose();
 	}
 
 	@Override
@@ -173,5 +183,18 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 		}
 
 		return fSelectedFont;
+	}
+
+	@Override
+	public double getZoomFactor() {
+		return 1.2d;
+	}
+
+	@Override
+	public Color getColor(RGB rgb) {
+		if (!fManagedColors.containsKey(rgb))
+			fManagedColors.put(rgb, new Color(Display.getDefault(), rgb));
+
+		return fManagedColors.get(rgb);
 	}
 }

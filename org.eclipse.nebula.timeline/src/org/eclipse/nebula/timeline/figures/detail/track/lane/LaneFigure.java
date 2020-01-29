@@ -11,12 +11,24 @@
 
 package org.eclipse.nebula.timeline.figures.detail.track.lane;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.stream.Collectors;
+
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PrecisionRectangle;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.timeline.Helper;
+import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
-import org.eclipse.nebula.timeline.layouts.LaneLayout;
 
 public class LaneFigure extends Figure implements IStyledFigure {
 
@@ -39,6 +51,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 		return new Dimension(wHint, fPreferredHeight);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void add(IFigure figure, Object constraint, int index) {
 		super.add(figure, constraint, index);
@@ -48,4 +61,71 @@ public class LaneFigure extends Figure implements IStyledFigure {
 		});
 	}
 
+	public List<EventFigure> getChildEventFigures() {
+		return ((List<?>) getChildren()).stream().filter(p -> p instanceof EventFigure).map(p -> (EventFigure) p).collect(Collectors.toList());
+	}
+
+	private class LaneLayout extends XYLayout {
+
+		@Override
+		public Object getConstraint(IFigure figure) {
+			final ITimelineEvent event = (ITimelineEvent) super.getConstraint(figure);
+
+			return new PrecisionRectangle(event.getStartTimestamp(), 0, event.getDuration(), 1);
+		}
+
+		@Override
+		public void layout(IFigure parent) {
+			final TimeViewDetails timeViewDetails = Helper.getRootFigure(parent).getTimeViewDetails();
+
+			final Iterator<?> children = parent.getChildren().iterator();
+			final Point offset = getOrigin(parent);
+			IFigure f;
+			while (children.hasNext()) {
+				f = (IFigure) children.next();
+				final Rectangle bounds = (Rectangle) getConstraint(f);
+
+				// now bounds refers to the original bounds (unscaled and unmoved)
+				bounds.performTranslate(-timeViewDetails.getOffset().x(), 0);
+				bounds.performScale(timeViewDetails.getScaleFactor());
+
+				bounds.performTranslate(offset.x(), offset.y());
+
+				bounds.setHeight(parent.getBounds().height()); // height got scaled, revert
+
+				if (bounds.width() == 0)
+					bounds.setWidth(1);
+
+				f.setBounds(bounds);
+			}
+		}
+
+		/**
+		 * This is a copy of the parent method. Only change is that we call getContstraint() instead of directly accessing the constraints member.
+		 */
+		@Override
+		protected Dimension calculatePreferredSize(IFigure f, int wHint, int hHint) {
+			final Rectangle rect = new Rectangle();
+			final ListIterator children = f.getChildren().listIterator();
+			while (children.hasNext()) {
+				final IFigure child = (IFigure) children.next();
+				Rectangle r = (Rectangle) getConstraint(child);
+				if (r == null)
+					continue;
+
+				if ((r.width == -1) || (r.height == -1)) {
+					final Dimension preferredSize = child.getPreferredSize(r.width, r.height);
+					r = r.getCopy();
+					if (r.width == -1)
+						r.width = preferredSize.width;
+					if (r.height == -1)
+						r.height = preferredSize.height;
+				}
+				rect.union(r);
+			}
+			final Dimension d = rect.getSize();
+			final Insets insets = f.getInsets();
+			return new Dimension(d.width + insets.getWidth(), d.height + insets.getHeight()).union(getBorderPreferredSize(f));
+		}
+	}
 }

@@ -35,11 +35,13 @@ public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 		new OverviewSelector(this);
 	}
 
-	public void addEvent(EventFigure eventFigure) {
-		final OverviewEventFigure overviewFigure = new OverviewEventFigure(eventFigure);
-		overviewFigure.setForegroundColor(eventFigure.getForegroundColor());
+	public OverviewEventFigure addEvent(EventFigure eventFigure) {
+		final OverviewEventFigure overviewEventFigure = new OverviewEventFigure(eventFigure);
+		overviewEventFigure.setForegroundColor(eventFigure.getForegroundColor());
 
-		add(overviewFigure, eventFigure);
+		add(overviewEventFigure, eventFigure);
+
+		return overviewEventFigure;
 	}
 
 	@Override

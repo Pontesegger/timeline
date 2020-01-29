@@ -39,9 +39,7 @@ import org.eclipse.nebula.timeline.figures.detail.track.TrackFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
-import org.eclipse.nebula.timeline.figures.overview.OverviewCursorFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
-import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
@@ -51,7 +49,6 @@ public class TimelineViewer extends StructuredViewer {
 	private final TimelineComposite fControl;
 
 	private final ModelMap fElementToFigureMap = new ModelMap();
-	private final ModelMap fElementToOverviewFigureMap = new ModelMap();
 
 	private ITimelineEditingSupport fEditingSupport = null;
 
@@ -67,7 +64,6 @@ public class TimelineViewer extends StructuredViewer {
 	public TimelineViewer(Composite parent, int flags) {
 
 		fControl = new TimelineComposite(parent, flags);
-		fControl.getRootFigure().setViewer(this);
 
 		setContentProvider(new DefaultTimelineContentProvider());
 		setLabelProvider(new DefaultTimelineLabelProvider());
@@ -104,8 +100,8 @@ public class TimelineViewer extends StructuredViewer {
 
 	@Override
 	protected void inputChanged(Object input, Object oldInput) {
+		// TODO keep set of damaged figures as small as possible
 		fElementToFigureMap.clear();
-		fElementToOverviewFigureMap.clear();
 		registerFigure(input, getControl().getRootFigure());
 
 		final ITimelineContentProvider contentProvider = getContentProvider();
@@ -202,11 +198,8 @@ public class TimelineViewer extends StructuredViewer {
 				for (final Object cursorElement : getContentProvider().getCursors(getInput())) {
 					final ICursor cursor = getContentProvider().toCursor(cursorElement);
 
-					final CursorFigure cursorFigure = ((RootFigure) figure).addCursorFigure(cursor);
+					final CursorFigure cursorFigure = ((RootFigure) figure).createCursorFigure(cursor);
 					registerFigure(cursorElement, cursorFigure);
-
-					final OverviewCursorFigure overviewCursorFigure = ((RootFigure) figure).addOverviewCursorFigure(cursor);
-					registerOverviewFigure(cursorElement, overviewCursorFigure);
 				}
 
 			} else if (figure instanceof TrackFigure) {
@@ -225,40 +218,30 @@ public class TimelineViewer extends StructuredViewer {
 
 			} else if (figure instanceof LaneFigure) {
 				unregisterFigures(figure.getChildren());
-				((LaneFigure) figure).removeAll();
+				for (final EventFigure eventFigure : ((LaneFigure) figure).getChildEventFigures())
+					getControl().getRootFigure().deleteEventFigure(eventFigure);
 
 				final Object lane = getModelElementFor(figure);
 				for (final Object event : getContentProvider().getEvents(lane)) {
 					final ITimelineEvent timelineEvent = getContentProvider().toEvent(event);
 
-					final EventFigure eventFigure = new EventFigure(timelineEvent);
-					eventFigure.setEventColor(figure.getForegroundColor());
-
-					final PrecisionRectangle area = new PrecisionRectangle(timelineEvent.getStartTimestamp(), 0, timelineEvent.getDuration(), 1);
-
-					figure.add(eventFigure, area);
-					Helper.getTimeViewDetails(figure).addEvent(timelineEvent);
+					final EventFigure eventFigure = getControl().getRootFigure().createEventFigure(((LaneFigure) figure), timelineEvent);
 					fElementToFigureMap.put(event, eventFigure);
-
-					final OverviewLayer overview = Helper.getFigure(figure, OverviewLayer.class);
-					overview.addEvent(eventFigure);
 				}
+
 			} else if (figure instanceof CursorFigure) {
-				final RootFigure rootFigure = Helper.getRootFigure(figure);
 
 				if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
 					// this cursor is still available in the model
+					// TODO refresh cursor style
 
 				} else {
 					// cursor got deleted from the model
 					Helper.getFigure(figure, CursorLayer.class).remove(figure);
 					unregisterModelElement(element);
-
-					final IFigure overviewCursor = fElementToOverviewFigureMap.get(element);
-					if (overviewCursor != null)
-						Helper.getFigure(overviewCursor, OverviewCursorLayer.class).remove(overviewCursor);
 				}
 
+				final RootFigure rootFigure = Helper.getRootFigure(figure);
 				Helper.getFigure(rootFigure, CursorLayer.class).revalidate();
 				Helper.getFigure(rootFigure, OverviewCursorLayer.class).revalidate();
 			}
@@ -270,13 +253,8 @@ public class TimelineViewer extends StructuredViewer {
 			if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
 				// this is a new cursor
 				final ICursor cursor = getContentProvider().toCursor(element);
-				final RootFigure rootFigure = (RootFigure) fElementToFigureMap.get(getInput());
-
-				final CursorFigure cursorFigure = rootFigure.addCursorFigure(cursor);
+				final CursorFigure cursorFigure = getControl().getRootFigure().createCursorFigure(cursor);
 				registerFigure(element, cursorFigure);
-
-				final OverviewCursorFigure overviewCursorFigure = rootFigure.addOverviewCursorFigure(cursor);
-				registerOverviewFigure(element, overviewCursorFigure);
 			}
 		}
 	}
@@ -292,7 +270,6 @@ public class TimelineViewer extends StructuredViewer {
 
 	private void unregisterModelElement(Object modelElement) {
 		fElementToFigureMap.remove(modelElement);
-		fElementToOverviewFigureMap.remove(modelElement);
 	}
 
 	private void unregisterFigures(Collection<?> figures) {
@@ -306,10 +283,6 @@ public class TimelineViewer extends StructuredViewer {
 
 	private void registerFigure(Object modelElement, IFigure figure) {
 		fElementToFigureMap.put(modelElement, figure);
-	}
-
-	private void registerOverviewFigure(Object modelElement, IFigure figure) {
-		fElementToOverviewFigureMap.put(modelElement, figure);
 	}
 
 	public void createCursor(ICursor cursor) {

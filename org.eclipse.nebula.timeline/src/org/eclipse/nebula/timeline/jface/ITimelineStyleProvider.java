@@ -14,6 +14,7 @@ package org.eclipse.nebula.timeline.jface;
 import org.eclipse.draw2d.Border;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 
 public interface ITimelineStyleProvider {
 
@@ -133,7 +134,7 @@ public interface ITimelineStyleProvider {
 
 	/**
 	 * Apply styling to select an event figure.
-	 * 
+	 *
 	 * @param eventFigure
 	 *            figure to style
 	 */
@@ -141,9 +142,25 @@ public interface ITimelineStyleProvider {
 
 	/**
 	 * Revert styling of an event figure selection.
-	 * 
+	 *
 	 * @param eventFigure
 	 *            figure to revert style
 	 */
 	void unselectEvent(EventFigure eventFigure);
+
+	/**
+	 * Get the multiplier for the zoom factor to be applied on a zoomIn/zoomOut operation.
+	 *
+	 * @return zoom factor multiplier
+	 */
+	double getZoomFactor();
+
+	/**
+	 * Get a color for the given RGB value. The style provider should take care to buffer colors and to dispose them when the widget gets disposed.
+	 *
+	 * @param rgb
+	 *            RGB value to get color for
+	 * @return color
+	 */
+	Color getColor(RGB rgb);
 }

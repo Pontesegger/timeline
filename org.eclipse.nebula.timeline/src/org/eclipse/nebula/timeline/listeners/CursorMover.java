@@ -56,7 +56,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 		if (me.button == 3) {
 			hideCursorTimings();
 			final ICursor cursor = (ICursor) fFigure.getParent().getLayoutManager().getConstraint(fFigure);
-			Helper.getFigure(fFigure, RootFigure.class).removeCursor(cursor);
+			Helper.getFigure(fFigure, RootFigure.class).deleteCursor(cursor);
 		}
 
 		if (fLocation != null) {

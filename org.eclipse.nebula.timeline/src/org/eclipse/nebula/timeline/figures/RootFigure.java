@@ -11,7 +11,9 @@
 
 package org.eclipse.nebula.timeline.figures;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.draw2d.BorderLayout;
@@ -20,6 +22,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.ICursor;
+import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.ITimelineFactory;
 import org.eclipse.nebula.timeline.TimeViewDetails;
 import org.eclipse.nebula.timeline.figures.detail.DetailFigure;
@@ -31,23 +34,22 @@ import org.eclipse.nebula.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewCursorLayer;
+import org.eclipse.nebula.timeline.figures.overview.OverviewEventFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.timeline.figures.overview.OverviewLayer;
 import org.eclipse.nebula.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
-import org.eclipse.nebula.timeline.jface.TimelineViewer;
 
 public class RootFigure extends Figure implements IStyledFigure {
-
-	private static final double ZOOM_FACTOR = 1.2d;
 
 	private final TimeViewDetails fTimeViewDetails;
 
 	private ITimelineStyleProvider fStyleProvider = new DefaultTimelineStyleProvider();
 
-	private TimelineViewer fViewer;
-
 	private EventFigure fSelection;
+
+	/** Maps a given detail figure to its counterpart in the overview area. */
+	private final Map<IFigure, IFigure> fDetailToOverviewMap = new HashMap<>();
 
 	public RootFigure() {
 		fTimeViewDetails = new TimeViewDetails(this);
@@ -115,11 +117,12 @@ public class RootFigure extends Figure implements IStyledFigure {
 	}
 
 	public void zoomIn(int zoomCenterX) {
-		zoom(ZOOM_FACTOR, zoomCenterX);
+
+		zoom(getStyleProvider().getZoomFactor(), zoomCenterX);
 	}
 
 	public void zoomOut(int zoomCenterX) {
-		zoom(1 / ZOOM_FACTOR, zoomCenterX);
+		zoom(1 / getStyleProvider().getZoomFactor(), zoomCenterX);
 	}
 
 	public void zoom(double factor, int zoomCenterX) {
@@ -135,24 +138,6 @@ public class RootFigure extends Figure implements IStyledFigure {
 		return new TrackFigure(title, getStyleProvider());
 	}
 
-	public CursorFigure addCursorFigure(ICursor cursor) {
-		final CursorFigure cursorFigure = new CursorFigure(getStyleProvider());
-
-		final CursorLayer cursorLayer = Helper.getFigure(this, CursorLayer.class);
-		cursorLayer.add(cursorFigure, cursor);
-
-		return cursorFigure;
-	}
-
-	public OverviewCursorFigure addOverviewCursorFigure(ICursor cursor) {
-		final OverviewCursorFigure cursorFigure = new OverviewCursorFigure(getStyleProvider());
-
-		final OverviewCursorLayer cursorLayer = Helper.getFigure(this, OverviewCursorLayer.class);
-		cursorLayer.add(cursorFigure, cursor);
-
-		return cursorFigure;
-	}
-
 	/**
 	 * Create a new cursor model instance.
 	 *
@@ -164,53 +149,26 @@ public class RootFigure extends Figure implements IStyledFigure {
 		final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
 		cursor.setTimestamp(eventTime);
 
-		if ((fViewer != null) && (fViewer.getEditingSupport() != null)) {
-			// let viewer take care of cursor addition
-			fViewer.createCursor(cursor);
-
-		} else {
-			// manually add cursor
-			addCursorFigure(cursor);
-			addOverviewCursorFigure(cursor);
-		}
+		createCursorFigure(cursor);
 
 		return cursor;
 	}
 
 	/**
-	 * Remove a cursor.
+	 * Delete a cursor.
 	 *
 	 * @param cursor
-	 *            cursor to remove
+	 *            cursor to delete
 	 */
-	public void removeCursor(ICursor cursor) {
-		if ((fViewer != null) && (fViewer.getEditingSupport() != null)) {
-			// let viewer take care of cursor removal
-			fViewer.removeCursor(cursor);
-
-		} else {
-			// manually remove figures
-			for (final Class clazz : new Class[] { CursorLayer.class, OverviewCursorLayer.class }) {
-				final IFigure cursorLayer = (IFigure) Helper.getFigure(this, clazz);
-				final LayoutManager layoutManager = cursorLayer.getLayoutManager();
-				for (final Object child : cursorLayer.getChildren()) {
-					if (cursor.equals(layoutManager.getConstraint((IFigure) child))) {
-						cursorLayer.remove((IFigure) child);
-						break;
-					}
-				}
+	public void deleteCursor(ICursor cursor) {
+		final IFigure cursorLayer = Helper.getFigure(this, CursorLayer.class);
+		final LayoutManager layoutManager = cursorLayer.getLayoutManager();
+		for (final Object child : cursorLayer.getChildren()) {
+			if (cursor.equals(layoutManager.getConstraint((IFigure) child))) {
+				deleteCursorFigure((CursorFigure) child);
+				break;
 			}
 		}
-	}
-
-	/**
-	 * Set the JFace viewer.
-	 *
-	 * @param viewer
-	 *            JFace viewer
-	 */
-	public void setViewer(TimelineViewer viewer) {
-		fViewer = viewer;
 	}
 
 	/**
@@ -229,10 +187,94 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 	/**
 	 * Get the selected figure.
-	 * 
+	 *
 	 * @return selected figure or null
 	 */
 	public EventFigure getSelection() {
 		return fSelection;
+	}
+
+	/**
+	 * Create a new figure for the given event.
+	 *
+	 * @param parent
+	 *            parent figure for new eventFigure
+	 * @param event
+	 *            event to create figure for
+	 * @return created eventFigure in detail area
+	 */
+	public EventFigure createEventFigure(LaneFigure parent, ITimelineEvent event) {
+		final EventFigure eventFigure = new EventFigure(event);
+		parent.add(eventFigure, event);
+
+		eventFigure.setEventColor(parent.getForegroundColor());
+
+		Helper.getTimeViewDetails(parent).addEvent(event);
+
+		final OverviewLayer overview = Helper.getFigure(parent, OverviewLayer.class);
+		final OverviewEventFigure overviewEventFigure = overview.addEvent(eventFigure);
+
+		fDetailToOverviewMap.put(eventFigure, overviewEventFigure);
+
+		return eventFigure;
+	}
+
+	/**
+	 * Delete an eventFigure from its lane and the overview are.
+	 *
+	 * @param eventFigure
+	 *            figure to delete
+	 */
+	public void deleteEventFigure(EventFigure eventFigure) {
+		removeFigure(eventFigure);
+
+		final IFigure overvievFigure = fDetailToOverviewMap.remove(eventFigure);
+		if (overvievFigure != null)
+			removeFigure(overvievFigure);
+
+		// TODO recalculate total area in TimeViewDetails
+	}
+
+	private void removeFigure(IFigure figure) {
+		final IFigure parent = figure.getParent();
+		parent.remove(figure);
+
+		// TODO rather mark this area as damaged
+		parent.revalidate();
+	}
+
+	/**
+	 * Create a cursor figure.
+	 *
+	 * @param cursor
+	 *            cursor to create
+	 * @return created figure in detail area
+	 */
+	public CursorFigure createCursorFigure(ICursor cursor) {
+		final CursorFigure cursorFigure = new CursorFigure(getStyleProvider());
+		final CursorLayer cursorLayer = Helper.getFigure(this, CursorLayer.class);
+		cursorLayer.add(cursorFigure, cursor);
+
+		final OverviewCursorFigure overviewCursorFigure = new OverviewCursorFigure(getStyleProvider());
+		final OverviewCursorLayer overviewCursorLayer = Helper.getFigure(this, OverviewCursorLayer.class);
+		overviewCursorLayer.add(overviewCursorFigure, cursor);
+
+		fDetailToOverviewMap.put(cursorFigure, overviewCursorFigure);
+
+		return cursorFigure;
+	}
+
+	/**
+	 * Delete a cursor figure from the detail and overview area.
+	 *
+	 * @param cursorFigure
+	 *            figure to delete
+	 */
+	public void deleteCursorFigure(CursorFigure cursorFigure) {
+		removeFigure(cursorFigure);
+
+		final IFigure overviewCursorFigure = fDetailToOverviewMap.remove(cursorFigure);
+		if (overviewCursorFigure != null)
+			removeFigure(overviewCursorFigure);
 	}
 }

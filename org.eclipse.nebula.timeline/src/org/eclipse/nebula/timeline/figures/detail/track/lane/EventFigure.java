@@ -18,11 +18,11 @@ import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.TreeSearch;
+import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.ITimelineEvent;
 import org.eclipse.nebula.timeline.layouts.CenterLayout;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
 
 public class EventFigure extends RoundedRectangle implements Comparable<EventFigure> {
 
@@ -53,7 +53,8 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 		setBackgroundColor(color);
 
 		final float[] hsb = color.getRGB().getHSB();
-		setForegroundColor(new Color(Display.getDefault(), new RGB(hsb[0], Math.min(1, hsb[1] * 2f), hsb[2] * 0.8f)));
+		setForegroundColor(Helper.getRootFigure(this).getStyleProvider().getColor(new RGB(hsb[0], Math.min(1, hsb[1] * 2f), hsb[2] * 0.8f)));
+
 		setAlpha(150);
 	}
 

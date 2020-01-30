@@ -23,15 +23,15 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
-import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IToolTipProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
-import org.eclipse.nebula.widgets.timeline.ITimeline;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
 import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
 import org.eclipse.nebula.widgets.timeline.TimelineComposite;
+import org.eclipse.nebula.widgets.timeline.Timings;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorLayer;
@@ -51,8 +51,8 @@ public class TimelineViewer extends StructuredViewer {
 	private final ModelMap fElementToFigureMap = new ModelMap();
 
 	/**
-	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. To get the model, use
-	 * {@link #getModel()}. When replacing the input, make sure to also replace content and label providers according to your used datatypes.
+	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. When replacing the input, make sure to
+	 * also replace content and label providers according to your used datatypes.
 	 *
 	 * @param parent
 	 *            parent composite
@@ -69,8 +69,8 @@ public class TimelineViewer extends StructuredViewer {
 	}
 
 	/**
-	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. To get the model, use
-	 * {@link #getModel()}. When replacing the input, make sure to also replace content and label providers according to your used datatypes.
+	 * Create a timeline viewer. The viewer will automatically populate input, a content provider and a label provider. When replacing the input, make sure to
+	 * also replace content and label providers according to your used datatypes.
 	 *
 	 * @param parent
 	 *            parent composite
@@ -100,17 +100,6 @@ public class TimelineViewer extends StructuredViewer {
 		super.inputChanged(input, oldInput);
 	}
 
-	/**
-	 * Get the timeline model backing this viewer. In case a custom model type is used, this method returns <code>null</code>.
-	 *
-	 * @return timeline model or null
-	 */
-	public ITimeline getModel() {
-		final Object input = getInput();
-
-		return (input instanceof ITimeline) ? (ITimeline) input : null;
-	}
-
 	@Override
 	public void setContentProvider(IContentProvider provider) {
 		if (!(provider instanceof ITimelineContentProvider))
@@ -126,15 +115,15 @@ public class TimelineViewer extends StructuredViewer {
 
 	@Override
 	public void setLabelProvider(IBaseLabelProvider labelProvider) {
-		if (!(labelProvider instanceof ILabelProvider))
-			throw new IllegalArgumentException("Label provider needs to implement ILabelProvider");
+		if (!(labelProvider instanceof ITimelineLabelProvider))
+			throw new IllegalArgumentException("Label provider needs to implement ITimelineLabelProvider");
 
 		super.setLabelProvider(labelProvider);
 	}
 
 	@Override
-	public ILabelProvider getLabelProvider() {
-		return (ILabelProvider) super.getLabelProvider();
+	public ITimelineLabelProvider getLabelProvider() {
+		return (ITimelineLabelProvider) super.getLabelProvider();
 	}
 
 	@Override
@@ -197,14 +186,47 @@ public class TimelineViewer extends StructuredViewer {
 		if (figure != null) {
 
 			if (isCursorElement(element))
-				getControl().getRootFigure().updateCursorFigure(figure, getContentProvider().toCursor(element));
+				getControl().getRootFigure().updateCursorFigure(figure, toCursor(element));
 
-			if (isTrackElement(element))
-				getControl().getRootFigure().updateTrackFigure(figure, element.toString());
+			else if (isTrackElement(element))
+				getControl().getRootFigure().updateTrackFigure(figure, getLabelProvider().getText(element));
 
 			else if (isEventElement(element))
-				getControl().getRootFigure().updateEventFigure(figure, getContentProvider().toEvent(element));
+				getControl().getRootFigure().updateEventFigure(figure, toEvent(element));
 		}
+	}
+
+	private ICursor toCursor(Object element) {
+		final Timings timings = getLabelProvider().getTimings(element);
+
+		if (timings != null) {
+			final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
+			cursor.setTimestamp(timings.getTimestamp());
+
+			return cursor;
+		}
+
+		return null;
+	}
+
+	private ITimelineEvent toEvent(Object element) {
+		final Timings timings = getLabelProvider().getTimings(element);
+
+		if (timings != null) {
+			final ITimelineEvent event = ITimelineFactory.eINSTANCE.createTimelineEvent();
+			event.setStartTimestamp(timings.getTimestamp());
+			event.setDuration(timings.getDuration());
+
+			final ITimelineLabelProvider labelProvider = getLabelProvider();
+			event.setTitle(labelProvider.getText(element));
+
+			if (labelProvider instanceof IToolTipProvider)
+				event.setMessage(((IToolTipProvider) labelProvider).getToolTipText(element));
+
+			return event;
+		}
+
+		return null;
 	}
 
 	@Override
@@ -229,9 +251,7 @@ public class TimelineViewer extends StructuredViewer {
 				}
 
 				for (final Object cursorElement : getContentProvider().getCursors(getInput())) {
-					final ICursor cursor = getContentProvider().toCursor(cursorElement);
-
-					final CursorFigure cursorFigure = ((RootFigure) figure).createCursorFigure(cursor);
+					final CursorFigure cursorFigure = ((RootFigure) figure).createCursorFigure(toCursor(cursorElement));
 					registerFigure(cursorElement, cursorFigure);
 				}
 
@@ -256,9 +276,7 @@ public class TimelineViewer extends StructuredViewer {
 
 				final Object lane = getModelElementFor(figure);
 				for (final Object event : getContentProvider().getEvents(lane)) {
-					final ITimelineEvent timelineEvent = getContentProvider().toEvent(event);
-
-					final EventFigure eventFigure = getControl().getRootFigure().createEventFigure(((LaneFigure) figure), timelineEvent);
+					final EventFigure eventFigure = getControl().getRootFigure().createEventFigure(((LaneFigure) figure), toEvent(event));
 					fElementToFigureMap.put(event, eventFigure);
 				}
 
@@ -285,8 +303,7 @@ public class TimelineViewer extends StructuredViewer {
 			// the object does not have a figure representation
 			if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
 				// this is a new cursor
-				final ICursor cursor = getContentProvider().toCursor(element);
-				final CursorFigure cursorFigure = getControl().getRootFigure().createCursorFigure(cursor);
+				final CursorFigure cursorFigure = getControl().getRootFigure().createCursorFigure(toCursor(element));
 				registerFigure(element, cursorFigure);
 			}
 		}
@@ -328,9 +345,9 @@ public class TimelineViewer extends StructuredViewer {
 
 	@Override
 	public void reveal(Object element) {
-		element = getContentProvider().toEvent(element);
+		element = toEvent(element);
 		if (element == null)
-			element = getContentProvider().toCursor(element);
+			element = toCursor(element);
 
 		if (element instanceof ITimelineEvent) {
 			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
@@ -357,10 +374,12 @@ public class TimelineViewer extends StructuredViewer {
 	@Override
 	protected void setSelectionToWidget(List l, boolean reveal) {
 		if (!l.isEmpty()) {
-			final ITimelineEvent event = getContentProvider().toEvent(l.get(0));
-			final IFigure eventFigure = fElementToFigureMap.get(event);
-			if (eventFigure instanceof EventFigure)
-				getControl().getRootFigure().setSelection((EventFigure) eventFigure);
+			final ITimelineEvent event = toEvent(l.get(0));
+			if (event != null) {
+				final IFigure eventFigure = fElementToFigureMap.get(event);
+				if (eventFigure instanceof EventFigure)
+					getControl().getRootFigure().setSelection((EventFigure) eventFigure);
+			}
 
 		} else
 			getControl().getRootFigure().setSelection(null);

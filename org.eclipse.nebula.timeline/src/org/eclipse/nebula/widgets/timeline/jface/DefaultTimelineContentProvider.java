@@ -11,10 +11,8 @@
 
 package org.eclipse.nebula.widgets.timeline.jface;
 
-import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ILane;
 import org.eclipse.nebula.widgets.timeline.ITimeline;
-import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITrack;
 
 /**
@@ -51,21 +49,5 @@ public class DefaultTimelineContentProvider implements ITimelineContentProvider 
 			return ((ITimeline) input).getCursors().toArray();
 
 		return new Object[0];
-	}
-
-	@Override
-	public ITimelineEvent toEvent(Object eventElement) {
-		if (eventElement instanceof ITimelineEvent)
-			return (ITimelineEvent) eventElement;
-
-		return null;
-	}
-
-	@Override
-	public ICursor toCursor(Object element) {
-		if (element instanceof ICursor)
-			return (ICursor) element;
-
-		return null;
 	}
 }

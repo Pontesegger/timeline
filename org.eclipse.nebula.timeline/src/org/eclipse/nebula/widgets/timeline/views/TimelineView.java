@@ -29,7 +29,7 @@ public class TimelineView extends ViewPart {
 		// createRandomContent();
 
 		fTimelineViewer = new TimelineViewer(parent, SWT.NULL);
-		final ITimeline model = fTimelineViewer.getModel();
+		final ITimeline model = (ITimeline) fTimelineViewer.getInput();
 		new TimelineDataBinding(fTimelineViewer, model);
 
 		createRandomContent(model);

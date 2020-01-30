@@ -6,8 +6,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
-
-import org.eclipse.nebula.timeline.*;
+import org.eclipse.nebula.timeline.ICursor;
+import org.eclipse.nebula.timeline.ILane;
+import org.eclipse.nebula.timeline.ITimeline;
+import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.timeline.ITimelinePackage;
+import org.eclipse.nebula.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.*;
 
 /**
  * <!-- begin-user-doc -->

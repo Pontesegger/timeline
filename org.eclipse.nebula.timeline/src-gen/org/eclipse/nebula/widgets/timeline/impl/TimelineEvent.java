@@ -11,7 +11,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.nebula.widgets.timeline.ILane;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
@@ -32,7 +31,7 @@ import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
  *
  * @generated
  */
-public class TimelineEvent extends MinimalEObjectImpl.Container implements ITimelineEvent {
+public class TimelineEvent extends Colored implements ITimelineEvent {
 	/**
 	 * The default value of the '{@link #getStartTimestamp() <em>Start Timestamp</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

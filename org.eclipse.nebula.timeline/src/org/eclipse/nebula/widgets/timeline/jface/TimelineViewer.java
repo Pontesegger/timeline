@@ -22,6 +22,7 @@ import java.util.Map;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IToolTipProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
@@ -41,10 +42,36 @@ import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 
 public class TimelineViewer extends StructuredViewer {
+
+	/**
+	 * Convert a color into its color code.
+	 *
+	 * @param color
+	 *            color to convert
+	 * @return HTML color code, eg '#12557F'
+	 */
+	private static String toColorCode(Color color) {
+		final RGB rgb = color.getRGB();
+
+		return "#" + toHexValue(rgb.red) + toHexValue(rgb.green) + toHexValue(rgb.blue);
+	}
+
+	/**
+	 * Convert a numeric value to a 2 digit hex value.
+	 *
+	 * @param value
+	 * @return 2 digit hex value
+	 */
+	private static String toHexValue(int value) {
+		final String result = Integer.toString(value, 16);
+		return (result.length() == 2) ? result : "0" + result;
+	}
 
 	private final TimelineComposite fControl;
 
@@ -64,7 +91,7 @@ public class TimelineViewer extends StructuredViewer {
 		fControl = new TimelineComposite(parent, flags);
 
 		setContentProvider(new DefaultTimelineContentProvider());
-		setLabelProvider(new DefaultTimelineLabelProvider());
+		setLabelProvider(new DefaultTimelineLabelProvider(fControl.getRootFigure().getResourceManager()));
 		setInput(ITimelineFactory.eINSTANCE.createTimeline());
 	}
 
@@ -193,12 +220,27 @@ public class TimelineViewer extends StructuredViewer {
 
 			else if (isEventElement(element))
 				getControl().getRootFigure().updateEventFigure(figure, toEvent(element));
+
+			else if (isLaneElement(element)) {
+				if (getLabelProvider() instanceof IColorProvider) {
+					// color update for all elements
+					Color foreground = ((IColorProvider) getLabelProvider()).getForeground(element);
+					if (foreground == null)
+						foreground = getStyleProvider().getLaneColor();
+
+					figure.setForegroundColor(foreground);
+
+					internalRefresh(element);
+				}
+			}
 		}
 	}
 
 	private ICursor toCursor(Object element) {
-		final Timings timings = getLabelProvider().getTimings(element);
+		if (element instanceof ICursor)
+			return (ICursor) element;
 
+		final Timings timings = getLabelProvider().getTimings(element);
 		if (timings != null) {
 			final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
 			cursor.setTimestamp(timings.getTimestamp());
@@ -210,8 +252,10 @@ public class TimelineViewer extends StructuredViewer {
 	}
 
 	private ITimelineEvent toEvent(Object element) {
-		final Timings timings = getLabelProvider().getTimings(element);
+		if (element instanceof ITimelineEvent)
+			return (ITimelineEvent) element;
 
+		final Timings timings = getLabelProvider().getTimings(element);
 		if (timings != null) {
 			final ITimelineEvent event = ITimelineFactory.eINSTANCE.createTimelineEvent();
 			event.setStartTimestamp(timings.getTimestamp());
@@ -222,6 +266,9 @@ public class TimelineViewer extends StructuredViewer {
 
 			if (labelProvider instanceof IToolTipProvider)
 				event.setMessage(((IToolTipProvider) labelProvider).getToolTipText(element));
+
+			if (labelProvider instanceof IColorProvider)
+				event.setColorCode(toColorCode(((IColorProvider) labelProvider).getForeground(element)));
 
 			return event;
 		}

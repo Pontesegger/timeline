@@ -11,13 +11,24 @@
 
 package org.eclipse.nebula.widgets.timeline.jface;
 
+import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IToolTipProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.nebula.widgets.timeline.IColored;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.Timings;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 
-public class DefaultTimelineLabelProvider extends LabelProvider implements ITimelineLabelProvider, IToolTipProvider {
+public class DefaultTimelineLabelProvider extends LabelProvider implements ITimelineLabelProvider, IToolTipProvider, IColorProvider {
+
+	private final ResourceManager fResourceManager;
+
+	public DefaultTimelineLabelProvider(ResourceManager resourceManager) {
+		fResourceManager = resourceManager;
+	}
 
 	@Override
 	public String getToolTipText(Object element) {
@@ -35,6 +46,22 @@ public class DefaultTimelineLabelProvider extends LabelProvider implements ITime
 		if (element instanceof ICursor)
 			return new Timings(((ICursor) element).getTimestamp());
 
+		return null;
+	}
+
+	@Override
+	public Color getForeground(Object element) {
+		if (element instanceof IColored) {
+			final RGB rgb = ((IColored) element).getRgb();
+			if (rgb != null)
+				return fResourceManager.createColor(rgb);
+		}
+
+		return null;
+	}
+
+	@Override
+	public Color getBackground(Object element) {
 		return null;
 	}
 }

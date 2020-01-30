@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.nebula.widgets.timeline.IColored;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ILane;
 import org.eclipse.nebula.widgets.timeline.ITimeline;
@@ -66,7 +67,21 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass coloredEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EDataType timeUnitEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType rgbEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -445,8 +460,48 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getColored() {
+		return coloredEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getColored_ColorCode() {
+		return (EAttribute)coloredEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getColored_Rgb() {
+		return (EAttribute)coloredEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EDataType getTimeUnit() {
 		return timeUnitEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getRGB() {
+		return rgbEDataType;
 	}
 
 	/**
@@ -514,8 +569,13 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		createEReference(cursorEClass, CURSOR__TIMELINE);
 		createEAttribute(cursorEClass, CURSOR__TIMESTAMP);
 
+		coloredEClass = createEClass(COLORED);
+		createEAttribute(coloredEClass, COLORED__COLOR_CODE);
+		createEAttribute(coloredEClass, COLORED__RGB);
+
 		// Create data types
 		timeUnitEDataType = createEDataType(TIME_UNIT);
+		rgbEDataType = createEDataType(RGB);
 	}
 
 	/**
@@ -546,6 +606,8 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		laneEClass.getESuperTypes().add(this.getColored());
+		timelineEventEClass.getESuperTypes().add(this.getColored());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(timelineEClass, ITimeline.class, "Timeline", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -615,8 +677,13 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		initEReference(getCursor_Timeline(), this.getTimeline(), this.getTimeline_Cursors(), "timeline", null, 1, 1, ICursor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCursor_Timestamp(), ecorePackage.getELong(), "timestamp", null, 0, 1, ICursor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(coloredEClass, IColored.class, "Colored", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getColored_ColorCode(), ecorePackage.getEString(), "colorCode", null, 0, 1, IColored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColored_Rgb(), this.getRGB(), "rgb", null, 0, 1, IColored.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
 		// Initialize data types
 		initEDataType(timeUnitEDataType, TimeUnit.class, "TimeUnit", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(rgbEDataType, org.eclipse.swt.graphics.RGB.class, "RGB", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

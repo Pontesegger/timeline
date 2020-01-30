@@ -5,8 +5,6 @@ package org.eclipse.nebula.widgets.timeline;
 import java.util.concurrent.TimeUnit;
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Lane</b></em>'.
@@ -24,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ILane extends EObject {
+public interface ILane extends IColored {
 	/**
 	 * Returns the value of the '<em><b>Track</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.nebula.widgets.timeline.ITrack#getLanes <em>Lanes</em>}'.

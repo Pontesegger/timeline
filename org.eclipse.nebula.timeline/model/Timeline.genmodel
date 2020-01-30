@@ -9,6 +9,7 @@
   <genPackages prefix="Timeline" basePackage="org.eclipse.nebula.widgets" disposableProviderFactory="true"
       ecorePackage="Timeline.ecore#/">
     <genDataTypes ecoreDataType="Timeline.ecore#//TimeUnit"/>
+    <genDataTypes ecoreDataType="Timeline.ecore#//RGB"/>
     <genClasses ecoreClass="Timeline.ecore#//Timeline">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/tracks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/cursors"/>
@@ -73,6 +74,10 @@
     <genClasses ecoreClass="Timeline.ecore#//Cursor">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Timeline.ecore#//Cursor/timeline"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Cursor/timestamp"/>
+    </genClasses>
+    <genClasses ecoreClass="Timeline.ecore#//Colored">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Colored/colorCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Colored/rgb"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

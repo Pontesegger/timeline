@@ -11,13 +11,11 @@
 
 package org.eclipse.nebula.widgets.timeline.jface;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.resource.FontDescriptor;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.nebula.widgets.timeline.borders.LeftRightBorder;
 import org.eclipse.nebula.widgets.timeline.borders.RoundedRectangleBorder;
 import org.eclipse.nebula.widgets.timeline.borders.TrackBorder;
@@ -26,7 +24,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
 
 public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 
@@ -41,16 +38,11 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	/** Custom font for selected events. Managed by styleProvider. */
 	private Font fSelectedFont = null;
 
-	/** Colors managed by styleProvider. */
-	private final Map<RGB, Color> fManagedColors = new HashMap<>();
+	/** Resource manager shared with widget. */
+	private final ResourceManager fResourceManager;
 
-	@Override
-	public void dispose() {
-		if (fSelectedFont != null)
-			fSelectedFont.dispose();
-
-		for (final Color color : fManagedColors.values())
-			color.dispose();
+	public DefaultTimelineStyleProvider(ResourceManager resourceManager) {
+		fResourceManager = resourceManager;
 	}
 
 	@Override
@@ -179,7 +171,7 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 		if (fSelectedFont == null) {
 			FontDescriptor fontDescriptor = FontDescriptor.createFrom(fDefaultFont).setStyle(SWT.BOLD);
 			fontDescriptor = fontDescriptor.setHeight((int) (fDefaultFont.getFontData()[0].getHeight() * 1.4));
-			fSelectedFont = fontDescriptor.createFont(Display.getDefault());
+			fSelectedFont = fResourceManager.createFont(fontDescriptor);
 		}
 
 		return fSelectedFont;
@@ -192,10 +184,7 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 
 	@Override
 	public Color getColor(RGB rgb) {
-		if (!fManagedColors.containsKey(rgb))
-			fManagedColors.put(rgb, new Color(Display.getDefault(), rgb));
-
-		return fManagedColors.get(rgb);
+		return fResourceManager.createColor(rgb);
 	}
 
 	@Override

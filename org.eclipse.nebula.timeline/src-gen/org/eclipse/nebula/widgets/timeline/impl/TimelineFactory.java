@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.nebula.widgets.timeline.*;
+import org.eclipse.swt.graphics.RGB;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,6 +78,8 @@ public class TimelineFactory extends EFactoryImpl implements ITimelineFactory {
 		switch (eDataType.getClassifierID()) {
 			case ITimelinePackage.TIME_UNIT:
 				return createTimeUnitFromString(eDataType, initialValue);
+			case ITimelinePackage.RGB:
+				return createRGBFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -92,6 +95,8 @@ public class TimelineFactory extends EFactoryImpl implements ITimelineFactory {
 		switch (eDataType.getClassifierID()) {
 			case ITimelinePackage.TIME_UNIT:
 				return convertTimeUnitToString(eDataType, instanceValue);
+			case ITimelinePackage.RGB:
+				return convertRGBToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -167,6 +172,24 @@ public class TimelineFactory extends EFactoryImpl implements ITimelineFactory {
 	 * @generated
 	 */
 	public String convertTimeUnitToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RGB createRGBFromString(EDataType eDataType, String initialValue) {
+		return (RGB)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRGBToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

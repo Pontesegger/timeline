@@ -3,7 +3,6 @@
 package org.eclipse.nebula.widgets.timeline;
 
 import java.util.concurrent.TimeUnit;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ITimelineEvent extends EObject {
+public interface ITimelineEvent extends IColored {
 	/**
 	 * Returns the value of the '<em><b>Lane</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.nebula.widgets.timeline.ILane#getTimeEvents <em>Time Events</em>}'.

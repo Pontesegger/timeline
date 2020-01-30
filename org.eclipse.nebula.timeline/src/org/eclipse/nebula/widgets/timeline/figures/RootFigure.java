@@ -21,6 +21,7 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
@@ -41,12 +42,13 @@ import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewLayer;
 import org.eclipse.nebula.widgets.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.ICursorListener;
+import org.eclipse.swt.graphics.Color;
 
 public class RootFigure extends Figure implements IStyledFigure {
 
 	private final TimeViewDetails fTimeViewDetails;
 
-	private ITimelineStyleProvider fStyleProvider = new DefaultTimelineStyleProvider();
+	private ITimelineStyleProvider fStyleProvider;
 
 	private EventFigure fSelection;
 
@@ -55,7 +57,12 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 	private final ListenerList<ICursorListener> fCursorListener = new ListenerList<>();
 
-	public RootFigure() {
+	private final ResourceManager fResourceManager;
+
+	public RootFigure(ResourceManager resourceManager) {
+		fResourceManager = resourceManager;
+		setStyleProvider(null);
+
 		fTimeViewDetails = new TimeViewDetails(this);
 
 		final BorderLayout layout = new BorderLayout();
@@ -70,9 +77,13 @@ public class RootFigure extends Figure implements IStyledFigure {
 	}
 
 	public void setStyleProvider(ITimelineStyleProvider styleProvider) {
-		fStyleProvider = (styleProvider != null) ? styleProvider : new DefaultTimelineStyleProvider();
+		fStyleProvider = (styleProvider != null) ? styleProvider : new DefaultTimelineStyleProvider(fResourceManager);
 
 		fireStyleChanged();
+	}
+
+	public ResourceManager getResourceManager() {
+		return fResourceManager;
 	}
 
 	/**
@@ -249,10 +260,15 @@ public class RootFigure extends Figure implements IStyledFigure {
 	 * @return created eventFigure in detail area
 	 */
 	public EventFigure createEventFigure(LaneFigure parent, ITimelineEvent event) {
+
 		final EventFigure eventFigure = new EventFigure(event);
 		parent.add(eventFigure, event);
 
-		eventFigure.setEventColor(parent.getForegroundColor());
+		Color eventColor = parent.getForegroundColor();
+		if (event.getColorCode() != null)
+			eventColor = getStyleProvider().getColor(event.getRgb());
+
+		eventFigure.setEventColor(eventColor);
 
 		Helper.getTimeViewDetails(parent).addEvent(event);
 

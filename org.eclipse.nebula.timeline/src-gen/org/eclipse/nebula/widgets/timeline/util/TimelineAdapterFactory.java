@@ -87,6 +87,10 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 				return createCursorAdapter();
 			}
 			@Override
+			public Adapter caseColored(IColored object) {
+				return createColoredAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -173,6 +177,20 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCursorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.widgets.timeline.IColored <em>Colored</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.nebula.widgets.timeline.IColored
+	 * @generated
+	 */
+	public Adapter createColoredAdapter() {
 		return null;
 	}
 

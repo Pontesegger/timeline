@@ -205,6 +205,52 @@ public interface ITimelinePackage extends EPackage {
 	int TRACK_OPERATION_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Colored <em>Colored</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.nebula.widgets.timeline.impl.Colored
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getColored()
+	 * @generated
+	 */
+	int COLORED = 5;
+
+	/**
+	 * The feature id for the '<em><b>Color Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLORED__COLOR_CODE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Rgb</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLORED__RGB = 1;
+
+	/**
+	 * The number of structural features of the '<em>Colored</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLORED_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Colored</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLORED_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Lane <em>Lane</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -215,13 +261,31 @@ public interface ITimelinePackage extends EPackage {
 	int LANE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Color Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANE__COLOR_CODE = COLORED__COLOR_CODE;
+
+	/**
+	 * The feature id for the '<em><b>Rgb</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANE__RGB = COLORED__RGB;
+
+	/**
 	 * The feature id for the '<em><b>Track</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LANE__TRACK = 0;
+	int LANE__TRACK = COLORED_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Time Events</b></em>' containment reference list.
@@ -230,7 +294,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANE__TIME_EVENTS = 1;
+	int LANE__TIME_EVENTS = COLORED_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Lane</em>' class.
@@ -239,7 +303,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANE_FEATURE_COUNT = 2;
+	int LANE_FEATURE_COUNT = COLORED_FEATURE_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Add Event</em>' operation.
@@ -248,7 +312,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANE___ADD_EVENT__STRING_STRING_LONG_LONG_TIMEUNIT = 0;
+	int LANE___ADD_EVENT__STRING_STRING_LONG_LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Add Event</em>' operation.
@@ -257,7 +321,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANE___ADD_EVENT__STRING_STRING_LONG_LONG = 1;
+	int LANE___ADD_EVENT__STRING_STRING_LONG_LONG = COLORED_OPERATION_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Lane</em>' class.
@@ -266,7 +330,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANE_OPERATION_COUNT = 2;
+	int LANE_OPERATION_COUNT = COLORED_OPERATION_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.TimelineEvent <em>Event</em>}' class.
@@ -279,13 +343,31 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE_EVENT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Color Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT__COLOR_CODE = COLORED__COLOR_CODE;
+
+	/**
+	 * The feature id for the '<em><b>Rgb</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT__RGB = COLORED__RGB;
+
+	/**
 	 * The feature id for the '<em><b>Lane</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT__LANE = 0;
+	int TIMELINE_EVENT__LANE = COLORED_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Start Timestamp</b></em>' attribute.
@@ -294,7 +376,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT__START_TIMESTAMP = 1;
+	int TIMELINE_EVENT__START_TIMESTAMP = COLORED_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>End Timestamp</b></em>' attribute.
@@ -303,7 +385,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT__END_TIMESTAMP = 2;
+	int TIMELINE_EVENT__END_TIMESTAMP = COLORED_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -312,7 +394,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT__TITLE = 3;
+	int TIMELINE_EVENT__TITLE = COLORED_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -321,7 +403,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT__MESSAGE = 4;
+	int TIMELINE_EVENT__MESSAGE = COLORED_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Event</em>' class.
@@ -330,7 +412,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT_FEATURE_COUNT = 5;
+	int TIMELINE_EVENT_FEATURE_COUNT = COLORED_FEATURE_COUNT + 5;
 
 	/**
 	 * The operation id for the '<em>Get Duration</em>' operation.
@@ -339,7 +421,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___GET_DURATION = 0;
+	int TIMELINE_EVENT___GET_DURATION = COLORED_OPERATION_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Set Start Timestamp</em>' operation.
@@ -348,7 +430,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT = 1;
+	int TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 1;
 
 	/**
 	 * The operation id for the '<em>Set End Timestamp</em>' operation.
@@ -357,7 +439,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT = 2;
+	int TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Set Duration</em>' operation.
@@ -366,7 +448,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = 3;
+	int TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Set Duration</em>' operation.
@@ -375,7 +457,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_DURATION__LONG = 4;
+	int TIMELINE_EVENT___SET_DURATION__LONG = COLORED_OPERATION_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Event</em>' class.
@@ -384,7 +466,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT_OPERATION_COUNT = 5;
+	int TIMELINE_EVENT_OPERATION_COUNT = COLORED_OPERATION_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Cursor <em>Cursor</em>}' class.
@@ -441,8 +523,18 @@ public interface ITimelinePackage extends EPackage {
 	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimeUnit()
 	 * @generated
 	 */
-	int TIME_UNIT = 5;
+	int TIME_UNIT = 6;
 
+
+	/**
+	 * The meta object id for the '<em>RGB</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.swt.graphics.RGB
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getRGB()
+	 * @generated
+	 */
+	int RGB = 7;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ITimeline <em>Timeline</em>}'.
@@ -770,6 +862,38 @@ public interface ITimelinePackage extends EPackage {
 	EAttribute getCursor_Timestamp();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.IColored <em>Colored</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Colored</em>'.
+	 * @see org.eclipse.nebula.widgets.timeline.IColored
+	 * @generated
+	 */
+	EClass getColored();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.IColored#getColorCode <em>Color Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Color Code</em>'.
+	 * @see org.eclipse.nebula.widgets.timeline.IColored#getColorCode()
+	 * @see #getColored()
+	 * @generated
+	 */
+	EAttribute getColored_ColorCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.IColored#getRgb <em>Rgb</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rgb</em>'.
+	 * @see org.eclipse.nebula.widgets.timeline.IColored#getRgb()
+	 * @see #getColored()
+	 * @generated
+	 */
+	EAttribute getColored_Rgb();
+
+	/**
 	 * Returns the meta object for data type '{@link java.util.concurrent.TimeUnit <em>Time Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -779,6 +903,17 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getTimeUnit();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.swt.graphics.RGB <em>RGB</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>RGB</em>'.
+	 * @see org.eclipse.swt.graphics.RGB
+	 * @model instanceClass="org.eclipse.swt.graphics.RGB"
+	 * @generated
+	 */
+	EDataType getRGB();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1062,6 +1197,32 @@ public interface ITimelinePackage extends EPackage {
 		EAttribute CURSOR__TIMESTAMP = eINSTANCE.getCursor_Timestamp();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.impl.Colored <em>Colored</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.nebula.widgets.timeline.impl.Colored
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getColored()
+		 * @generated
+		 */
+		EClass COLORED = eINSTANCE.getColored();
+
+		/**
+		 * The meta object literal for the '<em><b>Color Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLORED__COLOR_CODE = eINSTANCE.getColored_ColorCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Rgb</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLORED__RGB = eINSTANCE.getColored_Rgb();
+
+		/**
 		 * The meta object literal for the '<em>Time Unit</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1070,6 +1231,16 @@ public interface ITimelinePackage extends EPackage {
 		 * @generated
 		 */
 		EDataType TIME_UNIT = eINSTANCE.getTimeUnit();
+
+		/**
+		 * The meta object literal for the '<em>RGB</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.swt.graphics.RGB
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getRGB()
+		 * @generated
+		 */
+		EDataType RGB = eINSTANCE.getRGB();
 
 	}
 

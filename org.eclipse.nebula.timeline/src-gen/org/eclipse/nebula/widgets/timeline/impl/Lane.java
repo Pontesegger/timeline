@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -34,7 +33,7 @@ import org.eclipse.nebula.widgets.timeline.ITrack;
  *
  * @generated
  */
-public class Lane extends MinimalEObjectImpl.Container implements ILane {
+public class Lane extends Colored implements ILane {
 	/**
 	 * The cached value of the '{@link #getTimeEvents() <em>Time Events</em>}' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

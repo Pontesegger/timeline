@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline.impl;
+package org.eclipse.nebula.widgets.timeline.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -16,11 +16,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.nebula.timeline.ILane;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITimelineFactory;
-import org.eclipse.nebula.timeline.ITimelinePackage;
-import org.eclipse.nebula.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.ILane;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
+import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
+import org.eclipse.nebula.widgets.timeline.ITrack;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Lane</b></em>'. <!-- end-user-doc -->
@@ -28,8 +28,8 @@ import org.eclipse.nebula.timeline.ITrack;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Lane#getTrack <em>Track</em>}</li>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Lane#getTimeEvents <em>Time Events</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Lane#getTrack <em>Track</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Lane#getTimeEvents <em>Time Events</em>}</li>
  * </ul>
  *
  * @generated

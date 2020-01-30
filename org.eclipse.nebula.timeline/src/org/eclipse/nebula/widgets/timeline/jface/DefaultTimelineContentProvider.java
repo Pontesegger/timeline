@@ -11,11 +11,11 @@
 
 package org.eclipse.nebula.widgets.timeline.jface;
 
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ILane;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ILane;
+import org.eclipse.nebula.widgets.timeline.ITimeline;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITrack;
 
 /**
  * Default content provider for timeline viewer. Expects the input to be of type {@link ITimeline}.

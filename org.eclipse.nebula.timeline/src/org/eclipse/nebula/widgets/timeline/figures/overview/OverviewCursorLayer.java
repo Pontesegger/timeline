@@ -16,8 +16,8 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.Helper;
+import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
 
 public class OverviewCursorLayer extends FreeformLayer {

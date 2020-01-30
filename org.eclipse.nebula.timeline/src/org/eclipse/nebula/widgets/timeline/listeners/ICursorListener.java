@@ -11,7 +11,7 @@
 
 package org.eclipse.nebula.widgets.timeline.listeners;
 
-import org.eclipse.nebula.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 
 /**

@@ -1,17 +1,11 @@
 /**
  */
-package org.eclipse.nebula.timeline.util;
+package org.eclipse.nebula.widgets.timeline.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ILane;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITimelinePackage;
-import org.eclipse.nebula.timeline.ITrack;
 import org.eclipse.nebula.widgets.timeline.*;
 
 /**
@@ -24,7 +18,7 @@ import org.eclipse.nebula.widgets.timeline.*;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.eclipse.nebula.timeline.ITimelinePackage
+ * @see org.eclipse.nebula.widgets.timeline.ITimelinePackage
  * @generated
  */
 public class TimelineSwitch<T> extends Switch<T> {

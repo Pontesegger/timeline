@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline;
+package org.eclipse.nebula.widgets.timeline;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.eclipse.nebula.timeline.ITimelineFactory
+ * @see org.eclipse.nebula.widgets.timeline.ITimelineFactory
  * @model kind="package"
  * @generated
  */
@@ -56,14 +56,14 @@ public interface ITimelinePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ITimelinePackage eINSTANCE = org.eclipse.nebula.timeline.impl.TimelinePackage.init();
+	ITimelinePackage eINSTANCE = org.eclipse.nebula.widgets.timeline.impl.TimelinePackage.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Timeline <em>Timeline</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Timeline <em>Timeline</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.nebula.timeline.impl.Timeline
-	 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTimeline()
+	 * @see org.eclipse.nebula.widgets.timeline.impl.Timeline
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimeline()
 	 * @generated
 	 */
 	int TIMELINE = 0;
@@ -141,11 +141,11 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE_OPERATION_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Track <em>Track</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Track <em>Track</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.nebula.timeline.impl.Track
-	 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTrack()
+	 * @see org.eclipse.nebula.widgets.timeline.impl.Track
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTrack()
 	 * @generated
 	 */
 	int TRACK = 1;
@@ -205,11 +205,11 @@ public interface ITimelinePackage extends EPackage {
 	int TRACK_OPERATION_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Lane <em>Lane</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Lane <em>Lane</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.nebula.timeline.impl.Lane
-	 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getLane()
+	 * @see org.eclipse.nebula.widgets.timeline.impl.Lane
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getLane()
 	 * @generated
 	 */
 	int LANE = 2;
@@ -269,11 +269,11 @@ public interface ITimelinePackage extends EPackage {
 	int LANE_OPERATION_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.TimelineEvent <em>Event</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.TimelineEvent <em>Event</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.nebula.timeline.impl.TimelineEvent
-	 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTimelineEvent()
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelineEvent
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimelineEvent()
 	 * @generated
 	 */
 	int TIMELINE_EVENT = 3;
@@ -387,11 +387,11 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE_EVENT_OPERATION_COUNT = 5;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Cursor <em>Cursor</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Cursor <em>Cursor</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.nebula.timeline.impl.Cursor
-	 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getCursor()
+	 * @see org.eclipse.nebula.widgets.timeline.impl.Cursor
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getCursor()
 	 * @generated
 	 */
 	int CURSOR = 4;
@@ -438,332 +438,332 @@ public interface ITimelinePackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see java.util.concurrent.TimeUnit
-	 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTimeUnit()
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimeUnit()
 	 * @generated
 	 */
 	int TIME_UNIT = 5;
 
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ITimeline <em>Timeline</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ITimeline <em>Timeline</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Timeline</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimeline
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline
 	 * @generated
 	 */
 	EClass getTimeline();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.timeline.ITimeline#getTracks <em>Tracks</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.widgets.timeline.ITimeline#getTracks <em>Tracks</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Tracks</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimeline#getTracks()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#getTracks()
 	 * @see #getTimeline()
 	 * @generated
 	 */
 	EReference getTimeline_Tracks();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.timeline.ITimeline#getCursors <em>Cursors</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.widgets.timeline.ITimeline#getCursors <em>Cursors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Cursors</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimeline#getCursors()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#getCursors()
 	 * @see #getTimeline()
 	 * @generated
 	 */
 	EReference getTimeline_Cursors();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.nebula.timeline.ITimeline#getSelectedEvent <em>Selected Event</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.nebula.widgets.timeline.ITimeline#getSelectedEvent <em>Selected Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Selected Event</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimeline#getSelectedEvent()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#getSelectedEvent()
 	 * @see #getTimeline()
 	 * @generated
 	 */
 	EReference getTimeline_SelectedEvent();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimeline#createTrack(java.lang.String) <em>Create Track</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimeline#createTrack(java.lang.String) <em>Create Track</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Create Track</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimeline#createTrack(java.lang.String)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#createTrack(java.lang.String)
 	 * @generated
 	 */
 	EOperation getTimeline__CreateTrack__String();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimeline#createCursor(long, java.util.concurrent.TimeUnit) <em>Create Cursor</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimeline#createCursor(long, java.util.concurrent.TimeUnit) <em>Create Cursor</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Create Cursor</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimeline#createCursor(long, java.util.concurrent.TimeUnit)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#createCursor(long, java.util.concurrent.TimeUnit)
 	 * @generated
 	 */
 	EOperation getTimeline__CreateCursor__long_TimeUnit();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimeline#createCursor(long) <em>Create Cursor</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimeline#createCursor(long) <em>Create Cursor</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Create Cursor</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimeline#createCursor(long)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#createCursor(long)
 	 * @generated
 	 */
 	EOperation getTimeline__CreateCursor__long();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ITrack <em>Track</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ITrack <em>Track</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Track</em>'.
-	 * @see org.eclipse.nebula.timeline.ITrack
+	 * @see org.eclipse.nebula.widgets.timeline.ITrack
 	 * @generated
 	 */
 	EClass getTrack();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.timeline.ITrack#getTimeline <em>Timeline</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.widgets.timeline.ITrack#getTimeline <em>Timeline</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Timeline</em>'.
-	 * @see org.eclipse.nebula.timeline.ITrack#getTimeline()
+	 * @see org.eclipse.nebula.widgets.timeline.ITrack#getTimeline()
 	 * @see #getTrack()
 	 * @generated
 	 */
 	EReference getTrack_Timeline();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.timeline.ITrack#getLanes <em>Lanes</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.widgets.timeline.ITrack#getLanes <em>Lanes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Lanes</em>'.
-	 * @see org.eclipse.nebula.timeline.ITrack#getLanes()
+	 * @see org.eclipse.nebula.widgets.timeline.ITrack#getLanes()
 	 * @see #getTrack()
 	 * @generated
 	 */
 	EReference getTrack_Lanes();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.timeline.ITrack#getTitle <em>Title</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.ITrack#getTitle <em>Title</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Title</em>'.
-	 * @see org.eclipse.nebula.timeline.ITrack#getTitle()
+	 * @see org.eclipse.nebula.widgets.timeline.ITrack#getTitle()
 	 * @see #getTrack()
 	 * @generated
 	 */
 	EAttribute getTrack_Title();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITrack#createLane() <em>Create Lane</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITrack#createLane() <em>Create Lane</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Create Lane</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITrack#createLane()
+	 * @see org.eclipse.nebula.widgets.timeline.ITrack#createLane()
 	 * @generated
 	 */
 	EOperation getTrack__CreateLane();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ILane <em>Lane</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ILane <em>Lane</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Lane</em>'.
-	 * @see org.eclipse.nebula.timeline.ILane
+	 * @see org.eclipse.nebula.widgets.timeline.ILane
 	 * @generated
 	 */
 	EClass getLane();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.timeline.ILane#getTrack <em>Track</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.widgets.timeline.ILane#getTrack <em>Track</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Track</em>'.
-	 * @see org.eclipse.nebula.timeline.ILane#getTrack()
+	 * @see org.eclipse.nebula.widgets.timeline.ILane#getTrack()
 	 * @see #getLane()
 	 * @generated
 	 */
 	EReference getLane_Track();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.timeline.ILane#getTimeEvents <em>Time Events</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.nebula.widgets.timeline.ILane#getTimeEvents <em>Time Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Time Events</em>'.
-	 * @see org.eclipse.nebula.timeline.ILane#getTimeEvents()
+	 * @see org.eclipse.nebula.widgets.timeline.ILane#getTimeEvents()
 	 * @see #getLane()
 	 * @generated
 	 */
 	EReference getLane_TimeEvents();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long, java.util.concurrent.TimeUnit) <em>Add Event</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long, java.util.concurrent.TimeUnit) <em>Add Event</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Add Event</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long, java.util.concurrent.TimeUnit)
+	 * @see org.eclipse.nebula.widgets.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long, java.util.concurrent.TimeUnit)
 	 * @generated
 	 */
 	EOperation getLane__AddEvent__String_String_long_long_TimeUnit();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long) <em>Add Event</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long) <em>Add Event</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Add Event</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long)
+	 * @see org.eclipse.nebula.widgets.timeline.ILane#addEvent(java.lang.String, java.lang.String, long, long)
 	 * @generated
 	 */
 	EOperation getLane__AddEvent__String_String_long_long();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ITimelineEvent <em>Event</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent <em>Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Event</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent
 	 * @generated
 	 */
 	EClass getTimelineEvent();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.timeline.ITimelineEvent#getLane <em>Lane</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#getLane <em>Lane</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Lane</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#getLane()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#getLane()
 	 * @see #getTimelineEvent()
 	 * @generated
 	 */
 	EReference getTimelineEvent_Lane();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.timeline.ITimelineEvent#getStartTimestamp <em>Start Timestamp</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#getStartTimestamp <em>Start Timestamp</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Start Timestamp</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#getStartTimestamp()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#getStartTimestamp()
 	 * @see #getTimelineEvent()
 	 * @generated
 	 */
 	EAttribute getTimelineEvent_StartTimestamp();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.timeline.ITimelineEvent#getEndTimestamp <em>End Timestamp</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#getEndTimestamp <em>End Timestamp</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>End Timestamp</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#getEndTimestamp()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#getEndTimestamp()
 	 * @see #getTimelineEvent()
 	 * @generated
 	 */
 	EAttribute getTimelineEvent_EndTimestamp();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.timeline.ITimelineEvent#getTitle <em>Title</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#getTitle <em>Title</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Title</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#getTitle()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#getTitle()
 	 * @see #getTimelineEvent()
 	 * @generated
 	 */
 	EAttribute getTimelineEvent_Title();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.timeline.ITimelineEvent#getMessage <em>Message</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#getMessage <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Message</em>'.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#getMessage()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#getMessage()
 	 * @see #getTimelineEvent()
 	 * @generated
 	 */
 	EAttribute getTimelineEvent_Message();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#getDuration() <em>Get Duration</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#getDuration() <em>Get Duration</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Get Duration</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#getDuration()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#getDuration()
 	 * @generated
 	 */
 	EOperation getTimelineEvent__GetDuration();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setStartTimestamp(long, java.util.concurrent.TimeUnit) <em>Set Start Timestamp</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#setStartTimestamp(long, java.util.concurrent.TimeUnit) <em>Set Start Timestamp</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Set Start Timestamp</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setStartTimestamp(long, java.util.concurrent.TimeUnit)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#setStartTimestamp(long, java.util.concurrent.TimeUnit)
 	 * @generated
 	 */
 	EOperation getTimelineEvent__SetStartTimestamp__long_TimeUnit();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setEndTimestamp(long, java.util.concurrent.TimeUnit) <em>Set End Timestamp</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#setEndTimestamp(long, java.util.concurrent.TimeUnit) <em>Set End Timestamp</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Set End Timestamp</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setEndTimestamp(long, java.util.concurrent.TimeUnit)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#setEndTimestamp(long, java.util.concurrent.TimeUnit)
 	 * @generated
 	 */
 	EOperation getTimelineEvent__SetEndTimestamp__long_TimeUnit();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long, java.util.concurrent.TimeUnit) <em>Set Duration</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#setDuration(long, java.util.concurrent.TimeUnit) <em>Set Duration</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Set Duration</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long, java.util.concurrent.TimeUnit)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#setDuration(long, java.util.concurrent.TimeUnit)
 	 * @generated
 	 */
 	EOperation getTimelineEvent__SetDuration__long_TimeUnit();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long) <em>Set Duration</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent#setDuration(long) <em>Set Duration</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Set Duration</em>' operation.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long)
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent#setDuration(long)
 	 * @generated
 	 */
 	EOperation getTimelineEvent__SetDuration__long();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ICursor <em>Cursor</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ICursor <em>Cursor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Cursor</em>'.
-	 * @see org.eclipse.nebula.timeline.ICursor
+	 * @see org.eclipse.nebula.widgets.timeline.ICursor
 	 * @generated
 	 */
 	EClass getCursor();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.timeline.ICursor#getTimeline <em>Timeline</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.nebula.widgets.timeline.ICursor#getTimeline <em>Timeline</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Timeline</em>'.
-	 * @see org.eclipse.nebula.timeline.ICursor#getTimeline()
+	 * @see org.eclipse.nebula.widgets.timeline.ICursor#getTimeline()
 	 * @see #getCursor()
 	 * @generated
 	 */
 	EReference getCursor_Timeline();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.timeline.ICursor#getTimestamp <em>Timestamp</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.nebula.widgets.timeline.ICursor#getTimestamp <em>Timestamp</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Timestamp</em>'.
-	 * @see org.eclipse.nebula.timeline.ICursor#getTimestamp()
+	 * @see org.eclipse.nebula.widgets.timeline.ICursor#getTimestamp()
 	 * @see #getCursor()
 	 * @generated
 	 */
@@ -804,11 +804,11 @@ public interface ITimelinePackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Timeline <em>Timeline</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.impl.Timeline <em>Timeline</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.nebula.timeline.impl.Timeline
-		 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTimeline()
+		 * @see org.eclipse.nebula.widgets.timeline.impl.Timeline
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimeline()
 		 * @generated
 		 */
 		EClass TIMELINE = eINSTANCE.getTimeline();
@@ -862,11 +862,11 @@ public interface ITimelinePackage extends EPackage {
 		EOperation TIMELINE___CREATE_CURSOR__LONG = eINSTANCE.getTimeline__CreateCursor__long();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Track <em>Track</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.impl.Track <em>Track</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.nebula.timeline.impl.Track
-		 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTrack()
+		 * @see org.eclipse.nebula.widgets.timeline.impl.Track
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTrack()
 		 * @generated
 		 */
 		EClass TRACK = eINSTANCE.getTrack();
@@ -904,11 +904,11 @@ public interface ITimelinePackage extends EPackage {
 		EOperation TRACK___CREATE_LANE = eINSTANCE.getTrack__CreateLane();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Lane <em>Lane</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.impl.Lane <em>Lane</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.nebula.timeline.impl.Lane
-		 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getLane()
+		 * @see org.eclipse.nebula.widgets.timeline.impl.Lane
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getLane()
 		 * @generated
 		 */
 		EClass LANE = eINSTANCE.getLane();
@@ -946,11 +946,11 @@ public interface ITimelinePackage extends EPackage {
 		EOperation LANE___ADD_EVENT__STRING_STRING_LONG_LONG = eINSTANCE.getLane__AddEvent__String_String_long_long();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.TimelineEvent <em>Event</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.impl.TimelineEvent <em>Event</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.nebula.timeline.impl.TimelineEvent
-		 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTimelineEvent()
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelineEvent
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimelineEvent()
 		 * @generated
 		 */
 		EClass TIMELINE_EVENT = eINSTANCE.getTimelineEvent();
@@ -1036,11 +1036,11 @@ public interface ITimelinePackage extends EPackage {
 		EOperation TIMELINE_EVENT___SET_DURATION__LONG = eINSTANCE.getTimelineEvent__SetDuration__long();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Cursor <em>Cursor</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.impl.Cursor <em>Cursor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.nebula.timeline.impl.Cursor
-		 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getCursor()
+		 * @see org.eclipse.nebula.widgets.timeline.impl.Cursor
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getCursor()
 		 * @generated
 		 */
 		EClass CURSOR = eINSTANCE.getCursor();
@@ -1066,7 +1066,7 @@ public interface ITimelinePackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see java.util.concurrent.TimeUnit
-		 * @see org.eclipse.nebula.timeline.impl.TimelinePackage#getTimeUnit()
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimeUnit()
 		 * @generated
 		 */
 		EDataType TIME_UNIT = eINSTANCE.getTimeUnit();

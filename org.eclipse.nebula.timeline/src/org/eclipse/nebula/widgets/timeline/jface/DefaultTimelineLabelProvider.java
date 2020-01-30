@@ -13,7 +13,7 @@ package org.eclipse.nebula.widgets.timeline.jface;
 
 import org.eclipse.jface.viewers.IToolTipProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 
 public class DefaultTimelineLabelProvider extends LabelProvider implements IToolTipProvider {
 

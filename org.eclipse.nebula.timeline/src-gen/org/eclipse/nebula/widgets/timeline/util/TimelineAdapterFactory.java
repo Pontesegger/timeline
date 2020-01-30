@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline.util;
+package org.eclipse.nebula.widgets.timeline.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -8,12 +8,6 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ILane;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITimelinePackage;
-import org.eclipse.nebula.timeline.ITrack;
 import org.eclipse.nebula.widgets.timeline.*;
 
 /**
@@ -21,7 +15,7 @@ import org.eclipse.nebula.widgets.timeline.*;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.nebula.timeline.ITimelinePackage
+ * @see org.eclipse.nebula.widgets.timeline.ITimelinePackage
  * @generated
  */
 public class TimelineAdapterFactory extends AdapterFactoryImpl {
@@ -113,13 +107,13 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.timeline.ITimeline <em>Timeline</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.widgets.timeline.ITimeline <em>Timeline</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.nebula.timeline.ITimeline
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline
 	 * @generated
 	 */
 	public Adapter createTimelineAdapter() {
@@ -127,13 +121,13 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.timeline.ITrack <em>Track</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.widgets.timeline.ITrack <em>Track</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.nebula.timeline.ITrack
+	 * @see org.eclipse.nebula.widgets.timeline.ITrack
 	 * @generated
 	 */
 	public Adapter createTrackAdapter() {
@@ -141,13 +135,13 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.timeline.ILane <em>Lane</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.widgets.timeline.ILane <em>Lane</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.nebula.timeline.ILane
+	 * @see org.eclipse.nebula.widgets.timeline.ILane
 	 * @generated
 	 */
 	public Adapter createLaneAdapter() {
@@ -155,13 +149,13 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.timeline.ITimelineEvent <em>Event</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.widgets.timeline.ITimelineEvent <em>Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.nebula.timeline.ITimelineEvent
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelineEvent
 	 * @generated
 	 */
 	public Adapter createTimelineEventAdapter() {
@@ -169,13 +163,13 @@ public class TimelineAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.timeline.ICursor <em>Cursor</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.nebula.widgets.timeline.ICursor <em>Cursor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.nebula.timeline.ICursor
+	 * @see org.eclipse.nebula.widgets.timeline.ICursor
 	 * @generated
 	 */
 	public Adapter createCursorAdapter() {

@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline;
+package org.eclipse.nebula.widgets.timeline;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -13,31 +13,31 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.nebula.timeline.ICursor#getTimeline <em>Timeline</em>}</li>
- *   <li>{@link org.eclipse.nebula.timeline.ICursor#getTimestamp <em>Timestamp</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.ICursor#getTimeline <em>Timeline</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.ICursor#getTimestamp <em>Timestamp</em>}</li>
  * </ul>
  *
- * @see org.eclipse.nebula.timeline.ITimelinePackage#getCursor()
+ * @see org.eclipse.nebula.widgets.timeline.ITimelinePackage#getCursor()
  * @model
  * @generated
  */
 public interface ICursor extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Timeline</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.nebula.timeline.ITimeline#getCursors <em>Cursors</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.nebula.widgets.timeline.ITimeline#getCursors <em>Cursors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Timeline</em>' container reference.
 	 * @see #setTimeline(ITimeline)
-	 * @see org.eclipse.nebula.timeline.ITimelinePackage#getCursor_Timeline()
-	 * @see org.eclipse.nebula.timeline.ITimeline#getCursors
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelinePackage#getCursor_Timeline()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimeline#getCursors
 	 * @model opposite="cursors" required="true" transient="false"
 	 * @generated
 	 */
 	ITimeline getTimeline();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.nebula.timeline.ICursor#getTimeline <em>Timeline</em>}' container reference.
+	 * Sets the value of the '{@link org.eclipse.nebula.widgets.timeline.ICursor#getTimeline <em>Timeline</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Timeline</em>' container reference.
@@ -52,14 +52,14 @@ public interface ICursor extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Timestamp</em>' attribute.
 	 * @see #setTimestamp(long)
-	 * @see org.eclipse.nebula.timeline.ITimelinePackage#getCursor_Timestamp()
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelinePackage#getCursor_Timestamp()
 	 * @model
 	 * @generated
 	 */
 	long getTimestamp();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.nebula.timeline.ICursor#getTimestamp <em>Timestamp</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.nebula.widgets.timeline.ICursor#getTimestamp <em>Timestamp</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Timestamp</em>' attribute.

@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline.impl;
+package org.eclipse.nebula.widgets.timeline.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -12,10 +12,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelinePackage;
+import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ITimeline;
+import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,8 +24,8 @@ import org.eclipse.nebula.timeline.ITimelinePackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Cursor#getTimeline <em>Timeline</em>}</li>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Cursor#getTimestamp <em>Timestamp</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Cursor#getTimeline <em>Timeline</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Cursor#getTimestamp <em>Timestamp</em>}</li>
  * </ul>
  *
  * @generated

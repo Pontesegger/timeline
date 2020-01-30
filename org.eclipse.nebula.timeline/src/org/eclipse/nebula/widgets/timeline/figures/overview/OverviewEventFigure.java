@@ -12,7 +12,7 @@
 package org.eclipse.nebula.widgets.timeline.figures.overview;
 
 import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 
 public class OverviewEventFigure extends RectangleFigure {

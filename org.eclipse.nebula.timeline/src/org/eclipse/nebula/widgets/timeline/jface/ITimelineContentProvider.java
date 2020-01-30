@@ -12,8 +12,8 @@
 package org.eclipse.nebula.widgets.timeline.jface;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 
 /**
  * Content provider for {@link TimelineViewer}. The provider links between the model and the SWT component. As cursors may

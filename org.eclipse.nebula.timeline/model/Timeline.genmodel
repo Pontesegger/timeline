@@ -6,7 +6,7 @@
     interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
     importOrganizing="true">
   <foreignModel>Timeline.ecore</foreignModel>
-  <genPackages prefix="Timeline" basePackage="org.eclipse.nebula" disposableProviderFactory="true"
+  <genPackages prefix="Timeline" basePackage="org.eclipse.nebula.widgets" disposableProviderFactory="true"
       ecorePackage="Timeline.ecore#/">
     <genDataTypes ecoreDataType="Timeline.ecore#//TimeUnit"/>
     <genClasses ecoreClass="Timeline.ecore#//Timeline">
@@ -65,6 +65,9 @@
       <genOperations ecoreOperation="Timeline.ecore#//TimelineEvent/setDuration">
         <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setDuration/value"/>
         <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setDuration/timeUnit"/>
+      </genOperations>
+      <genOperations ecoreOperation="Timeline.ecore#//TimelineEvent/setDuration.1">
+        <genParameters ecoreParameter="Timeline.ecore#//TimelineEvent/setDuration.1/value"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="Timeline.ecore#//Cursor">

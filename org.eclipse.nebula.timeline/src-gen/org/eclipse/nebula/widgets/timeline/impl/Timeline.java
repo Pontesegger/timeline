@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline.impl;
+package org.eclipse.nebula.widgets.timeline.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -15,12 +15,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITimelineFactory;
-import org.eclipse.nebula.timeline.ITimelinePackage;
-import org.eclipse.nebula.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ITimeline;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
+import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
+import org.eclipse.nebula.widgets.timeline.ITrack;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Timeline</b></em>'. <!-- end-user-doc -->
@@ -28,9 +28,9 @@ import org.eclipse.nebula.timeline.ITrack;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getTracks <em>Tracks</em>}</li>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getCursors <em>Cursors</em>}</li>
- *   <li>{@link org.eclipse.nebula.timeline.impl.Timeline#getSelectedEvent <em>Selected Event</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Timeline#getTracks <em>Tracks</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Timeline#getCursors <em>Cursors</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Timeline#getSelectedEvent <em>Selected Event</em>}</li>
  * </ul>
  *
  * @generated

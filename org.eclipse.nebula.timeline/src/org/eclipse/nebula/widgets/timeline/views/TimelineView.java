@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import org.eclipse.nebula.timeline.ILane;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.ILane;
+import org.eclipse.nebula.widgets.timeline.ITimeline;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITrack;
 import org.eclipse.nebula.widgets.timeline.TimelineComposite;
 import org.eclipse.nebula.widgets.timeline.TimelineDataBinding;
 import org.eclipse.nebula.widgets.timeline.jface.TimelineViewer;

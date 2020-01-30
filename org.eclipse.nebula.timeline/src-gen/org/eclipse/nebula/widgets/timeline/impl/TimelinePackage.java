@@ -1,6 +1,6 @@
 /**
  */
-package org.eclipse.nebula.timeline.impl;
+package org.eclipse.nebula.widgets.timeline.impl;
 
 import java.util.concurrent.TimeUnit;
 import org.eclipse.emf.ecore.EAttribute;
@@ -11,14 +11,13 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.eclipse.nebula.timeline.ICursor;
-import org.eclipse.nebula.timeline.ILane;
-import org.eclipse.nebula.timeline.ITimeline;
-import org.eclipse.nebula.timeline.ITimelineEvent;
-import org.eclipse.nebula.timeline.ITimelineFactory;
-import org.eclipse.nebula.timeline.ITimelinePackage;
-import org.eclipse.nebula.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ILane;
+import org.eclipse.nebula.widgets.timeline.ITimeline;
+import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
+import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
+import org.eclipse.nebula.widgets.timeline.ITrack;
 
 /**
  * <!-- begin-user-doc -->
@@ -80,7 +79,7 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.eclipse.nebula.timeline.ITimelinePackage#eNS_URI
+	 * @see org.eclipse.nebula.widgets.timeline.ITimelinePackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

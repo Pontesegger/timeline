@@ -71,7 +71,7 @@ public class Helper {
 	 *
 	 * @param figure
 	 *            any figure of the timeline diagram
-	 * @return total amout of lanes
+	 * @return total amount of lanes
 	 */
 	public static int getLaneCount(IFigure figure) {
 		return getLanes(figure).size();

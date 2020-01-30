@@ -26,11 +26,10 @@ import org.eclipse.swt.graphics.RGB;
 
 public class EventFigure extends RoundedRectangle implements Comparable<EventFigure> {
 
-	private final ITimelineEvent fEvent;
 	private Color fEventColor;
+	private final Label fLabel;
 
 	public EventFigure(ITimelineEvent event) {
-		fEvent = event;
 
 		final ToolbarLayout layout = new ToolbarLayout(false);
 		layout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
@@ -40,12 +39,12 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 
 		setLineWidth(2);
 
-		final Label label = new Label(event.getTitle());
-		label.setForegroundColor(ColorConstants.black);
-		add(label);
+		fLabel = new Label(event.getTitle());
+		fLabel.setForegroundColor(ColorConstants.black);
+		add(fLabel);
 
-		if (fEvent.getMessage() != null)
-			setToolTip(new EventTooltip(fEvent.getMessage()));
+		if (event.getMessage() != null)
+			setToolTip(new EventTooltip(event.getMessage()));
 	}
 
 	public void setEventColor(Color color) {
@@ -58,6 +57,19 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 		setAlpha(150);
 	}
 
+	@Override
+	public void revalidate() {
+		final ITimelineEvent event = getEvent();
+		if (event != null) {
+			// event is null during construction. Bale & tooltip updates are only needed later on changes
+			fLabel.setText(event.getTitle());
+
+			setToolTip((event.getMessage() == null) ? null : new EventTooltip(event.getMessage()));
+		}
+
+		super.revalidate();
+	}
+
 	/**
 	 * Get the event color that was set on this event, even if the foreground/background colors got changed in the meantime.
 	 *
@@ -68,7 +80,10 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 	}
 
 	public ITimelineEvent getEvent() {
-		return fEvent;
+		if (getParent() != null)
+			return (ITimelineEvent) getParent().getLayoutManager().getConstraint(this);
+
+		return null;
 	}
 
 	@Override

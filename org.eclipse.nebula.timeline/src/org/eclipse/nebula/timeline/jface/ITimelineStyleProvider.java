@@ -60,6 +60,13 @@ public interface ITimelineStyleProvider {
 	boolean showGrid();
 
 	/**
+	 * Display the overview area.
+	 *
+	 * @return <code>true</code> to display the overview area, <code>false</code> to hide
+	 */
+	boolean showOverview();
+
+	/**
 	 * Get the color of the grid.
 	 *
 	 * @return grid color

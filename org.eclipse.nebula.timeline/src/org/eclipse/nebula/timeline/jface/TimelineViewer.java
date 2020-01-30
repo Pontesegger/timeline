@@ -147,16 +147,64 @@ public class TimelineViewer extends StructuredViewer {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.jface.viewers.StructuredViewer#doUpdateItem(org.eclipse.swt.widgets.Widget, java.lang.Object, boolean)
-	 */
-	@Override
-	protected void doUpdateItem(Widget item, Object element, boolean fullMap) {
-		// TODO Auto-generated method stub
+	private boolean isRootElement(Object element) {
+		return getInput().equals(element);
+	}
 
-		System.out.println("doUpdateItem called");
+	private boolean isTrackElement(Object element) {
+		return getTrackElements().contains(element);
+	}
+
+	private boolean isLaneElement(Object element) {
+		return getLaneElements().contains(element);
+	}
+
+	private boolean isEventElement(Object element) {
+		return geEventElements().contains(element);
+	}
+
+	private boolean isCursorElement(Object element) {
+		return getCursorElements().contains(element);
+	}
+
+	private Collection<Object> getCursorElements() {
+		return Arrays.asList(getContentProvider().getCursors(getInput()));
+	}
+
+	private Collection<Object> getTrackElements() {
+		return Arrays.asList(getContentProvider().getTracks(getInput()));
+	}
+
+	private Collection<Object> getLaneElements() {
+		final Collection<Object> lanes = new HashSet<>();
+		for (final Object track : getTrackElements())
+			lanes.addAll(Arrays.asList(getContentProvider().getLanes(track)));
+
+		return lanes;
+	}
+
+	private Collection<Object> geEventElements() {
+		final Collection<Object> events = new HashSet<>();
+		for (final Object track : getLaneElements())
+			events.addAll(Arrays.asList(getContentProvider().getEvents(track)));
+
+		return events;
+	}
+
+	@Override
+	public void update(Object element, String[] properties) {
+		final IFigure figure = fElementToFigureMap.get(element);
+		if (figure != null) {
+
+			if (isCursorElement(element))
+				getControl().getRootFigure().updateCursorFigure(figure, getContentProvider().toCursor(element));
+
+			if (isTrackElement(element))
+				getControl().getRootFigure().updateTrackFigure(figure, element.toString());
+
+			else if (isEventElement(element))
+				getControl().getRootFigure().updateEventFigure(figure, getContentProvider().toEvent(element));
+		}
 	}
 
 	@Override
@@ -321,6 +369,11 @@ public class TimelineViewer extends StructuredViewer {
 	@Override
 	public TimelineComposite getControl() {
 		return fControl;
+	}
+
+	@Override
+	protected void doUpdateItem(Widget item, Object element, boolean fullMap) {
+		// not needed for this viewer
 	}
 
 	private class ModelMap extends HashMap<Object, IFigure> {

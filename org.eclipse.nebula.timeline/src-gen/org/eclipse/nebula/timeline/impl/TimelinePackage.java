@@ -406,6 +406,16 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EOperation getTimelineEvent__SetDuration__long() {
+		return timelineEventEClass.getEOperations().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getCursor() {
 		return cursorEClass;
 	}
@@ -499,6 +509,7 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT);
 		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT);
 		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT);
+		createEOperation(timelineEventEClass, TIMELINE_EVENT___SET_DURATION__LONG);
 
 		cursorEClass = createEClass(CURSOR);
 		createEReference(cursorEClass, CURSOR__TIMELINE);
@@ -597,6 +608,9 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		op = initEOperation(getTimelineEvent__SetDuration__long_TimeUnit(), null, "setDuration", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getELong(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTimeUnit(), "timeUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getTimelineEvent__SetDuration__long(), null, "setDuration", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getELong(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(cursorEClass, ICursor.class, "Cursor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCursor_Timeline(), this.getTimeline(), this.getTimeline_Cursors(), "timeline", null, 1, 1, ICursor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

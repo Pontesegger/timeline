@@ -12,6 +12,7 @@
     <genClasses ecoreClass="Timeline.ecore#//Timeline">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/tracks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/cursors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/selectedEvent"/>
       <genOperations ecoreOperation="Timeline.ecore#//Timeline/createTrack">
         <genParameters ecoreParameter="Timeline.ecore#//Timeline/createTrack/title"/>
       </genOperations>

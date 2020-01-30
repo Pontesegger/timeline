@@ -197,4 +197,9 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 
 		return fManagedColors.get(rgb);
 	}
+
+	@Override
+	public boolean showOverview() {
+		return true;
+	}
 }

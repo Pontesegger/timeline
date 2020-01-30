@@ -67,9 +67,8 @@ public class LaneFigure extends Figure implements IStyledFigure {
 
 	private class LaneLayout extends XYLayout {
 
-		@Override
-		public Object getConstraint(IFigure figure) {
-			final ITimelineEvent event = (ITimelineEvent) super.getConstraint(figure);
+		private Rectangle getContraintAsRectangle(IFigure figure) {
+			final ITimelineEvent event = (ITimelineEvent) getConstraint(figure);
 
 			return new PrecisionRectangle(event.getStartTimestamp(), 0, event.getDuration(), 1);
 		}
@@ -83,7 +82,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 			IFigure f;
 			while (children.hasNext()) {
 				f = (IFigure) children.next();
-				final Rectangle bounds = (Rectangle) getConstraint(f);
+				final Rectangle bounds = getContraintAsRectangle(f);
 
 				// now bounds refers to the original bounds (unscaled and unmoved)
 				bounds.performTranslate(-timeViewDetails.getOffset().x(), 0);
@@ -101,7 +100,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 		}
 
 		/**
-		 * This is a copy of the parent method. Only change is that we call getContstraint() instead of directly accessing the constraints member.
+		 * This is a copy of the parent method. Only change is that we call getContraintAsRectangle() instead of directly accessing the constraints member.
 		 */
 		@Override
 		protected Dimension calculatePreferredSize(IFigure f, int wHint, int hHint) {
@@ -109,7 +108,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 			final ListIterator children = f.getChildren().listIterator();
 			while (children.hasNext()) {
 				final IFigure child = (IFigure) children.next();
-				Rectangle r = (Rectangle) getConstraint(child);
+				Rectangle r = getContraintAsRectangle(child);
 				if (r == null)
 					continue;
 

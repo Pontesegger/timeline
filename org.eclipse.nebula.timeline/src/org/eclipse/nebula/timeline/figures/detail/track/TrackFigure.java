@@ -18,7 +18,7 @@ import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
 public class TrackFigure extends Figure implements IStyledFigure {
 
-	private final String fTitle;
+	private String fTitle;
 
 	public TrackFigure(String title, ITimelineStyleProvider styleProvider) {
 
@@ -34,5 +34,15 @@ public class TrackFigure extends Figure implements IStyledFigure {
 	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setBorder(styleProvider.getTrackBorder(fTitle));
+	}
+
+	/**
+	 * Set the title of this track.
+	 *
+	 * @param title
+	 *            track title
+	 */
+	public void setTitle(String title) {
+		fTitle = title;
 	}
 }

@@ -369,13 +369,22 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = 3;
 
 	/**
+	 * The operation id for the '<em>Set Duration</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT___SET_DURATION__LONG = 4;
+
+	/**
 	 * The number of operations of the '<em>Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT_OPERATION_COUNT = 4;
+	int TIMELINE_EVENT_OPERATION_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.timeline.impl.Cursor <em>Cursor</em>}' class.
@@ -719,6 +728,16 @@ public interface ITimelinePackage extends EPackage {
 	EOperation getTimelineEvent__SetDuration__long_TimeUnit();
 
 	/**
+	 * Returns the meta object for the '{@link org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long) <em>Set Duration</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Set Duration</em>' operation.
+	 * @see org.eclipse.nebula.timeline.ITimelineEvent#setDuration(long)
+	 * @generated
+	 */
+	EOperation getTimelineEvent__SetDuration__long();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.nebula.timeline.ICursor <em>Cursor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1007,6 +1026,14 @@ public interface ITimelinePackage extends EPackage {
 		 * @generated
 		 */
 		EOperation TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = eINSTANCE.getTimelineEvent__SetDuration__long_TimeUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Set Duration</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TIMELINE_EVENT___SET_DURATION__LONG = eINSTANCE.getTimelineEvent__SetDuration__long();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.nebula.timeline.impl.Cursor <em>Cursor</em>}' class.

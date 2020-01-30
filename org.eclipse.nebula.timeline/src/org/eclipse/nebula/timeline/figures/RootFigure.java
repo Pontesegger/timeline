@@ -70,7 +70,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 	}
 
 	public void setStyleProvider(ITimelineStyleProvider styleProvider) {
-		fStyleProvider = styleProvider;
+		fStyleProvider = (styleProvider != null) ? styleProvider : new DefaultTimelineStyleProvider();
 
 		fireStyleChanged();
 	}
@@ -139,7 +139,6 @@ public class RootFigure extends Figure implements IStyledFigure {
 		Helper.getFigure(this, OverviewLayer.class).revalidate();
 		Helper.getFigure(this, CursorLayer.class).revalidate();
 
-		// FIXME sets the whole canvas dirty. The dirty region is actually smaller and we might be more performant if we narrow down the area to redraw
 		getUpdateManager().addDirtyRegion(this, getBounds());
 	}
 
@@ -322,5 +321,57 @@ public class RootFigure extends Figure implements IStyledFigure {
 		final IFigure overviewCursorFigure = fDetailToOverviewMap.remove(cursorFigure);
 		if (overviewCursorFigure != null)
 			removeFigure(overviewCursorFigure);
+	}
+
+	/**
+	 * Update a provided cursor figure with fresh cursor data.
+	 *
+	 * @param figure
+	 *            figure to update
+	 * @param cursor
+	 *            new cursor data
+	 */
+	public void updateCursorFigure(IFigure figure, ICursor cursor) {
+		updateFigureConstraint(figure, cursor);
+	}
+
+	/**
+	 * Update a provided event figure with fresh event data.
+	 *
+	 * @param figure
+	 *            figure to update
+	 * @param event
+	 *            new cursor data
+	 */
+	public void updateEventFigure(IFigure figure, ITimelineEvent event) {
+		updateFigureConstraint(figure, event);
+	}
+
+	/**
+	 * Set a new constraint for a given figure.
+	 *
+	 * @param figure
+	 *            figure to update
+	 * @param constraint
+	 *            new constraint
+	 */
+	private void updateFigureConstraint(IFigure figure, Object constraint) {
+		figure.getParent().getLayoutManager().setConstraint(figure, constraint);
+		figure.revalidate();
+	}
+
+	/**
+	 * Update the title of a given track figure.
+	 *
+	 * @param figure
+	 *            figure to update
+	 * @param title
+	 *            title to set
+	 */
+	public void updateTrackFigure(IFigure figure, String title) {
+		if (figure instanceof TrackFigure) {
+			((TrackFigure) figure).setTitle(title);
+			((TrackFigure) figure).updateStyle(getStyleProvider());
+		}
 	}
 }

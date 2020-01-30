@@ -16,9 +16,10 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.nebula.timeline.Helper;
 import org.eclipse.nebula.timeline.borders.EmptyBorder;
+import org.eclipse.nebula.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.timeline.jface.ITimelineStyleProvider;
 
-public class OverviewFigure extends LayeredPane {
+public class OverviewFigure extends LayeredPane implements IStyledFigure {
 
 	private static final int DEFAULT_HEIGHT = 80;
 
@@ -36,6 +37,13 @@ public class OverviewFigure extends LayeredPane {
 		add(new OverviewLayer(styleProvider));
 		add(new OverviewCursorLayer());
 		add(new OverviewSelectionLayer(styleProvider));
+
+		updateStyle(styleProvider);
+	}
+
+	@Override
+	public void updateStyle(ITimelineStyleProvider styleProvider) {
+		setVisible(styleProvider.showOverview());
 	}
 
 	@Override

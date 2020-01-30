@@ -170,4 +170,12 @@ public interface ITimelineEvent extends EObject {
 	 */
 	void setDuration(long value, TimeUnit timeUnit);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void setDuration(long value);
+
 } // ITimelineEvent

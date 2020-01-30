@@ -25,36 +25,46 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.nebula.widgets.timeline.ICursor;
-import org.eclipse.nebula.widgets.timeline.ITimeline;
-import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
-import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.widgets.timeline.jface.TimelineViewer;
 import org.eclipse.nebula.widgets.timeline.listeners.ICursorListener;
 import org.eclipse.ui.progress.UIJob;
 
 /**
- * Data binding that automatically updates the viewer on model updates. The model needs to be an instance of the ITimeline EMF model to correctly receive
- * notifications.
+ * Data binding that automatically updates the viewer on model updates. Cursor operations and selections on the view are also stored in the model. The model
+ * needs to be an instance of the ITimeline EMF model to correctly receive notifications.
  */
 public class TimelineDataBinding extends AdapterImpl implements ICursorListener, ISelectionChangedListener {
+
+	/** Execution delay in [ms]. */
+	private static final long DEFAULT_DISPLAY_UPDATE_DELAY = 300;
 
 	private final TimelineViewer fViewer;
 	private final ITimeline fModel;
 
-	private ViewerRefresher fViewerRefresher = null;
+	private ViewerRefreshJob fViewerRefresher = null;
 
 	private volatile boolean fIgnoreModelChanges = false;
+	private final long fDisplayUpdateDelay;
 
-	public TimelineDataBinding(TimelineViewer viewer, ITimeline model) {
+	/**
+	 * @param timelineViewer
+	 * @param model
+	 * @param displayUpdateDelay
+	 */
+	public TimelineDataBinding(TimelineViewer viewer, ITimeline model, long displayUpdateDelay) {
 		fViewer = viewer;
 		fModel = model;
+		fDisplayUpdateDelay = displayUpdateDelay;
 
 		fViewer.getControl().getRootFigure().addCursorListener(this);
 		fViewer.addSelectionChangedListener(this);
 
 		fModel.eAdapters().add(this);
+	}
+
+	public TimelineDataBinding(TimelineViewer viewer, ITimeline model) {
+		this(viewer, model, DEFAULT_DISPLAY_UPDATE_DELAY);
 	}
 
 	@Override
@@ -99,9 +109,9 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener,
 			getUIRefreshJob().forceSelectionUpdate();
 	}
 
-	private ViewerRefresher getUIRefreshJob() {
+	private ViewerRefreshJob getUIRefreshJob() {
 		if (fViewerRefresher == null)
-			fViewerRefresher = new ViewerRefresher();
+			fViewerRefresher = new ViewerRefreshJob();
 
 		return fViewerRefresher;
 	}
@@ -135,17 +145,14 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener,
 		}
 	}
 
-	private class ViewerRefresher extends UIJob {
-
-		/** Execution delay in [ms]. */
-		private static final long DISPLAY_DELAY = 300;
+	private class ViewerRefreshJob extends UIJob {
 
 		private final List<EObject> fElementsToRefresh = new ArrayList<>();
 		private final List<EObject> fElementsToUpdate = new ArrayList<>();
 
 		private volatile boolean fSelectionUpdate = false;
 
-		public ViewerRefresher() {
+		public ViewerRefreshJob() {
 			super("Refresh timeline control");
 
 			setSystem(true);
@@ -153,14 +160,14 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener,
 
 		public void forceSelectionUpdate() {
 			fSelectionUpdate = true;
-			schedule(DISPLAY_DELAY);
+			schedule(fDisplayUpdateDelay);
 		}
 
 		public void addElementForUpdate(EObject element) {
 			synchronized (fElementsToUpdate) {
 				if (!fElementsToUpdate.contains(element)) {
 					fElementsToUpdate.add(element);
-					schedule(DISPLAY_DELAY);
+					schedule(fDisplayUpdateDelay);
 				}
 			}
 		}
@@ -170,7 +177,7 @@ public class TimelineDataBinding extends AdapterImpl implements ICursorListener,
 				if (!fElementsToRefresh.contains(element)) {
 					if (!containsParent(element, fElementsToRefresh)) {
 						fElementsToRefresh.add(element);
-						schedule(DISPLAY_DELAY);
+						schedule(fDisplayUpdateDelay);
 					}
 				}
 			}

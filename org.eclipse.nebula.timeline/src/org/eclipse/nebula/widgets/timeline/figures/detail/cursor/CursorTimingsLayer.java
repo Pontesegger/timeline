@@ -19,6 +19,7 @@ import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
@@ -140,6 +141,42 @@ public class CursorTimingsLayer extends FreeformLayer {
 			final double eventTime = Math.abs(cursorA.getEventTime() - cursorB.getEventTime());
 
 			return eventTime + " ns";
+		}
+
+		/**
+		 * Use calculated points list. The original implementation directly accesses the points member.
+		 *
+		 * @see #getPoints()
+		 */
+		@Override
+		protected void outlineShape(Graphics g) {
+			g.drawPolyline(getPoints());
+		}
+
+		/**
+		 * Clip cursor connectors at the left/right side of the screen. This is a performance optimization for windows. When a connection is much larger than
+		 * the screen size, drawing takes ages.
+		 */
+		@Override
+		public PointList getPoints() {
+			final PointList originalPoints = super.getPoints();
+			if (originalPoints.size() == 2) {
+				final Point targetPoint = originalPoints.getLastPoint();
+				final Rectangle layerBounds = CursorTimingsLayer.this.getBounds();
+
+				if (targetPoint.x() < layerBounds.x()) {
+					// clip cursor on the left screen border
+					targetPoint.setX(layerBounds.x());
+					originalPoints.setPoint(targetPoint, 1);
+
+				} else if (targetPoint.x() > layerBounds.right()) {
+					// clip cursor on the right screen border
+					targetPoint.setX(layerBounds.right());
+					originalPoints.setPoint(targetPoint, 1);
+				}
+			}
+
+			return originalPoints;
 		}
 	}
 

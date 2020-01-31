@@ -20,9 +20,9 @@ import java.util.Map;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.borders.EmptyBorder;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
@@ -57,7 +57,7 @@ public class DetailFigure extends Figure {
 	 */
 	public Map<Long, Integer> getMarkerPositions() {
 
-		final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(this);
+		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
 
 		final Map<Long, Integer> markerPositions = new HashMap<>();
 		for (final Long eventTime : getEventTimeMarkerPositions())
@@ -73,10 +73,10 @@ public class DetailFigure extends Figure {
 	 * @return step size in eventTime
 	 */
 	private int getStepSize() {
-		final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(this);
+		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
 
-		final int steps = timeViewDetails.getScreenArea().width() / MIN_STEP_SIZE;
-		double stepSizeInEventTime = timeViewDetails.getVisibleEventArea().preciseWidth() / steps;
+		final double steps = timeViewDetails.getScreenArea().getDuration() / MIN_STEP_SIZE;
+		double stepSizeInEventTime = timeViewDetails.getVisibleEventArea().getDuration() / steps;
 		int factor = 1;
 		while (stepSizeInEventTime >= 100) {
 			stepSizeInEventTime /= 10;
@@ -97,13 +97,13 @@ public class DetailFigure extends Figure {
 	private List<Long> getEventTimeMarkerPositions() {
 		final List<Long> positions = new ArrayList<>();
 
-		final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(this);
-		final Rectangle visibleEventArea = timeViewDetails.getVisibleEventArea();
+		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
+		final Timing visibleEventArea = timeViewDetails.getVisibleEventArea();
 
 		final int stepSize = getStepSize();
-		final long startValue = (long) ((Math.floor(visibleEventArea.preciseX() / stepSize) + 1) * stepSize);
+		final long startValue = (long) ((Math.floor((visibleEventArea.left()) / stepSize) + 1) * stepSize);
 
-		for (long pos = startValue; pos < (visibleEventArea.preciseX() + visibleEventArea.preciseWidth()); pos += stepSize)
+		for (long pos = startValue; pos < visibleEventArea.right(); pos += stepSize)
 			positions.add(pos);
 
 		return positions;

@@ -14,12 +14,16 @@ package org.eclipse.nebula.widgets.timeline.figures.overview;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
 public class OverviewSelectionLayer extends FreeformLayer {
+
+	private static final int MINIMUM_WIDTH = 5;
 
 	public OverviewSelectionLayer(ITimelineStyleProvider styleProvider) {
 		setLayoutManager(new OverviewSelectionLayerLayout());
@@ -30,16 +34,15 @@ public class OverviewSelectionLayer extends FreeformLayer {
 	private class OverviewSelectionLayerLayout extends XYLayout {
 		@Override
 		public Object getConstraint(IFigure figure) {
-			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
-			final Rectangle visibleEventArea = timeViewDetails.getVisibleEventArea();
-			final Rectangle bounds = timeViewDetails.scaleToOverview(visibleEventArea);
+			final Timing visibleEventArea = timeViewDetails.getVisibleEventArea();
+			final Timing scaledTiming = timeViewDetails.scaleToOverview(visibleEventArea);
+			scaledTiming.translate(getBounds().x());
 
-			bounds.setY(getBounds().y());
-			bounds.setHeight(getBounds().height());
-			bounds.performTranslate(getBounds().x(), 0);
-			if (bounds.width() < 3)
-				bounds.setWidth(3);
+			final Rectangle bounds = new PrecisionRectangle(scaledTiming.left(), getBounds().y(), scaledTiming.getDuration(), getBounds().height());
+			if (bounds.width() < MINIMUM_WIDTH)
+				bounds.setWidth(MINIMUM_WIDTH);
 
 			return bounds;
 		}

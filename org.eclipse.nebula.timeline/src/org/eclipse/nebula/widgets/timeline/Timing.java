@@ -13,23 +13,56 @@ package org.eclipse.nebula.widgets.timeline;
 
 public class Timing {
 
-	private final long fTimestamp;
-	private final long fDuration;
+	private double fTimestamp;
+	private double fDuration;
 
-	public Timing(long timestamp, long duration) {
+	public Timing(double timestamp, double duration) {
 		fTimestamp = timestamp;
 		fDuration = duration;
 	}
 
-	public Timing(long timestamp) {
+	public Timing(double timestamp) {
 		this(timestamp, 0);
 	}
 
-	public long getTimestamp() {
+	public double getTimestamp() {
 		return fTimestamp;
 	}
 
-	public long getDuration() {
+	public double getDuration() {
 		return fDuration;
+	}
+
+	public double left() {
+		return getTimestamp();
+	}
+
+	public double right() {
+		return getTimestamp() + getDuration();
+	}
+
+	public Timing copy() {
+		return new Timing(getTimestamp(), getDuration());
+	}
+
+	public void union(Timing timing) {
+		final double left = Math.min(left(), timing.left());
+		final double right = Math.max(right(), timing.right());
+
+		fTimestamp = left;
+		fDuration = right - left;
+	}
+
+	public void scale(double scaleFactor) {
+		fTimestamp *= scaleFactor;
+		fDuration *= scaleFactor;
+	}
+
+	public void translate(double offset) {
+		fTimestamp += offset;
+	}
+
+	public boolean isEmpty() {
+		return fDuration == 0;
 	}
 }

@@ -54,7 +54,7 @@ public class TimelineView extends ViewPart {
 		final List<ILane> lanes = Arrays.asList(apdus, apduResponses, commands, responses, another, another2);
 
 		final Random random = new Random(12);
-		int lastPosition = 0;
+		int lastPosition = 1000;
 		for (int item = 0; item < 40; item++) {
 			final int laneIndex = random.nextInt(lanes.size());
 			final ILane lane = lanes.get(laneIndex);

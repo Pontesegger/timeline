@@ -39,7 +39,7 @@ public class Helper {
 		return getRootFigure(figure.getParent());
 	}
 
-	public static TimeViewDetails getTimeViewDetails(IFigure figure) {
+	public static TimeBaseConverter getTimeViewDetails(IFigure figure) {
 		return getRootFigure(figure).getTimeViewDetails();
 	}
 

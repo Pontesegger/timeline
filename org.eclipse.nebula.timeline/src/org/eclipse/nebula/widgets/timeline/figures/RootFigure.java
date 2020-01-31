@@ -26,7 +26,7 @@ import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.figures.detail.DetailFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorLayer;
@@ -47,7 +47,7 @@ import org.eclipse.swt.graphics.Color;
 
 public class RootFigure extends Figure implements IStyledFigure {
 
-	private final TimeViewDetails fTimeViewDetails;
+	private final TimeBaseConverter fTimeViewDetails;
 
 	private ITimelineStyleProvider fStyleProvider;
 
@@ -68,7 +68,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 		fResourceManager = resourceManager;
 		setStyleProvider(null);
 
-		fTimeViewDetails = new TimeViewDetails(this);
+		fTimeViewDetails = new TimeBaseConverter(this);
 
 		final BorderLayout layout = new BorderLayout();
 		layout.setVerticalSpacing(0);
@@ -146,7 +146,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 		Helper.getFigure(this, OverviewCursorLayer.class).removeAll();
 	}
 
-	public TimeViewDetails getTimeViewDetails() {
+	public TimeBaseConverter getTimeViewDetails() {
 		return fTimeViewDetails;
 	}
 

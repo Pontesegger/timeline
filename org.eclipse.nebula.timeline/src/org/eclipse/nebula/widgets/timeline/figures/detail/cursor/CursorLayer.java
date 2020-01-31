@@ -21,7 +21,7 @@ import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 
 public class CursorLayer extends FreeformLayer {
 
@@ -33,7 +33,7 @@ public class CursorLayer extends FreeformLayer {
 
 		@Override
 		public void layout(IFigure parent) {
-			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(parent);
+			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(parent);
 
 			final Iterator<?> children = parent.getChildren().iterator();
 			final Point offset = getOrigin(parent);
@@ -43,7 +43,7 @@ public class CursorLayer extends FreeformLayer {
 				final ICursor cursor = (ICursor) getConstraint(f);
 
 				final Rectangle bounds = new PrecisionRectangle(cursor.getTimestamp(), 0, 1, 1);
-				bounds.performTranslate(-timeViewDetails.getOffset().x(), 0);
+				bounds.performTranslate((int) -timeViewDetails.getOffset(), 0);
 				bounds.performScale(timeViewDetails.getScaleFactor());
 				bounds.performTranslate(offset.x(), 0);
 

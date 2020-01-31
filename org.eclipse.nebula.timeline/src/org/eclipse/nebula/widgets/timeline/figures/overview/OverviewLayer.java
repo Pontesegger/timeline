@@ -19,13 +19,16 @@ import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.OverviewSelector;
 
 public class OverviewLayer extends FreeformLayer implements IStyledFigure {
+
+	private static final int MINIMUM_WIDTH = 1;
 
 	public OverviewLayer(ITimelineStyleProvider styleProvider) {
 		updateStyle(styleProvider);
@@ -64,18 +67,18 @@ public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 
 		@Override
 		public Rectangle getConstraint(IFigure figure) {
-			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
 			final EventFigure eventFigure = (EventFigure) super.getConstraint(figure);
 			final ITimelineEvent event = eventFigure.getEvent();
-			final Rectangle eventRectangle = new PrecisionRectangle(event.getStartTimestamp(), 0, event.getDuration(), 1);
 
-			final Rectangle overviewEventArea = timeViewDetails.scaleToOverview(eventRectangle);
-			overviewEventArea.setHeight(OverviewFigure.EVENT_HEIGHT);
-			overviewEventArea
-					.setY(OverviewFigure.VERTICAL_INDENT + ((OverviewFigure.EVENT_HEIGHT + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)));
-			if (overviewEventArea.width() == 0)
-				overviewEventArea.setWidth(1);
+			final Timing scaledTiming = timeViewDetails.scaleToOverview(event.getTiming());
+			final Rectangle overviewEventArea = new PrecisionRectangle(scaledTiming.left(),
+					OverviewFigure.VERTICAL_INDENT + ((OverviewFigure.EVENT_HEIGHT + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)),
+					scaledTiming.getDuration(), OverviewFigure.EVENT_HEIGHT);
+
+			if (overviewEventArea.width() < MINIMUM_WIDTH)
+				overviewEventArea.setWidth(MINIMUM_WIDTH);
 
 			return overviewEventArea;
 		}

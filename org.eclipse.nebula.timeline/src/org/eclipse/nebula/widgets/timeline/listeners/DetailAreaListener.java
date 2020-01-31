@@ -19,7 +19,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.nebula.widgets.timeline.Helper;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 
 /**
@@ -87,7 +87,7 @@ public class DetailAreaListener extends MouseMotionListener.Stub implements Mous
 
 			final Dimension offset = fLocation.getDifference(targetLocation);
 			if (offset.width() != 0) {
-				final TimeViewDetails timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
+				final TimeBaseConverter timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
 				if (timeDetails.translateDetailAreaOffset(offset.width()))
 					fLocation = targetLocation;
 

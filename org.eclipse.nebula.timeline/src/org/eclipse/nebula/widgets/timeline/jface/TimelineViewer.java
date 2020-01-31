@@ -30,7 +30,7 @@ import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.TimelineComposite;
 import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
@@ -243,7 +243,7 @@ public class TimelineViewer extends StructuredViewer {
 		final Timing timings = getLabelProvider().getTimings(element);
 		if (timings != null) {
 			final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
-			cursor.setTimestamp(timings.getTimestamp());
+			cursor.setTimestamp((long) timings.getTimestamp());
 
 			return cursor;
 		}
@@ -258,8 +258,8 @@ public class TimelineViewer extends StructuredViewer {
 		final Timing timings = getLabelProvider().getTimings(element);
 		if (timings != null) {
 			final ITimelineEvent event = ITimelineFactory.eINSTANCE.createTimelineEvent();
-			event.setStartTimestamp(timings.getTimestamp());
-			event.setDuration(timings.getDuration());
+			event.setStartTimestamp((long) timings.getTimestamp());
+			event.setDuration((long) timings.getDuration());
 
 			final ITimelineLabelProvider labelProvider = getLabelProvider();
 			event.setTitle(labelProvider.getText(element));
@@ -400,11 +400,11 @@ public class TimelineViewer extends StructuredViewer {
 			element = toCursor(element);
 
 		if (element instanceof ITimelineEvent) {
-			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
+			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
 			timeViewDetails.revealEvent(new PrecisionRectangle(((ITimelineEvent) element).getStartTimestamp(), 0, ((ITimelineEvent) element).getDuration(), 1));
 
 		} else if (element instanceof ICursor) {
-			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
+			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
 			timeViewDetails.revealEvent(new PrecisionRectangle(((ICursor) element).getTimestamp(), 0, 1, 1));
 		}
 	}

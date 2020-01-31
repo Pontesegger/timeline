@@ -11,35 +11,27 @@
 
 package org.eclipse.nebula.widgets.timeline;
 
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 
-public class TimeViewDetails {
+public class TimeBaseConverter {
 
 	/** Scaling for detail area. A factor > 1 mean we are zooming in. */
 	private double fScaleFactor = 1;
+
 	/** Physical size of the available screen area to draw on. */
-	private Rectangle fScreenArea = new PrecisionRectangle();
+	private Timing fScreenArea = new Timing(0);
 
-	/** Minimal area needed to contain all events. From start imestamp of first event until end timestamp of last event. */
-	private Rectangle fRequiredEventArea = new PrecisionRectangle();
-	/** Offset in eventtime where to start drawing. */
-	private Point fOffset = new PrecisionPoint(0, 0);
+	/** Minimal area needed to contain all events. From start timestamp of first event until end timestamp of last event. */
+	private Timing fRequiredEventArea = null;
 
-	//
-	// private boolean fEmpty = true;
-	//
-	// /**
-	// * Area containing all events. x is the start timestamp of the first event, x + width is the end timestamp of the last event.
-	// */
-	// private Rectangle fEventsArea = new Rectangle();
-	// private Rectangle fScreenBounds;
+	/** Offset in eventTime where to start drawing. */
+	private double fOffset = 0;
+
 	private final RootFigure fRootFigure;
 
-	public TimeViewDetails(RootFigure rootFigure) {
+	public TimeBaseConverter(RootFigure rootFigure) {
 		fRootFigure = rootFigure;
 	}
 
@@ -48,64 +40,55 @@ public class TimeViewDetails {
 	 */
 	public void resetDisplaySettings() {
 		fScaleFactor = 1;
-		fOffset = new PrecisionPoint(fRequiredEventArea.x(), 0);
+		fOffset = getEventArea().left();
 
 		fRootFigure.fireTimebaseChanged();
 	}
 
-	public Rectangle getVisibleEventArea() {
-		final Rectangle visibleArea = new PrecisionRectangle(0, 0, fScreenArea.width(), fScreenArea.height());
-		visibleArea.performScale(1 / fScaleFactor);
-		visibleArea.setX(fOffset.x());
+	public Timing getVisibleEventArea() {
+		final Timing visibleArea = getScreenArea().copy();
+		visibleArea.scale(1 / fScaleFactor);
+		visibleArea.translate(fOffset - visibleArea.left());
 
 		return visibleArea;
 	}
 
 	public long screenOffsetToEventTime(int screenOffset) {
-		double offset = screenOffset - fScreenArea.x();
+		double offset = screenOffset - fScreenArea.left();
 		offset /= getScaleFactor();
-		return Math.round((offset + getOffset().preciseX()));
+		return Math.round((offset + fOffset));
 	}
 
-	public int eventTimeToScreenOffset(long eventTime) {
-		eventTime -= getOffset().x();
+	public int eventTimeToScreenOffset(double eventTime) {
+		eventTime -= fOffset;
 		final double scaledEventTime = eventTime * fScaleFactor;
 
-		return (int) ((fScreenArea.x() + scaledEventTime));
-	}
-
-	public Point getOffset() {
-		return fOffset;
+		return (int) ((fScreenArea.left() + scaledEventTime));
 	}
 
 	/**
 	 * Total area to be displayed in eventTime. Unit is [ns] as we get them directly from the events.
 	 *
-	 * @return area containing all events (y/height are not valid)
+	 * @return area containing all events in eventTime
 	 */
-	public Rectangle getEventArea() {
-		final Rectangle eventArea = fRequiredEventArea.getCopy().expand(fRequiredEventArea.width() * 0.06, 0);
-
-		// return eventArea;
-
-		return fRequiredEventArea.getCopy();
+	public Timing getEventArea() {
+		return (fRequiredEventArea != null) ? fRequiredEventArea.copy() : new Timing(0);
 	}
 
 	public void resetEventArea() {
-		fRequiredEventArea = new PrecisionRectangle();
-	}
-
-	public Rectangle getScreenArea() {
-		return fScreenArea;
+		fRequiredEventArea = null;
 	}
 
 	public void addEvent(ITimed event) {
-		final PrecisionRectangle eventDimensions = new PrecisionRectangle(event.getTiming().getTimestamp(), 0, event.getTiming().getDuration(), 1);
-		if (fRequiredEventArea.isEmpty()) {
-			fRequiredEventArea = eventDimensions;
-			fOffset = new PrecisionPoint(event.getTiming().getTimestamp(), 0);
-		} else
-			fRequiredEventArea.union(eventDimensions);
+		if (fRequiredEventArea == null)
+			fRequiredEventArea = event.getTiming().copy();
+
+		else
+			fRequiredEventArea.union(event.getTiming());
+	}
+
+	public Timing getScreenArea() {
+		return fScreenArea;
 	}
 
 	/**
@@ -127,7 +110,7 @@ public class TimeViewDetails {
 	 * @return <code>true</code> when offset got changed
 	 */
 	public boolean translateOverviewAreaOffset(int screenPixels) {
-		final double scaleFactor = getEventArea().preciseWidth() / fScreenArea.preciseWidth();
+		final double scaleFactor = getEventArea().getDuration() / fScreenArea.getDuration();
 
 		return translateEventTime(Math.round(scaleFactor * screenPixels));
 	}
@@ -140,20 +123,15 @@ public class TimeViewDetails {
 	 * @return
 	 */
 	private boolean translateEventTime(long eventTime) {
-		final Rectangle eventArea = getEventArea();
+		final Timing eventArea = getEventArea();
 		if (eventTime < 0) {
-			if (fOffset.x() > eventArea.x()) {
-				fOffset.performTranslate((int) eventTime, 0);
-				adjustInvalidOffset();
-				fRootFigure.fireTimebaseChanged();
-			}
+			if (fOffset > eventArea.left())
+				setOffset(fOffset + eventTime);
 
 		} else if (eventTime > 0) {
-			if (fOffset.x() < ((eventArea.x() + eventArea.width()) - getVisibleEventArea().width())) {
-				fOffset.performTranslate((int) eventTime, 0);
-				adjustInvalidOffset();
-				fRootFigure.fireTimebaseChanged();
-			}
+			if (fOffset < ((eventArea.right()) - getVisibleEventArea().getDuration()))
+				setOffset(fOffset + eventTime);
+
 		} else
 			return false;
 
@@ -161,10 +139,11 @@ public class TimeViewDetails {
 	}
 
 	public void setScreenArea(Rectangle screenBounds) {
-		if (fScreenArea.isEmpty())
-			fRootFigure.fireTimebaseChanged();
+		final boolean screenNeedsUpdate = fScreenArea.isEmpty();
+		fScreenArea = new Timing(screenBounds.x(), screenBounds.width());
 
-		fScreenArea = screenBounds;
+		if (screenNeedsUpdate)
+			fRootFigure.fireTimebaseChanged();
 	}
 
 	public void zoom(double factor, int zoomCenterX) {
@@ -172,12 +151,12 @@ public class TimeViewDetails {
 
 		if (factor < 1) {
 			// zoom out
-			if (getVisibleEventArea().width() < getEventArea().width()) {
+			if (getVisibleEventArea().getDuration() < getEventArea().getDuration()) {
 				// only zoom out when not the whole area is visible
 				fScaleFactor *= factor;
 
 				final long updatedEventTime = screenOffsetToEventTime(zoomCenterX);
-				fOffset.performTranslate((int) (eventTimeAtZoomCenter - updatedEventTime), 0);
+				fOffset += eventTimeAtZoomCenter - updatedEventTime;
 				adjustInvalidOffset();
 
 				fRootFigure.fireTimebaseChanged();
@@ -188,7 +167,7 @@ public class TimeViewDetails {
 			fScaleFactor *= factor;
 
 			final long updatedEventTime = screenOffsetToEventTime(zoomCenterX);
-			fOffset.performTranslate((int) (eventTimeAtZoomCenter - updatedEventTime), 0);
+			fOffset += eventTimeAtZoomCenter - updatedEventTime;
 			adjustInvalidOffset();
 
 			fRootFigure.fireTimebaseChanged();
@@ -198,15 +177,15 @@ public class TimeViewDetails {
 	/**
 	 * Scale a rectangle given in eventTime to screen coordinates for the overview figure.
 	 *
-	 * @param eventArea
+	 * @param visibleEventArea
 	 * @return area on screen representing eventArea
 	 */
-	public Rectangle scaleToOverview(Rectangle eventArea) {
-		final double scaleFactor = fScreenArea.preciseWidth() / getEventArea().preciseWidth();
-		final Rectangle scaledArea = eventArea.getCopy();
-		scaledArea.performScale(scaleFactor);
+	public Timing scaleToOverview(Timing timing) {
+		final double scaleFactor = fScreenArea.getDuration() / getEventArea().getDuration();
+		final Timing scaledTiming = timing.copy();
+		scaledTiming.scale(scaleFactor);
 
-		return scaledArea;
+		return scaledTiming;
 	}
 
 	/**
@@ -217,9 +196,9 @@ public class TimeViewDetails {
 	 * @return coordinate in eventTime
 	 */
 	public long overviewScreenOffsetToEventTime(int screenOffset) {
-		double offset = screenOffset - fScreenArea.x();
+		double offset = screenOffset - fScreenArea.left();
 
-		final double scaleFactor = getEventArea().preciseWidth() / fScreenArea.preciseWidth();
+		final double scaleFactor = getEventArea().getDuration() / fScreenArea.getDuration();
 		offset *= scaleFactor;
 
 		return Math.round(offset);
@@ -235,19 +214,19 @@ public class TimeViewDetails {
 	 * @param eventTime
 	 *            time to set offset to
 	 */
-	public void setOffset(long eventTime) {
-		getOffset().setX((int) eventTime);
+	public void setOffset(double eventTime) {
+		fOffset = eventTime;
 		adjustInvalidOffset();
 
 		fRootFigure.fireTimebaseChanged();
 	}
 
 	private void adjustInvalidOffset() {
-		if (fOffset.x() > ((getEventArea().x() + getEventArea().width()) - getVisibleEventArea().width()))
-			fOffset.setX((getEventArea().x() + getEventArea().width()) - getVisibleEventArea().width());
+		if (fOffset > (getEventArea().right() - getVisibleEventArea().getDuration()))
+			fOffset = getEventArea().right() - getVisibleEventArea().getDuration();
 
-		if (fOffset.x() < getEventArea().x())
-			fOffset.setX(getEventArea().x());
+		if (fOffset < getEventArea().left())
+			fOffset = getEventArea().left();
 	}
 
 	/**
@@ -257,11 +236,16 @@ public class TimeViewDetails {
 	 *            area (x dimensions) to reveal
 	 */
 	public void revealEvent(PrecisionRectangle revealArea) {
-		if (getVisibleEventArea().width() <= revealArea.width())
-			fScaleFactor = getScreenArea().width() / (revealArea.width() * 3.0d);
+		if (getVisibleEventArea().getDuration() <= revealArea.width())
+			fScaleFactor = getScreenArea().getDuration() / (revealArea.width() * 3.0d);
 
-		setOffset(revealArea.x() - ((getVisibleEventArea().width() - revealArea.width()) / 2));
+		setOffset(revealArea.x() - ((getVisibleEventArea().getDuration() - revealArea.width()) / 2));
 
 		fRootFigure.fireTimebaseChanged();
+	}
+
+	public double getOffset() {
+		// FIXME remove method
+		return fOffset;
 	}
 }

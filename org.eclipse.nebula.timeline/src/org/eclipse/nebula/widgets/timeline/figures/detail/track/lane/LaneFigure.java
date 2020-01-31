@@ -26,7 +26,7 @@ import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
@@ -75,7 +75,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 
 		@Override
 		public void layout(IFigure parent) {
-			final TimeViewDetails timeViewDetails = Helper.getRootFigure(parent).getTimeViewDetails();
+			final TimeBaseConverter timeViewDetails = Helper.getRootFigure(parent).getTimeViewDetails();
 
 			final Iterator<?> children = parent.getChildren().iterator();
 			final Point offset = getOrigin(parent);
@@ -85,7 +85,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 				final Rectangle bounds = getContraintAsRectangle(f);
 
 				// now bounds refers to the original bounds (unscaled and unmoved)
-				bounds.performTranslate(-timeViewDetails.getOffset().x(), 0);
+				bounds.performTranslate((int) -timeViewDetails.getOffset(), 0);
 				bounds.performScale(timeViewDetails.getScaleFactor());
 
 				bounds.performTranslate(offset.x(), offset.y());

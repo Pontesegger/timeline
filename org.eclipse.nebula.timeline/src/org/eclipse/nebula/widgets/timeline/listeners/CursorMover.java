@@ -20,7 +20,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorTimingsLayer;
@@ -75,7 +75,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 			if (targetEventTime == null) {
 				final Dimension offset = targetLocation.getDifference(fLocation);
 				if (offset.width() != 0) {
-					final TimeViewDetails timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
+					final TimeBaseConverter timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
 					targetEventTime = timeDetails.screenOffsetToEventTime(targetLocation.x());
 				}
 

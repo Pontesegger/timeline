@@ -18,7 +18,8 @@ import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
-import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
+import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 
 public class OverviewCursorLayer extends FreeformLayer {
 
@@ -30,17 +31,13 @@ public class OverviewCursorLayer extends FreeformLayer {
 
 		@Override
 		public Rectangle getConstraint(IFigure figure) {
-			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
 			final ICursor cursor = (ICursor) super.getConstraint(figure);
 			final Rectangle parentBounds = figure.getParent().getBounds();
 
-			final Rectangle overviewEventArea = timeViewDetails.scaleToOverview(new PrecisionRectangle(cursor.getTimestamp(), 0, 1, 1));
-			overviewEventArea.setY(parentBounds.y());
-			overviewEventArea.setHeight(parentBounds.height());
-			overviewEventArea.setWidth(1);
-
-			return overviewEventArea;
+			final Timing scaledTiming = timeViewDetails.scaleToOverview(cursor.getTiming());
+			return new PrecisionRectangle(scaledTiming.left(), parentBounds.y(), 1, parentBounds.height());
 		}
 	}
 }

@@ -12,40 +12,36 @@
 package org.eclipse.nebula.widgets.timeline.figures.overview;
 
 import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
-/**
- * @author christian
- *
- */
 public class OverviewSelectionLayer extends FreeformLayer {
 
-	private final OverviewSelectionFigure fOverviewSelectionFigure;
-
 	public OverviewSelectionLayer(ITimelineStyleProvider styleProvider) {
-		fOverviewSelectionFigure = new OverviewSelectionFigure(styleProvider);
-		add(fOverviewSelectionFigure);
+		setLayoutManager(new OverviewSelectionLayerLayout());
+
+		add(new OverviewSelectionFigure(styleProvider));
 	}
 
-	@Override
-	protected void paintChildren(Graphics graphics) {
-		final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(this);
+	private class OverviewSelectionLayerLayout extends XYLayout {
+		@Override
+		public Object getConstraint(IFigure figure) {
+			final TimeViewDetails timeViewDetails = Helper.getTimeViewDetails(figure);
 
-		final Rectangle visibleEventArea = timeViewDetails.getVisibleEventArea();
-		final Rectangle bounds = timeViewDetails.scaleToOverview(visibleEventArea);
+			final Rectangle visibleEventArea = timeViewDetails.getVisibleEventArea();
+			final Rectangle bounds = timeViewDetails.scaleToOverview(visibleEventArea);
 
-		bounds.setY(getBounds().y());
-		bounds.setHeight(getBounds().height());
-		bounds.performTranslate(getBounds().x(), 0);
-		if (bounds.width() < 3)
-			bounds.setWidth(3);
+			bounds.setY(getBounds().y());
+			bounds.setHeight(getBounds().height());
+			bounds.performTranslate(getBounds().x(), 0);
+			if (bounds.width() < 3)
+				bounds.setWidth(3);
 
-		fOverviewSelectionFigure.setBounds(bounds);
-
-		super.paintChildren(graphics);
+			return bounds;
+		}
 	}
 }

@@ -39,6 +39,7 @@ import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewEventFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewLayer;
+import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewSelectionLayer;
 import org.eclipse.nebula.widgets.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.ICursorListener;
@@ -59,6 +60,10 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 	private final ResourceManager fResourceManager;
 
+	private final DetailFigure fDetailFigure;
+
+	private final OverviewFigure fOverviewFigure;
+
 	public RootFigure(ResourceManager resourceManager) {
 		fResourceManager = resourceManager;
 		setStyleProvider(null);
@@ -72,8 +77,11 @@ public class RootFigure extends Figure implements IStyledFigure {
 		setOpaque(true);
 		updateStyle(fStyleProvider);
 
-		add(new DetailFigure(getStyleProvider()), BorderLayout.CENTER);
-		add(new OverviewFigure(getStyleProvider()), BorderLayout.BOTTOM);
+		fDetailFigure = new DetailFigure(getStyleProvider());
+		add(fDetailFigure, BorderLayout.CENTER);
+
+		fOverviewFigure = new OverviewFigure(getStyleProvider());
+		add(fOverviewFigure, BorderLayout.BOTTOM);
 	}
 
 	public void setStyleProvider(ITimelineStyleProvider styleProvider) {
@@ -142,15 +150,20 @@ public class RootFigure extends Figure implements IStyledFigure {
 		return fTimeViewDetails;
 	}
 
+	/**
+	 * The offset or the scaling (or both) changed. We need to update the detail area and the damaged part of the overview area.
+	 */
 	public void fireTimebaseChanged() {
 
+		// fresh layout for the detail area
 		for (final LaneFigure lane : Helper.getLanes(this))
 			lane.revalidate();
 
-		Helper.getFigure(this, OverviewLayer.class).revalidate();
 		Helper.getFigure(this, CursorLayer.class).revalidate();
 
-		getUpdateManager().addDirtyRegion(this, getBounds());
+		getUpdateManager().addDirtyRegion(fDetailFigure, fDetailFigure.getBounds());
+
+		Helper.getFigure(this, OverviewSelectionLayer.class).revalidate();
 	}
 
 	public void zoomIn(int zoomCenterX) {

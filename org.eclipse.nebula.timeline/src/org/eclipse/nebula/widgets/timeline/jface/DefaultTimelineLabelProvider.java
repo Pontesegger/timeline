@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.nebula.widgets.timeline.IColored;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
-import org.eclipse.nebula.widgets.timeline.Timings;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
@@ -39,12 +39,12 @@ public class DefaultTimelineLabelProvider extends LabelProvider implements ITime
 	}
 
 	@Override
-	public Timings getTimings(Object element) {
+	public Timing getTimings(Object element) {
 		if (element instanceof ITimelineEvent)
-			return new Timings(((ITimelineEvent) element).getStartTimestamp(), ((ITimelineEvent) element).getDuration());
+			return new Timing(((ITimelineEvent) element).getStartTimestamp(), ((ITimelineEvent) element).getDuration());
 
 		if (element instanceof ICursor)
-			return new Timings(((ICursor) element).getTimestamp());
+			return new Timing(((ICursor) element).getTimestamp());
 
 		return null;
 	}

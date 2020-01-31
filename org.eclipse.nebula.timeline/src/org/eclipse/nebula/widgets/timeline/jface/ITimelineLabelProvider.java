@@ -14,7 +14,7 @@ package org.eclipse.nebula.widgets.timeline.jface;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
-import org.eclipse.nebula.widgets.timeline.Timings;
+import org.eclipse.nebula.widgets.timeline.Timing;
 
 public interface ITimelineLabelProvider extends ILabelProvider {
 
@@ -25,5 +25,5 @@ public interface ITimelineLabelProvider extends ILabelProvider {
 	 *            element to get timings for
 	 * @return timings of event or cursor in elementary time units (nanoseconds)
 	 */
-	Timings getTimings(Object element);
+	Timing getTimings(Object element);
 }

@@ -329,6 +329,8 @@ public class RootFigure extends Figure implements IStyledFigure {
 		final CursorLayer cursorLayer = Helper.getFigure(this, CursorLayer.class);
 		cursorLayer.add(cursorFigure, cursor);
 
+		Helper.getTimeViewDetails(this).addEvent(cursor);
+
 		final OverviewCursorFigure overviewCursorFigure = new OverviewCursorFigure(getStyleProvider());
 		final OverviewCursorLayer overviewCursorLayer = Helper.getFigure(this, OverviewCursorLayer.class);
 		overviewCursorLayer.add(overviewCursorFigure, cursor);

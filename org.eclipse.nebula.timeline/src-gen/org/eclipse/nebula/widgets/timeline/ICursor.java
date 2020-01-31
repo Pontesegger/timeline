@@ -2,8 +2,6 @@
  */
 package org.eclipse.nebula.widgets.timeline;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Cursor</b></em>'.
@@ -21,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ICursor extends EObject {
+public interface ICursor extends ITimed {
 	/**
 	 * Returns the value of the '<em><b>Timeline</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.nebula.widgets.timeline.ITimeline#getCursors <em>Cursors</em>}'.

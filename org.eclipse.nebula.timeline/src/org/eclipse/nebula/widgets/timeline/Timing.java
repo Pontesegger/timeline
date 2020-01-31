@@ -11,17 +11,17 @@
 
 package org.eclipse.nebula.widgets.timeline;
 
-public class Timings {
+public class Timing {
 
 	private final long fTimestamp;
 	private final long fDuration;
 
-	public Timings(long timestamp, long duration) {
+	public Timing(long timestamp, long duration) {
 		fTimestamp = timestamp;
 		fDuration = duration;
 	}
 
-	public Timings(long timestamp) {
+	public Timing(long timestamp) {
 		this(timestamp, 0);
 	}
 

@@ -14,11 +14,13 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.nebula.widgets.timeline.IColored;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ILane;
+import org.eclipse.nebula.widgets.timeline.ITimed;
 import org.eclipse.nebula.widgets.timeline.ITimeline;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
 import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
 import org.eclipse.nebula.widgets.timeline.ITrack;
+import org.eclipse.nebula.widgets.timeline.Timing;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,6 +76,13 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass timedEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EDataType timeUnitEDataType = null;
 
 	/**
@@ -82,6 +91,13 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	private EDataType rgbEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType timingEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -490,6 +506,26 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getTimed() {
+		return timedEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EOperation getTimed__GetTiming() {
+		return timedEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EDataType getTimeUnit() {
 		return timeUnitEDataType;
 	}
@@ -502,6 +538,16 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 	@Override
 	public EDataType getRGB() {
 		return rgbEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getTiming() {
+		return timingEDataType;
 	}
 
 	/**
@@ -573,9 +619,13 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		createEAttribute(coloredEClass, COLORED__COLOR_CODE);
 		createEAttribute(coloredEClass, COLORED__RGB);
 
+		timedEClass = createEClass(TIMED);
+		createEOperation(timedEClass, TIMED___GET_TIMING);
+
 		// Create data types
 		timeUnitEDataType = createEDataType(TIME_UNIT);
 		rgbEDataType = createEDataType(RGB);
+		timingEDataType = createEDataType(TIMING);
 	}
 
 	/**
@@ -608,6 +658,8 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		// Add supertypes to classes
 		laneEClass.getESuperTypes().add(this.getColored());
 		timelineEventEClass.getESuperTypes().add(this.getColored());
+		timelineEventEClass.getESuperTypes().add(this.getTimed());
+		cursorEClass.getESuperTypes().add(this.getTimed());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(timelineEClass, ITimeline.class, "Timeline", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -681,9 +733,14 @@ public class TimelinePackage extends EPackageImpl implements ITimelinePackage {
 		initEAttribute(getColored_ColorCode(), ecorePackage.getEString(), "colorCode", null, 0, 1, IColored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColored_Rgb(), this.getRGB(), "rgb", null, 0, 1, IColored.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
+		initEClass(timedEClass, ITimed.class, "Timed", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEOperation(getTimed__GetTiming(), this.getTiming(), "getTiming", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize data types
 		initEDataType(timeUnitEDataType, TimeUnit.class, "TimeUnit", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(rgbEDataType, org.eclipse.swt.graphics.RGB.class, "RGB", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(timingEDataType, Timing.class, "Timing", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

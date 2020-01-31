@@ -45,7 +45,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="timeEvents" upperBound="-1"
         eType="#//TimelineEvent" containment="true" eOpposite="#//TimelineEvent/lane"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TimelineEvent" eSuperTypes="#//Colored">
+  <eClassifiers xsi:type="ecore:EClass" name="TimelineEvent" eSuperTypes="#//Colored #//Timed">
     <eOperations name="getDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     <eOperations name="setStartTimestamp">
       <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -69,7 +69,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Cursor">
+  <eClassifiers xsi:type="ecore:EClass" name="Cursor" eSuperTypes="#//Timed">
     <eStructuralFeatures xsi:type="ecore:EReference" name="timeline" lowerBound="1"
         eType="#//Timeline" eOpposite="#//Timeline/cursors"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -85,4 +85,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rgb" eType="#//RGB" changeable="false"
         volatile="true" transient="true" derived="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Timed" abstract="true" interface="true">
+    <eOperations name="getTiming" eType="#//Timing"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Timing" instanceClassName="org.eclipse.nebula.widgets.timeline.Timing"
+      serializable="false"/>
 </ecore:EPackage>

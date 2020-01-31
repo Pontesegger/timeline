@@ -32,7 +32,7 @@ import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
 import org.eclipse.nebula.widgets.timeline.TimeViewDetails;
 import org.eclipse.nebula.widgets.timeline.TimelineComposite;
-import org.eclipse.nebula.widgets.timeline.Timings;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorLayer;
@@ -240,7 +240,7 @@ public class TimelineViewer extends StructuredViewer {
 		if (element instanceof ICursor)
 			return (ICursor) element;
 
-		final Timings timings = getLabelProvider().getTimings(element);
+		final Timing timings = getLabelProvider().getTimings(element);
 		if (timings != null) {
 			final ICursor cursor = ITimelineFactory.eINSTANCE.createCursor();
 			cursor.setTimestamp(timings.getTimestamp());
@@ -255,7 +255,7 @@ public class TimelineViewer extends StructuredViewer {
 		if (element instanceof ITimelineEvent)
 			return (ITimelineEvent) element;
 
-		final Timings timings = getLabelProvider().getTimings(element);
+		final Timing timings = getLabelProvider().getTimings(element);
 		if (timings != null) {
 			final ITimelineEvent event = ITimelineFactory.eINSTANCE.createTimelineEvent();
 			event.setStartTimestamp(timings.getTimestamp());
@@ -267,8 +267,11 @@ public class TimelineViewer extends StructuredViewer {
 			if (labelProvider instanceof IToolTipProvider)
 				event.setMessage(((IToolTipProvider) labelProvider).getToolTipText(element));
 
-			if (labelProvider instanceof IColorProvider)
-				event.setColorCode(toColorCode(((IColorProvider) labelProvider).getForeground(element)));
+			if (labelProvider instanceof IColorProvider) {
+				final Color color = ((IColorProvider) labelProvider).getForeground(element);
+				if (color != null)
+					event.setColorCode(toColorCode(color));
+			}
 
 			return event;
 		}

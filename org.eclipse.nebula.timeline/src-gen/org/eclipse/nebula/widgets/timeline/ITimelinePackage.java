@@ -59,6 +59,16 @@ public interface ITimelinePackage extends EPackage {
 	ITimelinePackage eINSTANCE = org.eclipse.nebula.widgets.timeline.impl.TimelinePackage.init();
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.ITimed <em>Timed</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.nebula.widgets.timeline.ITimed
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimed()
+	 * @generated
+	 */
+	int TIMED = 6;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Timeline <em>Timeline</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -415,13 +425,22 @@ public interface ITimelinePackage extends EPackage {
 	int TIMELINE_EVENT_FEATURE_COUNT = COLORED_FEATURE_COUNT + 5;
 
 	/**
+	 * The operation id for the '<em>Get Timing</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_EVENT___GET_TIMING = COLORED_OPERATION_COUNT + 0;
+
+	/**
 	 * The operation id for the '<em>Get Duration</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___GET_DURATION = COLORED_OPERATION_COUNT + 0;
+	int TIMELINE_EVENT___GET_DURATION = COLORED_OPERATION_COUNT + 1;
 
 	/**
 	 * The operation id for the '<em>Set Start Timestamp</em>' operation.
@@ -430,7 +449,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 1;
+	int TIMELINE_EVENT___SET_START_TIMESTAMP__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Set End Timestamp</em>' operation.
@@ -439,7 +458,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 2;
+	int TIMELINE_EVENT___SET_END_TIMESTAMP__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Set Duration</em>' operation.
@@ -448,7 +467,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 3;
+	int TIMELINE_EVENT___SET_DURATION__LONG_TIMEUNIT = COLORED_OPERATION_COUNT + 4;
 
 	/**
 	 * The operation id for the '<em>Set Duration</em>' operation.
@@ -457,7 +476,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT___SET_DURATION__LONG = COLORED_OPERATION_COUNT + 4;
+	int TIMELINE_EVENT___SET_DURATION__LONG = COLORED_OPERATION_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Event</em>' class.
@@ -466,7 +485,34 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIMELINE_EVENT_OPERATION_COUNT = COLORED_OPERATION_COUNT + 5;
+	int TIMELINE_EVENT_OPERATION_COUNT = COLORED_OPERATION_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Timed</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMED_FEATURE_COUNT = 0;
+
+	/**
+	 * The operation id for the '<em>Get Timing</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMED___GET_TIMING = 0;
+
+	/**
+	 * The number of operations of the '<em>Timed</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMED_OPERATION_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.nebula.widgets.timeline.impl.Cursor <em>Cursor</em>}' class.
@@ -485,7 +531,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CURSOR__TIMELINE = 0;
+	int CURSOR__TIMELINE = TIMED_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Timestamp</b></em>' attribute.
@@ -494,7 +540,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CURSOR__TIMESTAMP = 1;
+	int CURSOR__TIMESTAMP = TIMED_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Cursor</em>' class.
@@ -503,7 +549,16 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CURSOR_FEATURE_COUNT = 2;
+	int CURSOR_FEATURE_COUNT = TIMED_FEATURE_COUNT + 2;
+
+	/**
+	 * The operation id for the '<em>Get Timing</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURSOR___GET_TIMING = TIMED___GET_TIMING;
 
 	/**
 	 * The number of operations of the '<em>Cursor</em>' class.
@@ -512,8 +567,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CURSOR_OPERATION_COUNT = 0;
-
+	int CURSOR_OPERATION_COUNT = TIMED_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '<em>Time Unit</em>' data type.
@@ -523,7 +577,7 @@ public interface ITimelinePackage extends EPackage {
 	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimeUnit()
 	 * @generated
 	 */
-	int TIME_UNIT = 6;
+	int TIME_UNIT = 7;
 
 
 	/**
@@ -534,7 +588,17 @@ public interface ITimelinePackage extends EPackage {
 	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getRGB()
 	 * @generated
 	 */
-	int RGB = 7;
+	int RGB = 8;
+
+	/**
+	 * The meta object id for the '<em>Timing</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.nebula.widgets.timeline.Timing
+	 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTiming()
+	 * @generated
+	 */
+	int TIMING = 9;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ITimeline <em>Timeline</em>}'.
@@ -894,6 +958,26 @@ public interface ITimelinePackage extends EPackage {
 	EAttribute getColored_Rgb();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.nebula.widgets.timeline.ITimed <em>Timed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Timed</em>'.
+	 * @see org.eclipse.nebula.widgets.timeline.ITimed
+	 * @generated
+	 */
+	EClass getTimed();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipse.nebula.widgets.timeline.ITimed#getTiming() <em>Get Timing</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Get Timing</em>' operation.
+	 * @see org.eclipse.nebula.widgets.timeline.ITimed#getTiming()
+	 * @generated
+	 */
+	EOperation getTimed__GetTiming();
+
+	/**
 	 * Returns the meta object for data type '{@link java.util.concurrent.TimeUnit <em>Time Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -914,6 +998,17 @@ public interface ITimelinePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getRGB();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.nebula.widgets.timeline.Timing <em>Timing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Timing</em>'.
+	 * @see org.eclipse.nebula.widgets.timeline.Timing
+	 * @model instanceClass="org.eclipse.nebula.widgets.timeline.Timing" serializeable="false"
+	 * @generated
+	 */
+	EDataType getTiming();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1223,6 +1318,24 @@ public interface ITimelinePackage extends EPackage {
 		EAttribute COLORED__RGB = eINSTANCE.getColored_Rgb();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.nebula.widgets.timeline.ITimed <em>Timed</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.nebula.widgets.timeline.ITimed
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTimed()
+		 * @generated
+		 */
+		EClass TIMED = eINSTANCE.getTimed();
+
+		/**
+		 * The meta object literal for the '<em><b>Get Timing</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TIMED___GET_TIMING = eINSTANCE.getTimed__GetTiming();
+
+		/**
 		 * The meta object literal for the '<em>Time Unit</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1241,6 +1354,16 @@ public interface ITimelinePackage extends EPackage {
 		 * @generated
 		 */
 		EDataType RGB = eINSTANCE.getRGB();
+
+		/**
+		 * The meta object literal for the '<em>Timing</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.nebula.widgets.timeline.Timing
+		 * @see org.eclipse.nebula.widgets.timeline.impl.TimelinePackage#getTiming()
+		 * @generated
+		 */
+		EDataType TIMING = eINSTANCE.getTiming();
 
 	}
 

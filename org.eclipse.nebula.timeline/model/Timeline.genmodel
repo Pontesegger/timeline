@@ -10,6 +10,7 @@
       ecorePackage="Timeline.ecore#/">
     <genDataTypes ecoreDataType="Timeline.ecore#//TimeUnit"/>
     <genDataTypes ecoreDataType="Timeline.ecore#//RGB"/>
+    <genDataTypes ecoreDataType="Timeline.ecore#//Timing"/>
     <genClasses ecoreClass="Timeline.ecore#//Timeline">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/tracks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Timeline.ecore#//Timeline/cursors"/>
@@ -78,6 +79,9 @@
     <genClasses ecoreClass="Timeline.ecore#//Colored">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Colored/colorCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Timeline.ecore#//Colored/rgb"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Timeline.ecore#//Timed">
+      <genOperations ecoreOperation="Timeline.ecore#//Timed/getTiming"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

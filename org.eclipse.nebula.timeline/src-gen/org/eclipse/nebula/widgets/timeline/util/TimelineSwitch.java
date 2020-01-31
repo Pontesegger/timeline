@@ -88,18 +88,26 @@ public class TimelineSwitch<T> extends Switch<T> {
 				ITimelineEvent timelineEvent = (ITimelineEvent)theEObject;
 				T result = caseTimelineEvent(timelineEvent);
 				if (result == null) result = caseColored(timelineEvent);
+				if (result == null) result = caseTimed(timelineEvent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ITimelinePackage.CURSOR: {
 				ICursor cursor = (ICursor)theEObject;
 				T result = caseCursor(cursor);
+				if (result == null) result = caseTimed(cursor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ITimelinePackage.COLORED: {
 				IColored colored = (IColored)theEObject;
 				T result = caseColored(colored);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ITimelinePackage.TIMED: {
+				ITimed timed = (ITimed)theEObject;
+				T result = caseTimed(timed);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -194,6 +202,21 @@ public class TimelineSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseColored(IColored object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Timed</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Timed</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimed(ITimed object) {
 		return null;
 	}
 

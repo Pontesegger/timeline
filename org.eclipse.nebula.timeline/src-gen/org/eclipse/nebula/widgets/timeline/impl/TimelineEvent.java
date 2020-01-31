@@ -13,8 +13,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.nebula.widgets.timeline.ILane;
+import org.eclipse.nebula.widgets.timeline.ITimed;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelinePackage;
+import org.eclipse.nebula.widgets.timeline.Timing;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Event</b></em>'. <!-- end-user-doc -->
@@ -287,12 +289,22 @@ public class TimelineEvent extends Colored implements ITimelineEvent {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated NOT
 	 */
 	@Override
 	public void setDuration(long value) {
 		setDuration(value, TimeUnit.NANOSECONDS);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public Timing getTiming() {
+		return new Timing(getStartTimestamp(), getDuration());
 	}
 
 	/**
@@ -435,6 +447,21 @@ public class TimelineEvent extends Colored implements ITimelineEvent {
 	 * @generated
 	 */
 	@Override
+	public int eDerivedOperationID(int baseOperationID, Class<?> baseClass) {
+		if (baseClass == ITimed.class) {
+			switch (baseOperationID) {
+				case ITimelinePackage.TIMED___GET_TIMING: return ITimelinePackage.TIMELINE_EVENT___GET_TIMING;
+				default: return -1;
+			}
+		}
+		return super.eDerivedOperationID(baseOperationID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
 			case ITimelinePackage.TIMELINE_EVENT___GET_DURATION:
@@ -451,6 +478,8 @@ public class TimelineEvent extends Colored implements ITimelineEvent {
 			case ITimelinePackage.TIMELINE_EVENT___SET_DURATION__LONG:
 				setDuration((Long)arguments.get(0));
 				return null;
+			case ITimelinePackage.TIMELINE_EVENT___GET_TIMING:
+				return getTiming();
 		}
 		return super.eInvoke(operationID, arguments);
 	}

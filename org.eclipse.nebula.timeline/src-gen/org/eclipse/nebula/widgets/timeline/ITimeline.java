@@ -4,7 +4,6 @@ package org.eclipse.nebula.widgets.timeline;
 
 import java.util.concurrent.TimeUnit;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

@@ -19,8 +19,8 @@ import org.eclipse.swt.graphics.RGB;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.eclipse.nebula.widgets.timeline.impl.Colored#getColorCode <em>Color Code</em>}</li>
- * <li>{@link org.eclipse.nebula.widgets.timeline.impl.Colored#getRgb <em>Rgb</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Colored#getColorCode <em>Color Code</em>}</li>
+ *   <li>{@link org.eclipse.nebula.widgets.timeline.impl.Colored#getRgb <em>Rgb</em>}</li>
  * </ul>
  *
  * @generated
@@ -41,8 +41,8 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 	private static final Pattern SHORT_HEX_PATTERN = Pattern.compile("#(\\p{XDigit}{1})(\\p{XDigit}{1})(\\p{XDigit}{1})");
 
 	/**
-	 * The default value of the '{@link #getColorCode() <em>Color Code</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * The default value of the '{@link #getColorCode() <em>Color Code</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getColorCode()
 	 * @generated
 	 * @ordered
@@ -50,8 +50,8 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 	protected static final String COLOR_CODE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getColorCode() <em>Color Code</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * The cached value of the '{@link #getColorCode() <em>Color Code</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getColorCode()
 	 * @generated
 	 * @ordered
@@ -59,8 +59,8 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 	protected String colorCode = COLOR_CODE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getRgb() <em>Rgb</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * The default value of the '{@link #getRgb() <em>Rgb</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getRgb()
 	 * @generated
 	 * @ordered
@@ -69,7 +69,6 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	protected Colored() {
@@ -78,7 +77,6 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
@@ -88,7 +86,6 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
@@ -98,12 +95,11 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public void setColorCode(String newColorCode) {
-		final String oldColorCode = colorCode;
+		String oldColorCode = colorCode;
 		colorCode = newColorCode;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ITimelinePackage.COLORED__COLOR_CODE, oldColorCode, colorCode));
@@ -143,77 +139,71 @@ public abstract class Colored extends MinimalEObjectImpl.Container implements IC
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case ITimelinePackage.COLORED__COLOR_CODE:
-			return getColorCode();
-		case ITimelinePackage.COLORED__RGB:
-			return getRgb();
+			case ITimelinePackage.COLORED__COLOR_CODE:
+				return getColorCode();
+			case ITimelinePackage.COLORED__RGB:
+				return getRgb();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case ITimelinePackage.COLORED__COLOR_CODE:
-			setColorCode((String) newValue);
-			return;
+			case ITimelinePackage.COLORED__COLOR_CODE:
+				setColorCode((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case ITimelinePackage.COLORED__COLOR_CODE:
-			setColorCode(COLOR_CODE_EDEFAULT);
-			return;
+			case ITimelinePackage.COLORED__COLOR_CODE:
+				setColorCode(COLOR_CODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case ITimelinePackage.COLORED__COLOR_CODE:
-			return COLOR_CODE_EDEFAULT == null ? colorCode != null : !COLOR_CODE_EDEFAULT.equals(colorCode);
-		case ITimelinePackage.COLORED__RGB:
-			return RGB_EDEFAULT == null ? getRgb() != null : !RGB_EDEFAULT.equals(getRgb());
+			case ITimelinePackage.COLORED__COLOR_CODE:
+				return COLOR_CODE_EDEFAULT == null ? colorCode != null : !COLOR_CODE_EDEFAULT.equals(colorCode);
+			case ITimelinePackage.COLORED__RGB:
+				return RGB_EDEFAULT == null ? getRgb() != null : !RGB_EDEFAULT.equals(getRgb());
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
-		final StringBuilder result = new StringBuilder(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (colorCode: ");
 		result.append(colorCode);
 		result.append(')');

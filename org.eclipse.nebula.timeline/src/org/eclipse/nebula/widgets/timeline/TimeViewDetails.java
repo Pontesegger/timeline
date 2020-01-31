@@ -15,7 +15,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 
 public class TimeViewDetails {
@@ -100,11 +99,11 @@ public class TimeViewDetails {
 		return fScreenArea;
 	}
 
-	public void addEvent(ITimelineEvent event) {
-		final PrecisionRectangle eventDimensions = new PrecisionRectangle(event.getStartTimestamp(), 0, event.getDuration(), 1);
+	public void addEvent(ITimed event) {
+		final PrecisionRectangle eventDimensions = new PrecisionRectangle(event.getTiming().getTimestamp(), 0, event.getTiming().getDuration(), 1);
 		if (fRequiredEventArea.isEmpty()) {
 			fRequiredEventArea = eventDimensions;
-			fOffset = new PrecisionPoint(event.getStartTimestamp(), 0);
+			fOffset = new PrecisionPoint(event.getTiming().getTimestamp(), 0);
 		} else
 			fRequiredEventArea.union(eventDimensions);
 	}

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @model
  * @generated
  */
-public interface ITimelineEvent extends IColored {
+public interface ITimelineEvent extends IColored, ITimed {
 	/**
 	 * Returns the value of the '<em><b>Lane</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.nebula.widgets.timeline.ILane#getTimeEvents <em>Time Events</em>}'.

@@ -144,14 +144,14 @@ public class TimeViewDetails {
 		if (eventTime < 0) {
 			if (fOffset.x() > eventArea.x()) {
 				fOffset.performTranslate((int) eventTime, 0);
-				adjustIvalidOffset();
+				adjustInvalidOffset();
 				fRootFigure.fireTimebaseChanged();
 			}
 
 		} else if (eventTime > 0) {
 			if (fOffset.x() < ((eventArea.x() + eventArea.width()) - getVisibleEventArea().width())) {
 				fOffset.performTranslate((int) eventTime, 0);
-				adjustIvalidOffset();
+				adjustInvalidOffset();
 				fRootFigure.fireTimebaseChanged();
 			}
 		} else
@@ -178,7 +178,7 @@ public class TimeViewDetails {
 
 				final long updatedEventTime = screenOffsetToEventTime(zoomCenterX);
 				fOffset.performTranslate((int) (eventTimeAtZoomCenter - updatedEventTime), 0);
-				adjustIvalidOffset();
+				adjustInvalidOffset();
 
 				fRootFigure.fireTimebaseChanged();
 			}
@@ -189,7 +189,7 @@ public class TimeViewDetails {
 
 			final long updatedEventTime = screenOffsetToEventTime(zoomCenterX);
 			fOffset.performTranslate((int) (eventTimeAtZoomCenter - updatedEventTime), 0);
-			adjustIvalidOffset();
+			adjustInvalidOffset();
 
 			fRootFigure.fireTimebaseChanged();
 		}
@@ -237,12 +237,12 @@ public class TimeViewDetails {
 	 */
 	public void setOffset(long eventTime) {
 		getOffset().setX((int) eventTime);
-		adjustIvalidOffset();
+		adjustInvalidOffset();
 
 		fRootFigure.fireTimebaseChanged();
 	}
 
-	private void adjustIvalidOffset() {
+	private void adjustInvalidOffset() {
 		if (fOffset.x() > ((getEventArea().x() + getEventArea().width()) - getVisibleEventArea().width()))
 			fOffset.setX((getEventArea().x() + getEventArea().width()) - getVisibleEventArea().width());
 

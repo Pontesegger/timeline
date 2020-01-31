@@ -129,12 +129,13 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 
 	@Override
 	public void selectEvent(EventFigure eventFigure) {
+		eventFigure.setFont(getSelectedFont(eventFigure));
+		((IFigure) eventFigure.getChildren().get(0)).revalidate();
+
+		// change colors after changing the font. Otherwise revalidate will overwrite the colors
 		eventFigure.setForegroundColor(ColorConstants.red);
 		eventFigure.setLineWidth(3);
 		eventFigure.setAlpha(255);
-
-		eventFigure.setFont(getSelectedFont(eventFigure));
-		((IFigure) eventFigure.getChildren().get(0)).revalidate();
 	}
 
 	@Override

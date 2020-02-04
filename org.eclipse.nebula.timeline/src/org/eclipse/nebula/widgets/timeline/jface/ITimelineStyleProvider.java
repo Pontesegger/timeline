@@ -11,6 +11,8 @@
 
 package org.eclipse.nebula.widgets.timeline.jface;
 
+import java.util.concurrent.TimeUnit;
+
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
@@ -186,4 +188,15 @@ public interface ITimelineStyleProvider {
 	 * @return insets to be used for the overview area
 	 */
 	Insets getOverviewInsets();
+
+	/**
+	 * Get a human readable timestamp for a given time. The provided label will be used for axis labels and cursor popups.
+	 *
+	 * @param timestamp
+	 *            timestamp in eventTime
+	 * @param unit
+	 *            time unit to be used
+	 * @return time value
+	 */
+	String getTimeLabel(double timestamp, TimeUnit unit);
 }

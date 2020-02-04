@@ -64,61 +64,15 @@ public class TimeAxisFigure extends Figure implements IStyledFigure {
 		graphics.setLineStyle(SWT.LINE_SOLID);
 
 		final Insets insets = RootFigure.getFigure(this, TracksFigure.class).getInsets();
+		final ITimelineStyleProvider styleProvider = RootFigure.getRootFigure(this).getStyleProvider();
 
 		final Map<Double, Integer> markerPositions = getDetailFigure().getMarkerPositions();
 		for (final Entry<Double, Integer> entry : markerPositions.entrySet()) {
-			final String label = getLabelForTime(entry.getKey(), TimeUnit.NANOSECONDS);
+			final String label = styleProvider.getTimeLabel(entry.getKey(), TimeUnit.NANOSECONDS);
 			final int textWidth = FigureUtilities.getTextWidth(label, graphics.getFont());
 
 			graphics.drawLine(entry.getValue() + bounds.x() + insets.left, bounds.y, entry.getValue() + bounds.x() + insets.left, bounds.y + 5);
 			graphics.drawText(label, (entry.getValue() + bounds.x() + insets.left) - (textWidth / 2), bounds.y + 5);
-		}
-	}
-
-	private String getLabelForTime(double timestamp, TimeUnit unit) {
-		// TODO move code to styleprovider
-		switch (unit) {
-		case NANOSECONDS:
-			if (timestamp >= 1000)
-				return getLabelForTime(timestamp / 1000, TimeUnit.MICROSECONDS);
-
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " ns";
-
-		case MICROSECONDS:
-			if (timestamp >= 1000)
-				return getLabelForTime(timestamp / 1000, TimeUnit.MILLISECONDS);
-
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " µs";
-
-		case MILLISECONDS:
-			if (timestamp >= 1000)
-				return getLabelForTime(timestamp / 1000, TimeUnit.SECONDS);
-
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " ms";
-
-		case SECONDS:
-			if (timestamp >= 60)
-				return getLabelForTime(timestamp / 60, TimeUnit.MINUTES);
-
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " s";
-
-		case MINUTES:
-			if (timestamp >= 60)
-				return getLabelForTime(timestamp / 60, TimeUnit.HOURS);
-
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " min";
-
-		case HOURS:
-			if (timestamp >= 24)
-				return getLabelForTime(timestamp / 24, TimeUnit.DAYS);
-
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " h";
-
-		case DAYS:
-			return Double.toString(Math.round(timestamp * 100) / 100D) + " days";
-
-		default:
-			return Double.toString(Math.round(timestamp * 100) / 100D);
 		}
 	}
 }

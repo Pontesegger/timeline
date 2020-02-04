@@ -14,6 +14,7 @@ package org.eclipse.nebula.widgets.timeline.figures.detail.cursor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
@@ -34,6 +35,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
+import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.swt.SWT;
 
 public class CursorTimingsLayer extends FreeformLayer {
@@ -140,7 +142,8 @@ public class CursorTimingsLayer extends FreeformLayer {
 		private String getDistanceAsText(CursorFigure cursorA, CursorFigure cursorB) {
 			final double eventTime = Math.abs(cursorA.getEventTime() - cursorB.getEventTime());
 
-			return eventTime + " ns";
+			final ITimelineStyleProvider styleProvider = RootFigure.getRootFigure(CursorTimingsLayer.this).getStyleProvider();
+			return styleProvider.getTimeLabel(eventTime, TimeUnit.NANOSECONDS);
 		}
 
 		/**

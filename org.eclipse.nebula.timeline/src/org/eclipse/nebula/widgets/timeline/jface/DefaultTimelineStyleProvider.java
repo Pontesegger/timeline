@@ -11,6 +11,8 @@
 
 package org.eclipse.nebula.widgets.timeline.jface;
 
+import java.util.concurrent.TimeUnit;
+
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
@@ -202,5 +204,52 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	@Override
 	public Insets getOverviewInsets() {
 		return new Insets(0, 5, 0, 5);
+	}
+
+	@Override
+	public String getTimeLabel(double timestamp, TimeUnit unit) {
+		switch (unit) {
+		case NANOSECONDS:
+			if (timestamp >= 1000)
+				return getTimeLabel(timestamp / 1000, TimeUnit.MICROSECONDS);
+
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " ns";
+
+		case MICROSECONDS:
+			if (timestamp >= 1000)
+				return getTimeLabel(timestamp / 1000, TimeUnit.MILLISECONDS);
+
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " µs";
+
+		case MILLISECONDS:
+			if (timestamp >= 1000)
+				return getTimeLabel(timestamp / 1000, TimeUnit.SECONDS);
+
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " ms";
+
+		case SECONDS:
+			if (timestamp >= 60)
+				return getTimeLabel(timestamp / 60, TimeUnit.MINUTES);
+
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " s";
+
+		case MINUTES:
+			if (timestamp >= 60)
+				return getTimeLabel(timestamp / 60, TimeUnit.HOURS);
+
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " min";
+
+		case HOURS:
+			if (timestamp >= 24)
+				return getTimeLabel(timestamp / 24, TimeUnit.DAYS);
+
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " h";
+
+		case DAYS:
+			return Double.toString(Math.round(timestamp * 100) / 100D) + " days";
+
+		default:
+			return Double.toString(Math.round(timestamp * 100) / 100D);
+		}
 	}
 }

@@ -43,9 +43,7 @@ public class DetailFigure extends Figure {
 		setBorder(new EmptyBorder(new Insets(10)));
 
 		add(new TracksFigure(styleProvider), BorderLayout.CENTER);
-
-		final TimeAxisFigure timeAxisFigure = new TimeAxisFigure(styleProvider);
-		add(timeAxisFigure, BorderLayout.BOTTOM);
+		add(new TimeAxisFigure(styleProvider), BorderLayout.BOTTOM);
 
 		new DetailAreaListener(this);
 	}
@@ -55,15 +53,34 @@ public class DetailFigure extends Figure {
 	 *
 	 * @return map (timeValue, pixelOffset)
 	 */
-	public Map<Long, Integer> getMarkerPositions() {
-
+	public Map<Double, Integer> getMarkerPositions() {
 		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
 
-		final Map<Long, Integer> markerPositions = new HashMap<>();
-		for (final Long eventTime : getEventTimeMarkerPositions())
-			markerPositions.put(eventTime, timeViewDetails.eventTimeToScreenOffset(eventTime));
+		final Map<Double, Integer> markerPositions = new HashMap<>();
+		for (final Double eventTime : getEventTimeMarkerPositions())
+			markerPositions.put(eventTime, (int) Math.round(timeViewDetails.toDetailCoordinates(new Timing(eventTime)).getTimestamp()));
 
 		return markerPositions;
+	}
+
+	/**
+	 * Get timestamps in eventTime for markers that are visible on screen.
+	 *
+	 * @return list of timestamps (in eventTime) to draw markers for
+	 */
+	private List<Double> getEventTimeMarkerPositions() {
+		final List<Double> positions = new ArrayList<>();
+
+		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
+		final Timing visibleEventArea = timeViewDetails.getVisibleEventArea();
+
+		final int stepSize = getStepSize();
+		final long startValue = (long) ((Math.floor((visibleEventArea.left()) / stepSize) + 1) * stepSize);
+
+		for (long pos = startValue; pos < visibleEventArea.right(); pos += stepSize)
+			positions.add((double) pos);
+
+		return positions;
 	}
 
 	/**
@@ -75,7 +92,7 @@ public class DetailFigure extends Figure {
 	private int getStepSize() {
 		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
 
-		final double steps = timeViewDetails.getScreenArea().getDuration() / MIN_STEP_SIZE;
+		final double steps = timeViewDetails.fScreenWidth / MIN_STEP_SIZE;
 		double stepSizeInEventTime = timeViewDetails.getVisibleEventArea().getDuration() / steps;
 		int factor = 1;
 		while (stepSizeInEventTime >= 100) {
@@ -87,25 +104,5 @@ public class DetailFigure extends Figure {
 		final int niceStepSize = STEP_SIZE_CANDIDATES.stream().filter(c -> c >= preliminarySize).findFirst().get();
 
 		return niceStepSize * factor;
-	}
-
-	/**
-	 * Get timestamps in eventTime for markers that are visible on screen.
-	 *
-	 * @return list of timestamps (in eventTime) to draw markers for
-	 */
-	private List<Long> getEventTimeMarkerPositions() {
-		final List<Long> positions = new ArrayList<>();
-
-		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
-		final Timing visibleEventArea = timeViewDetails.getVisibleEventArea();
-
-		final int stepSize = getStepSize();
-		final long startValue = (long) ((Math.floor((visibleEventArea.left()) / stepSize) + 1) * stepSize);
-
-		for (long pos = startValue; pos < visibleEventArea.right(); pos += stepSize)
-			positions.add(pos);
-
-		return positions;
 	}
 }

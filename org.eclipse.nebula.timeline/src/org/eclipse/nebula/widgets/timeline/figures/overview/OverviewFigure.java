@@ -25,10 +25,11 @@ public class OverviewFigure extends LayeredPane implements IStyledFigure {
 
 	public static final int HORIZONTAL_INDENT = 8;
 	public static final int VERTICAL_INDENT = 8;
-	public static final int EVENT_HEIGHT = 4;
 	public static final int Y_PADDING = 3;
 
 	private final int fPreferredHeight = DEFAULT_HEIGHT;
+
+	private int fEventHeight = 0;
 
 	public OverviewFigure(ITimelineStyleProvider styleProvider) {
 
@@ -44,22 +45,14 @@ public class OverviewFigure extends LayeredPane implements IStyledFigure {
 	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setVisible(styleProvider.showOverview());
-	}
-
-	@Override
-	protected boolean useLocalCoordinates() {
-		return true;
+		fEventHeight = styleProvider.getOverviewLaneHeight();
 	}
 
 	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		final int laneCount = Helper.getLaneCount(this);
-		final int requiredHeight = (VERTICAL_INDENT * 2) + (laneCount * EVENT_HEIGHT) + ((laneCount - 1) * Y_PADDING) + getInsets().top + getInsets().bottom;
+		final int requiredHeight = (VERTICAL_INDENT * 2) + (laneCount * fEventHeight) + ((laneCount - 1) * Y_PADDING) + getInsets().top + getInsets().bottom;
 
-		return new Dimension(wHint, Math.max(requiredHeight, getPreferredHeight()));
-	}
-
-	private int getPreferredHeight() {
-		return fPreferredHeight;
+		return new Dimension(wHint, Math.max(requiredHeight, fPreferredHeight));
 	}
 }

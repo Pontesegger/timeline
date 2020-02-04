@@ -28,7 +28,6 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 
 	private Color fEventColor;
 	private final Label fLabel;
-	private ITimelineEvent fCachedEvent;
 
 	public EventFigure(ITimelineEvent event) {
 
@@ -46,8 +45,6 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 
 		if (event.getMessage() != null)
 			setToolTip(new EventTooltip(event.getMessage()));
-
-		fCachedEvent = event;
 	}
 
 	public void setEventColor(Color color) {
@@ -65,8 +62,6 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 		final ITimelineEvent event = getEvent();
 		if (event != null) {
 			// event is null during construction. Label & tooltip updates are only needed later on changes
-
-			fCachedEvent = event;
 
 			fLabel.setText(event.getTitle());
 			setToolTip((event.getMessage() == null) ? null : new EventTooltip(event.getMessage()));

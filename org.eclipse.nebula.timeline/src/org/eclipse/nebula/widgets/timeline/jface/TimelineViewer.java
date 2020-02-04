@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -321,7 +320,7 @@ public class TimelineViewer extends StructuredViewer {
 
 			} else if (figure instanceof LaneFigure) {
 				unregisterFigures(figure.getChildren());
-				for (final EventFigure eventFigure : ((LaneFigure) figure).getChildEventFigures())
+				for (final EventFigure eventFigure : ((LaneFigure) figure).getEventFigures())
 					getControl().getRootFigure().deleteEventFigure(eventFigure);
 
 				final Object lane = getModelElementFor(figure);
@@ -401,11 +400,11 @@ public class TimelineViewer extends StructuredViewer {
 
 		if (element instanceof ITimelineEvent) {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
-			timeViewDetails.revealEvent(new PrecisionRectangle(((ITimelineEvent) element).getStartTimestamp(), 0, ((ITimelineEvent) element).getDuration(), 1));
+			timeViewDetails.revealEvent(new Timing(((ITimelineEvent) element).getStartTimestamp(), ((ITimelineEvent) element).getDuration()));
 
 		} else if (element instanceof ICursor) {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
-			timeViewDetails.revealEvent(new PrecisionRectangle(((ICursor) element).getTimestamp(), 0, 1, 1));
+			timeViewDetails.revealEvent(new Timing(((ICursor) element).getTimestamp(), 0));
 		}
 	}
 

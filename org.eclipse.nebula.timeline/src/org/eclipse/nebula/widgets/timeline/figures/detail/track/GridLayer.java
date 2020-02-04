@@ -28,8 +28,9 @@ public class GridLayer extends FreeformLayer implements IStyledFigure {
 		updateStyle(styleProvider);
 	}
 
-	private DetailFigure getDetailFigure() {
-		return (DetailFigure) getParent().getParent();
+	@Override
+	protected boolean useLocalCoordinates() {
+		return super.useLocalCoordinates();
 	}
 
 	@Override
@@ -44,9 +45,9 @@ public class GridLayer extends FreeformLayer implements IStyledFigure {
 		graphics.setLineStyle(styleProvider.getGridLineStyle());
 
 		final Rectangle bounds = getBounds();
-		final Map<Long, Integer> markerPositions = getDetailFigure().getMarkerPositions();
+		final Map<Double, Integer> markerPositions = Helper.getFigure(this, DetailFigure.class).getMarkerPositions();
 		for (final int position : markerPositions.values())
-			graphics.drawLine(position, bounds.y, position, bounds.y + bounds.height);
+			graphics.drawLine(position + bounds.x(), bounds.y, position + bounds.x(), bounds.y + bounds.height);
 	}
 
 	@Override

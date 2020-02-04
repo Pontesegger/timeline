@@ -12,7 +12,6 @@
 package org.eclipse.nebula.widgets.timeline.figures.detail.track;
 
 import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.nebula.widgets.timeline.Helper;
 
@@ -25,9 +24,14 @@ public class TracksLayer extends FreeformLayer {
 	}
 
 	@Override
-	public void paint(Graphics graphics) {
-		super.paint(graphics);
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
 
-		Helper.getTimeViewDetails(this).setScreenArea(getBounds());
+	@Override
+	protected void layout() {
+		super.layout();
+
+		Helper.getTimeViewDetails(this).setScreenWidth(getBounds().width());
 	}
 }

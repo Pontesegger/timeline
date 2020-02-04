@@ -20,14 +20,18 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.swt.SWT;
 
 public class TimeAxisFigure extends Figure implements IStyledFigure {
 
 	public TimeAxisFigure(ITimelineStyleProvider styleProvider) {
+
 		setOpaque(false);
 		updateStyle(styleProvider);
 	}
@@ -59,17 +63,20 @@ public class TimeAxisFigure extends Figure implements IStyledFigure {
 		graphics.setForegroundColor(ColorConstants.darkGray);
 		graphics.setLineStyle(SWT.LINE_SOLID);
 
-		final Map<Long, Integer> markerPositions = getDetailFigure().getMarkerPositions();
-		for (final Entry<Long, Integer> entry : markerPositions.entrySet()) {
+		final Insets insets = Helper.getFigure(this, TracksFigure.class).getInsets();
+
+		final Map<Double, Integer> markerPositions = getDetailFigure().getMarkerPositions();
+		for (final Entry<Double, Integer> entry : markerPositions.entrySet()) {
 			final String label = getLabelForTime(entry.getKey(), TimeUnit.NANOSECONDS);
 			final int textWidth = FigureUtilities.getTextWidth(label, graphics.getFont());
 
-			graphics.drawLine(entry.getValue(), bounds.y, entry.getValue(), bounds.y + 5);
-			graphics.drawText(label, entry.getValue() - (textWidth / 2), bounds.y + 5);
+			graphics.drawLine(entry.getValue() + bounds.x() + insets.left, bounds.y, entry.getValue() + bounds.x() + insets.left, bounds.y + 5);
+			graphics.drawText(label, (entry.getValue() + bounds.x() + insets.left) - (textWidth / 2), bounds.y + 5);
 		}
 	}
 
 	private String getLabelForTime(double timestamp, TimeUnit unit) {
+		// TODO move code to styleprovider
 		switch (unit) {
 		case NANOSECONDS:
 			if (timestamp >= 1000)

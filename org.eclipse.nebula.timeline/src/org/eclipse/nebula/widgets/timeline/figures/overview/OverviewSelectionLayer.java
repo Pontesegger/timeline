@@ -31,16 +31,18 @@ public class OverviewSelectionLayer extends FreeformLayer {
 		add(new OverviewSelectionFigure(styleProvider));
 	}
 
+	@Override
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
+
 	private class OverviewSelectionLayerLayout extends XYLayout {
 		@Override
 		public Object getConstraint(IFigure figure) {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
-			final Timing visibleEventArea = timeViewDetails.getVisibleEventArea();
-			final Timing scaledTiming = timeViewDetails.scaleToOverview(visibleEventArea);
-			scaledTiming.translate(getBounds().x());
-
-			final Rectangle bounds = new PrecisionRectangle(scaledTiming.left(), getBounds().y(), scaledTiming.getDuration(), getBounds().height());
+			final Timing coordinates = timeViewDetails.toOverviewCoordinates(timeViewDetails.getVisibleEventArea());
+			final Rectangle bounds = new PrecisionRectangle(coordinates.left(), 0, coordinates.getDuration(), getBounds().height());
 			if (bounds.width() < MINIMUM_WIDTH)
 				bounds.setWidth(MINIMUM_WIDTH);
 

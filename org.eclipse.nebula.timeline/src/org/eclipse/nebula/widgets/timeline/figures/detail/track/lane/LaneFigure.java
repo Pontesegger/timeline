@@ -11,7 +11,6 @@
 
 package org.eclipse.nebula.widgets.timeline.figures.detail.track.lane;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
@@ -21,12 +20,12 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
@@ -61,13 +60,13 @@ public class LaneFigure extends Figure implements IStyledFigure {
 		});
 	}
 
-	public List<EventFigure> getChildEventFigures() {
+	public List<EventFigure> getEventFigures() {
 		return ((List<?>) getChildren()).stream().filter(p -> p instanceof EventFigure).map(p -> (EventFigure) p).collect(Collectors.toList());
 	}
 
 	private class LaneLayout extends XYLayout {
 
-		private Rectangle getContraintAsRectangle(IFigure figure) {
+		private Rectangle getConstraintAsRectangle(IFigure figure) {
 			final ITimelineEvent event = (ITimelineEvent) getConstraint(figure);
 
 			return new PrecisionRectangle(event.getStartTimestamp(), 0, event.getDuration(), 1);
@@ -77,25 +76,17 @@ public class LaneFigure extends Figure implements IStyledFigure {
 		public void layout(IFigure parent) {
 			final TimeBaseConverter timeViewDetails = Helper.getRootFigure(parent).getTimeViewDetails();
 
-			final Iterator<?> children = parent.getChildren().iterator();
-			final Point offset = getOrigin(parent);
-			IFigure f;
-			while (children.hasNext()) {
-				f = (IFigure) children.next();
-				final Rectangle bounds = getContraintAsRectangle(f);
+			for (final Object figure : getChildren()) {
+				final ITimelineEvent event = (ITimelineEvent) getConstraint((IFigure) figure);
 
-				// now bounds refers to the original bounds (unscaled and unmoved)
-				bounds.performTranslate((int) -timeViewDetails.getOffset(), 0);
-				bounds.performScale(timeViewDetails.getScaleFactor());
+				final Timing screenCoordinates = timeViewDetails.toDetailCoordinates(event.getTiming());
+				final Rectangle screenBounds = new PrecisionRectangle(screenCoordinates.getTimestamp(), getBounds().y(), screenCoordinates.getDuration(),
+						getBounds().height());
 
-				bounds.performTranslate(offset.x(), offset.y());
+				if (screenBounds.width() == 0)
+					screenBounds.setWidth(1);
 
-				bounds.setHeight(parent.getBounds().height()); // height got scaled, revert
-
-				if (bounds.width() == 0)
-					bounds.setWidth(1);
-
-				f.setBounds(bounds);
+				((IFigure) figure).setBounds(screenBounds);
 			}
 		}
 
@@ -108,7 +99,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 			final ListIterator children = f.getChildren().listIterator();
 			while (children.hasNext()) {
 				final IFigure child = (IFigure) children.next();
-				Rectangle r = getContraintAsRectangle(child);
+				Rectangle r = getConstraintAsRectangle(child);
 				if (r == null)
 					continue;
 

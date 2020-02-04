@@ -18,7 +18,7 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
-import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.ITimed;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
@@ -29,6 +29,7 @@ import org.eclipse.nebula.widgets.timeline.listeners.OverviewSelector;
 public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 
 	private static final int MINIMUM_WIDTH = 1;
+	private int fEventHeight = 0;
 
 	public OverviewLayer(ITimelineStyleProvider styleProvider) {
 		updateStyle(styleProvider);
@@ -48,6 +49,11 @@ public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 	}
 
 	@Override
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
+
+	@Override
 	public boolean containsPoint(int x, int y) {
 		return getBounds().contains(x, y);
 	}
@@ -55,6 +61,7 @@ public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
 		setBorder(styleProvider.getOverviewAreaBorder());
+		fEventHeight = styleProvider.getOverviewLaneHeight();
 	}
 
 	@Override
@@ -70,12 +77,12 @@ public class OverviewLayer extends FreeformLayer implements IStyledFigure {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
 			final EventFigure eventFigure = (EventFigure) super.getConstraint(figure);
-			final ITimelineEvent event = eventFigure.getEvent();
+			final ITimed event = eventFigure.getEvent();
 
-			final Timing scaledTiming = timeViewDetails.scaleToOverview(event.getTiming());
-			final Rectangle overviewEventArea = new PrecisionRectangle(scaledTiming.left(),
-					OverviewFigure.VERTICAL_INDENT + ((OverviewFigure.EVENT_HEIGHT + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)),
-					scaledTiming.getDuration(), OverviewFigure.EVENT_HEIGHT);
+			final Timing screenCoordinates = timeViewDetails.toOverviewCoordinates(event.getTiming());
+			final Rectangle overviewEventArea = new PrecisionRectangle(screenCoordinates.left(),
+					OverviewFigure.VERTICAL_INDENT + ((fEventHeight + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)),
+					screenCoordinates.getDuration(), fEventHeight);
 
 			if (overviewEventArea.width() < MINIMUM_WIDTH)
 				overviewEventArea.setWidth(MINIMUM_WIDTH);

@@ -192,4 +192,9 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	public boolean showOverview() {
 		return true;
 	}
+
+	@Override
+	public int getOverviewLaneHeight() {
+		return 4;
+	}
 }

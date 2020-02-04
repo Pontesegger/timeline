@@ -14,9 +14,9 @@ package org.eclipse.nebula.widgets.timeline.listeners;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
-import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 
 public class OverviewSelector extends MouseListener.Stub {
 
@@ -32,9 +32,9 @@ public class OverviewSelector extends MouseListener.Stub {
 	public void mouseReleased(MouseEvent me) {
 		if (me.button == 1) {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(fFigure);
-			final long eventTime = timeViewDetails.overviewScreenOffsetToEventTime(me.x);
+			final Timing eventTime = timeViewDetails.overviewCoordinatesToEventTime(new Timing(me.x, 0));
 
-			timeViewDetails.revealEvent(new PrecisionRectangle(eventTime, 0, 1, 1));
+			timeViewDetails.revealEvent(eventTime);
 		}
 	}
 }

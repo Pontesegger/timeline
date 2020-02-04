@@ -140,6 +140,13 @@ public interface ITimelineStyleProvider {
 	int getLaneHeight();
 
 	/**
+	 * Get height for a given lane in overview.
+	 *
+	 * @return height in pixels
+	 */
+	int getOverviewLaneHeight();
+
+	/**
 	 * Apply styling to select an event figure.
 	 *
 	 * @param eventFigure

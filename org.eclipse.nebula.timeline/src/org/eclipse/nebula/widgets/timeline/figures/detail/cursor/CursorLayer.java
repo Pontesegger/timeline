@@ -11,22 +11,26 @@
 
 package org.eclipse.nebula.widgets.timeline.figures.detail.cursor;
 
-import java.util.Iterator;
-
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 
 public class CursorLayer extends FreeformLayer {
 
 	public CursorLayer() {
 		setLayoutManager(new CursorLayout());
+	}
+
+	@Override
+	protected boolean useLocalCoordinates() {
+		return true;
 	}
 
 	private class CursorLayout extends XYLayout {
@@ -35,25 +39,16 @@ public class CursorLayer extends FreeformLayer {
 		public void layout(IFigure parent) {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(parent);
 
-			final Iterator<?> children = parent.getChildren().iterator();
-			final Point offset = getOrigin(parent);
-			IFigure f;
-			while (children.hasNext()) {
-				f = (IFigure) children.next();
-				final ICursor cursor = (ICursor) getConstraint(f);
+			for (final Object child : getChildren()) {
+				final ICursor cursor = (ICursor) getConstraint((IFigure) child);
+				final Dimension preferredSize = ((IFigure) child).getPreferredSize();
 
-				final Rectangle bounds = new PrecisionRectangle(cursor.getTimestamp(), 0, 1, 1);
-				bounds.performTranslate((int) -timeViewDetails.getOffset(), 0);
-				bounds.performScale(timeViewDetails.getScaleFactor());
-				bounds.performTranslate(offset.x(), 0);
+				final Timing screenCoordinates = timeViewDetails.toDetailCoordinates(cursor.getTiming());
+				final Rectangle screenBounds = new PrecisionRectangle(screenCoordinates.getTimestamp(), 0, preferredSize.width(), getBounds().height());
 
-				bounds.setWidth(CursorFigure.CURSOR_WIDTH);
-				bounds.setY(parent.getBounds().y());
-				bounds.setHeight(parent.getBounds().height());
+				screenBounds.translate(-preferredSize.width() / 2, 0);
 
-				bounds.performTranslate(-CursorFigure.CURSOR_WIDTH / 2, 0);
-
-				f.setBounds(bounds);
+				((IFigure) child).setBounds(screenBounds);
 			}
 		}
 	}

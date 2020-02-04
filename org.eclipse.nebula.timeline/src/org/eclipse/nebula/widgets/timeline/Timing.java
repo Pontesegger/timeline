@@ -65,4 +65,9 @@ public class Timing {
 	public boolean isEmpty() {
 		return fDuration == 0;
 	}
+
+	@Override
+	public String toString() {
+		return fTimestamp + " (" + fDuration + ")";
+	}
 }

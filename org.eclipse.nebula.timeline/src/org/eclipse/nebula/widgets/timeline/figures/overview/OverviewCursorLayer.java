@@ -14,10 +14,12 @@ package org.eclipse.nebula.widgets.timeline.figures.overview;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ITimed;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
 
@@ -27,17 +29,25 @@ public class OverviewCursorLayer extends FreeformLayer {
 		setLayoutManager(new OverviewLayout());
 	}
 
+	@Override
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
+
 	private class OverviewLayout extends XYLayout {
 
 		@Override
 		public Rectangle getConstraint(IFigure figure) {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
-			final ICursor cursor = (ICursor) super.getConstraint(figure);
-			final Rectangle parentBounds = figure.getParent().getBounds();
+			// get border insets from OverviewLayer
+			final OverviewLayer layer = Helper.getFigure(figure, OverviewLayer.class);
+			final Insets insets = layer.getInsets();
 
-			final Timing scaledTiming = timeViewDetails.scaleToOverview(cursor.getTiming());
-			return new PrecisionRectangle(scaledTiming.left(), parentBounds.y(), 1, parentBounds.height());
+			final ITimed cursor = (ICursor) super.getConstraint(figure);
+			final Timing screenCoordinates = timeViewDetails.toOverviewCoordinates(cursor.getTiming());
+
+			return new PrecisionRectangle(screenCoordinates.left(), insets.top, 1, getBounds().height() - insets.getHeight());
 		}
 	}
 }

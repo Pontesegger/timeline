@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Triangle;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
@@ -25,7 +26,7 @@ import org.eclipse.nebula.widgets.timeline.listeners.CursorMover;
 
 public class CursorFigure extends Figure implements IStyledFigure {
 
-	public static final int CURSOR_WIDTH = 14;
+	private static final int CURSOR_WIDTH = 13;
 
 	private static final int TRIANGLE_SIZE = 6;
 
@@ -49,11 +50,20 @@ public class CursorFigure extends Figure implements IStyledFigure {
 		add(bottomTriangle, BorderLayout.BOTTOM);
 
 		fLineFigure = new RectangleFigure();
-		fLineFigure.setLineWidth(2);
-		fLineFigure.getBounds().setWidth(2);
+		fLineFigure.setLineWidth(1);
 		add(fLineFigure, BorderLayout.CENTER);
 
 		new CursorMover(this);
+	}
+
+	@Override
+	public Dimension getPreferredSize(int wHint, int hHint) {
+		return new Dimension(CURSOR_WIDTH, hHint);
+	}
+
+	@Override
+	protected boolean useLocalCoordinates() {
+		return true;
 	}
 
 	public long getEventTime() {
@@ -75,9 +85,9 @@ public class CursorFigure extends Figure implements IStyledFigure {
 			super.layout(container);
 
 			final Rectangle bounds = fLineFigure.getBounds();
-			bounds.performTranslate((bounds.width() / 2) - 1, 0);
+			bounds.performTranslate((bounds.width() / 2), 0);
 			bounds.setWidth(1);
-			bounds.setY(container.getBounds().y());
+			bounds.setY(0);
 			bounds.setHeight(container.getBounds().height());
 		}
 	}

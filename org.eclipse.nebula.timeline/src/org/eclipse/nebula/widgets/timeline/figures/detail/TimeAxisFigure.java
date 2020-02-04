@@ -22,8 +22,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.swt.SWT;
@@ -63,7 +63,7 @@ public class TimeAxisFigure extends Figure implements IStyledFigure {
 		graphics.setForegroundColor(ColorConstants.darkGray);
 		graphics.setLineStyle(SWT.LINE_SOLID);
 
-		final Insets insets = Helper.getFigure(this, TracksFigure.class).getInsets();
+		final Insets insets = RootFigure.getFigure(this, TracksFigure.class).getInsets();
 
 		final Map<Double, Integer> markerPositions = getDetailFigure().getMarkerPositions();
 		for (final Entry<Double, Integer> entry : markerPositions.entrySet()) {

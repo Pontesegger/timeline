@@ -17,10 +17,10 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 
 public class CursorLayer extends FreeformLayer {
 
@@ -37,7 +37,7 @@ public class CursorLayer extends FreeformLayer {
 
 		@Override
 		public void layout(IFigure parent) {
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(parent);
+			final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(parent);
 
 			for (final Object child : getChildren()) {
 				final ICursor cursor = (ICursor) getConstraint((IFigure) child);

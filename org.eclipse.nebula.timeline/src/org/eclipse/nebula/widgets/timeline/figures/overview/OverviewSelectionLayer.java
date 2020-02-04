@@ -16,9 +16,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.OverviewSelector;
 
@@ -47,7 +47,7 @@ public class OverviewSelectionLayer extends FreeformLayer {
 	private class OverviewSelectionLayerLayout extends XYLayout {
 		@Override
 		public Object getConstraint(IFigure figure) {
-			final TimeBaseConverter timeConverter = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeConverter = RootFigure.getTimeViewDetails(figure);
 
 			final Timing coordinates = timeConverter.toOverviewScreenCoordinates(timeConverter.getVisibleEventArea());
 			final Rectangle bounds = new PrecisionRectangle(coordinates.left(), 0, coordinates.getDuration(), getBounds().height());

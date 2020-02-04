@@ -18,8 +18,8 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 
 /**
@@ -59,11 +59,11 @@ public class DetailAreaListener extends MouseMotionListener.Stub implements Mous
 
 			if (figureUnderCursor instanceof EventFigure) {
 				// selection
-				Helper.getRootFigure(fFigure).setSelection((EventFigure) figureUnderCursor);
+				RootFigure.getRootFigure(fFigure).setSelection((EventFigure) figureUnderCursor);
 			} else {
 				// create cursor
-				final long eventTime = Helper.getTimeViewDetails(fFigure).screenOffsetToEventTime(me.x);
-				Helper.getRootFigure(fFigure).createCursor(eventTime);
+				final long eventTime = RootFigure.getTimeViewDetails(fFigure).screenOffsetToEventTime(me.x);
+				RootFigure.getRootFigure(fFigure).createCursor(eventTime);
 			}
 		}
 
@@ -87,7 +87,7 @@ public class DetailAreaListener extends MouseMotionListener.Stub implements Mous
 
 			final Dimension offset = fLocation.getDifference(targetLocation);
 			if (offset.width() != 0) {
-				final TimeBaseConverter timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
+				final TimeBaseConverter timeDetails = RootFigure.getRootFigure(fFigure).getTimeViewDetails();
 				if (timeDetails.translateDetailAreaOffset(offset.width()))
 					fLocation = targetLocation;
 

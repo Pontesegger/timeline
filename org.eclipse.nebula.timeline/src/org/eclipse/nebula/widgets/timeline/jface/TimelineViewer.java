@@ -25,7 +25,6 @@ import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IToolTipProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
@@ -287,9 +286,9 @@ public class TimelineViewer extends StructuredViewer {
 				unregisterModelElements(new HashSet<>(fElementToFigureMap.keySet()));
 				registerFigure(getInput(), getControl().getRootFigure());
 				((RootFigure) figure).clear();
-				Helper.getTimeViewDetails(figure).resetEventArea();
+				RootFigure.getTimeViewDetails(figure).resetEventArea();
 
-				final TracksLayer tracksLayer = Helper.getFigure(figure, TracksLayer.class);
+				final TracksLayer tracksLayer = RootFigure.getFigure(figure, TracksLayer.class);
 				for (final Object track : getContentProvider().getTracks(getInput())) {
 					final TrackFigure trackFigure = ((RootFigure) figure).createTrackFigure(getLabelProvider().getText(track));
 
@@ -337,13 +336,13 @@ public class TimelineViewer extends StructuredViewer {
 
 				} else {
 					// cursor got deleted from the model
-					Helper.getFigure(figure, CursorLayer.class).remove(figure);
+					RootFigure.getFigure(figure, CursorLayer.class).remove(figure);
 					unregisterModelElement(element);
 				}
 
-				final RootFigure rootFigure = Helper.getRootFigure(figure);
-				Helper.getFigure(rootFigure, CursorLayer.class).revalidate();
-				Helper.getFigure(rootFigure, OverviewCursorLayer.class).revalidate();
+				final RootFigure rootFigure = RootFigure.getRootFigure(figure);
+				RootFigure.getFigure(rootFigure, CursorLayer.class).revalidate();
+				RootFigure.getFigure(rootFigure, OverviewCursorLayer.class).revalidate();
 			}
 
 			// TODO refresh cursors, timeevents
@@ -399,11 +398,11 @@ public class TimelineViewer extends StructuredViewer {
 			element = toCursor(element);
 
 		if (element instanceof ITimelineEvent) {
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
+			final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(getControl().getRootFigure());
 			timeViewDetails.revealEvent(new Timing(((ITimelineEvent) element).getStartTimestamp(), ((ITimelineEvent) element).getDuration()));
 
 		} else if (element instanceof ICursor) {
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(getControl().getRootFigure());
+			final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(getControl().getRootFigure());
 			timeViewDetails.revealEvent(new Timing(((ICursor) element).getTimestamp(), 0));
 		}
 	}

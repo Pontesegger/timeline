@@ -18,8 +18,8 @@ import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.TreeSearch;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.layouts.CenterLayout;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -52,7 +52,7 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 		setBackgroundColor(color);
 
 		final float[] hsb = color.getRGB().getHSB();
-		setForegroundColor(Helper.getRootFigure(this).getStyleProvider().getColor(new RGB(hsb[0], Math.min(1, hsb[1] * 2f), hsb[2] * 0.8f)));
+		setForegroundColor(RootFigure.getRootFigure(this).getStyleProvider().getColor(new RGB(hsb[0], Math.min(1, hsb[1] * 2f), hsb[2] * 0.8f)));
 
 		setAlpha(150);
 	}
@@ -68,7 +68,7 @@ public class EventFigure extends RoundedRectangle implements Comparable<EventFig
 
 			Color eventColor = getParent().getForegroundColor();
 			if (event.getColorCode() != null)
-				eventColor = Helper.getRootFigure(this).getStyleProvider().getColor(event.getRgb());
+				eventColor = RootFigure.getRootFigure(this).getStyleProvider().getColor(event.getRgb());
 
 			setEventColor(eventColor);
 		}

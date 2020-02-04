@@ -11,8 +11,10 @@
 
 package org.eclipse.nebula.widgets.timeline.figures;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,7 +24,6 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.jface.resource.ResourceManager;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
@@ -46,6 +47,79 @@ import org.eclipse.nebula.widgets.timeline.listeners.ICursorListener;
 import org.eclipse.swt.graphics.Color;
 
 public class RootFigure extends Figure implements IStyledFigure {
+
+	public static RootFigure getRootFigure(IFigure figure) {
+		if ((figure instanceof RootFigure) || (figure == null))
+			return (RootFigure) figure;
+
+		return getRootFigure(figure.getParent());
+	}
+
+	public static TimeBaseConverter getTimeViewDetails(IFigure parent) {
+		return getRootFigure(parent).getTimeViewDetails();
+	}
+
+	public static <T> T getFigure(IFigure figure, Class<T> clazz) {
+		final RootFigure rootFigure = getRootFigure(figure);
+
+		return findFigure(rootFigure, clazz);
+	}
+
+	private static <T> T findFigure(IFigure figure, Class<T> clazz) {
+		if (clazz.isAssignableFrom(figure.getClass()))
+			return (T) figure;
+
+		if (figure instanceof TracksLayer)
+			return null;
+
+		if (figure instanceof OverviewEventLayer)
+			return null;
+
+		if (figure instanceof OverviewCursorLayer)
+			return null;
+
+		for (final Object child : figure.getChildren()) {
+			final Object candidate = findFigure((IFigure) child, clazz);
+			if (candidate != null)
+				return (T) candidate;
+		}
+
+		return null;
+	}
+
+	private static List<LaneFigure> getLanes(IFigure figure) {
+		final List<LaneFigure> lanes = new ArrayList<>();
+
+		final TracksLayer tracksLayer = getFigure(figure, TracksLayer.class);
+
+		for (final Object trackFigure : tracksLayer.getChildren())
+			lanes.addAll(((IFigure) trackFigure).getChildren());
+
+		return lanes;
+	}
+
+	/**
+	 * Get total number of lanes. Sums up lanes of all tracks.
+	 *
+	 * @param figure
+	 *            any figure of the timeline diagram
+	 * @return total amount of lanes
+	 */
+	public static int getLaneCount(IFigure figure) {
+		return getLanes(figure).size();
+	}
+
+	/**
+	 * Get the absolute index of the lane where figure belongs to.
+	 *
+	 * @param figure
+	 *            EventFigure of the lane to retrieve index from
+	 * @return lane index
+	 */
+	public static int getLaneIndex(EventFigure figure) {
+		final List<LaneFigure> lanes = getLanes(figure);
+		return lanes.indexOf(figure.getParent());
+	}
 
 	private final TimeBaseConverter fTimeViewDetails;
 
@@ -139,11 +213,11 @@ public class RootFigure extends Figure implements IStyledFigure {
 	 * Remove all tracks and cursors. Leaves the view empty.
 	 */
 	public void clear() {
-		Helper.getFigure(this, TracksLayer.class).removeAll();
-		Helper.getFigure(this, OverviewEventLayer.class).removeAll();
+		getFigure(this, TracksLayer.class).removeAll();
+		getFigure(this, OverviewEventLayer.class).removeAll();
 
-		Helper.getFigure(this, CursorLayer.class).removeAll();
-		Helper.getFigure(this, OverviewCursorLayer.class).removeAll();
+		getFigure(this, CursorLayer.class).removeAll();
+		getFigure(this, OverviewCursorLayer.class).removeAll();
 	}
 
 	public TimeBaseConverter getTimeViewDetails() {
@@ -156,14 +230,14 @@ public class RootFigure extends Figure implements IStyledFigure {
 	public void fireTimebaseChanged() {
 
 		// fresh layout for the detail area
-		for (final LaneFigure lane : Helper.getLanes(this))
+		for (final LaneFigure lane : getLanes(this))
 			lane.revalidate();
 
-		Helper.getFigure(this, CursorLayer.class).revalidate();
+		getFigure(this, CursorLayer.class).revalidate();
 
 		getUpdateManager().addDirtyRegion(fDetailFigure, fDetailFigure.getBounds());
 
-		Helper.getFigure(this, OverviewSelectionLayer.class).revalidate();
+		getFigure(this, OverviewSelectionLayer.class).revalidate();
 	}
 
 	public void zoomIn(int zoomCenterX) {
@@ -219,7 +293,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 	 *            cursor to delete
 	 */
 	public void deleteCursor(ICursor cursor) {
-		final IFigure cursorLayer = Helper.getFigure(this, CursorLayer.class);
+		final IFigure cursorLayer = getFigure(this, CursorLayer.class);
 		final LayoutManager layoutManager = cursorLayer.getLayoutManager();
 		for (final Object child : cursorLayer.getChildren()) {
 			if (cursor.equals(layoutManager.getConstraint((IFigure) child))) {
@@ -283,9 +357,9 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 		eventFigure.setEventColor(eventColor);
 
-		Helper.getTimeViewDetails(parent).addEvent(event);
+		getTimeViewDetails(parent).addEvent(event);
 
-		final OverviewEventLayer overview = Helper.getFigure(parent, OverviewEventLayer.class);
+		final OverviewEventLayer overview = getFigure(parent, OverviewEventLayer.class);
 		final OverviewEventFigure overviewEventFigure = overview.addEvent(eventFigure);
 
 		fDetailToOverviewMap.put(eventFigure, overviewEventFigure);
@@ -326,13 +400,13 @@ public class RootFigure extends Figure implements IStyledFigure {
 	 */
 	public CursorFigure createCursorFigure(ICursor cursor) {
 		final CursorFigure cursorFigure = new CursorFigure(getStyleProvider());
-		final CursorLayer cursorLayer = Helper.getFigure(this, CursorLayer.class);
+		final CursorLayer cursorLayer = getFigure(this, CursorLayer.class);
 		cursorLayer.add(cursorFigure, cursor);
 
-		Helper.getTimeViewDetails(this).addEvent(cursor);
+		getTimeViewDetails(this).addEvent(cursor);
 
 		final OverviewCursorFigure overviewCursorFigure = new OverviewCursorFigure(getStyleProvider());
-		final OverviewCursorLayer overviewCursorLayer = Helper.getFigure(this, OverviewCursorLayer.class);
+		final OverviewCursorLayer overviewCursorLayer = getFigure(this, OverviewCursorLayer.class);
 		overviewCursorLayer.add(overviewCursorFigure, cursor);
 
 		fDetailToOverviewMap.put(cursorFigure, overviewCursorFigure);

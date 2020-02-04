@@ -19,9 +19,9 @@ import java.util.Map;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.DetailAreaListener;
@@ -50,7 +50,7 @@ public class DetailFigure extends Figure {
 	 * @return map (timeValue, pixelOffset)
 	 */
 	public Map<Double, Integer> getMarkerPositions() {
-		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
+		final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(this);
 
 		final Map<Double, Integer> markerPositions = new HashMap<>();
 		for (final Double eventTime : getEventTimeMarkerPositions())
@@ -67,7 +67,7 @@ public class DetailFigure extends Figure {
 	private List<Double> getEventTimeMarkerPositions() {
 		final List<Double> positions = new ArrayList<>();
 
-		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
+		final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(this);
 		final Timing visibleEventArea = timeViewDetails.getVisibleEventArea();
 
 		final int stepSize = getStepSize();
@@ -86,7 +86,7 @@ public class DetailFigure extends Figure {
 	 * @return step size in eventTime
 	 */
 	private int getStepSize() {
-		final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(this);
+		final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(this);
 
 		final double steps = timeViewDetails.fScreenWidth / MIN_STEP_SIZE;
 		double stepSizeInEventTime = timeViewDetails.getVisibleEventArea().getDuration() / steps;

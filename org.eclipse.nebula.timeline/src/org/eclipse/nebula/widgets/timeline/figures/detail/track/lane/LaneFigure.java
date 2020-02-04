@@ -22,11 +22,11 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
 public class LaneFigure extends Figure implements IStyledFigure {
@@ -74,7 +74,7 @@ public class LaneFigure extends Figure implements IStyledFigure {
 
 		@Override
 		public void layout(IFigure parent) {
-			final TimeBaseConverter timeViewDetails = Helper.getRootFigure(parent).getTimeViewDetails();
+			final TimeBaseConverter timeViewDetails = RootFigure.getRootFigure(parent).getTimeViewDetails();
 
 			for (final Object figure : getChildren()) {
 				final ITimelineEvent event = (ITimelineEvent) getConstraint((IFigure) figure);

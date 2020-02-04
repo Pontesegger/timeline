@@ -17,11 +17,11 @@ import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ITimed;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
@@ -65,14 +65,14 @@ public class OverviewEventLayer extends FreeformLayer implements IStyledFigure {
 
 		@Override
 		public Rectangle getConstraint(IFigure figure) {
-			final TimeBaseConverter timeConverter = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeConverter = RootFigure.getTimeViewDetails(figure);
 
 			final EventFigure eventFigure = (EventFigure) super.getConstraint(figure);
 			final ITimed event = eventFigure.getEvent();
 
 			final Timing screenCoordinates = timeConverter.toOverviewScreenCoordinates(event.getTiming());
 			final Rectangle overviewEventArea = new PrecisionRectangle(screenCoordinates.left(),
-					OverviewFigure.VERTICAL_INDENT + ((fEventHeight + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)),
+					OverviewFigure.VERTICAL_INDENT + ((fEventHeight + OverviewFigure.Y_PADDING) * RootFigure.getLaneIndex(eventFigure)),
 					screenCoordinates.getDuration(), fEventHeight);
 
 			if (overviewEventArea.width() < MINIMUM_WIDTH)

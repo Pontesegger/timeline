@@ -14,9 +14,9 @@ package org.eclipse.nebula.widgets.timeline.figures.overview;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 
 public class OverviewFigure extends LayeredPane implements IStyledFigure {
@@ -62,13 +62,13 @@ public class OverviewFigure extends LayeredPane implements IStyledFigure {
 	protected void layout() {
 		super.layout();
 
-		final TimeBaseConverter timeConverter = Helper.getTimeViewDetails(this);
+		final TimeBaseConverter timeConverter = RootFigure.getTimeViewDetails(this);
 		timeConverter.setOverviewScreenWidth(getBounds().width() - getInsets().getWidth());
 	}
 
 	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
-		final int laneCount = Helper.getLaneCount(this);
+		final int laneCount = RootFigure.getLaneCount(this);
 		final int requiredHeight = (laneCount * fEventHeight) + ((laneCount + 1) * Y_PADDING) + getInsets().getHeight();
 
 		return new Dimension(wHint, Math.max(requiredHeight, fPreferredHeight));

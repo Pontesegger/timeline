@@ -18,7 +18,6 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.ICursor;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
@@ -56,7 +55,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 		if (me.button == 3) {
 			hideCursorTimings();
 			final ICursor cursor = (ICursor) fFigure.getParent().getLayoutManager().getConstraint(fFigure);
-			Helper.getFigure(fFigure, RootFigure.class).deleteCursor(cursor);
+			RootFigure.getRootFigure(fFigure).deleteCursor(cursor);
 		}
 
 		if (fLocation != null) {
@@ -75,7 +74,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 			if (targetEventTime == null) {
 				final Dimension offset = targetLocation.getDifference(fLocation);
 				if (offset.width() != 0) {
-					final TimeBaseConverter timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
+					final TimeBaseConverter timeDetails = RootFigure.getRootFigure(fFigure).getTimeViewDetails();
 					targetEventTime = timeDetails.screenOffsetToEventTime(targetLocation.x());
 				}
 
@@ -88,8 +87,8 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 
 				fFigure.getParent().revalidate();
 
-				Helper.getFigure(fFigure, CursorTimingsLayer.class).revalidate();
-				Helper.getFigure(fFigure, OverviewCursorLayer.class).revalidate();
+				RootFigure.getFigure(fFigure, CursorTimingsLayer.class).revalidate();
+				RootFigure.getFigure(fFigure, OverviewCursorLayer.class).revalidate();
 			}
 		}
 
@@ -104,7 +103,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 	 * @return timestamp in eventTime to set cursor to or <code>null</code>
 	 */
 	private Long snapToEvent(Point mouseCursorLocation) {
-		IFigure figureUnderCursor = Helper.getFigure(fFigure, TracksLayer.class).findFigureAt(mouseCursorLocation);
+		IFigure figureUnderCursor = RootFigure.getFigure(fFigure, TracksLayer.class).findFigureAt(mouseCursorLocation);
 		if (figureUnderCursor instanceof LaneFigure) {
 			for (int offset = 0; offset <= SNAP_TO_FIGURE_OFFSET; offset += 2) {
 				IFigure figure = figureUnderCursor.findFigureAt(mouseCursorLocation.x() - offset, mouseCursorLocation.y());
@@ -142,17 +141,17 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 
 	@Override
 	public void mouseEntered(MouseEvent me) {
-		final ITimelineStyleProvider styleProvider = Helper.getRootFigure(fFigure).getStyleProvider();
+		final ITimelineStyleProvider styleProvider = RootFigure.getRootFigure(fFigure).getStyleProvider();
 		fFigure.setForegroundColor(styleProvider.getSelectedCursorColor());
 		fFigure.setBackgroundColor(styleProvider.getSelectedCursorColor());
 
-		final CursorTimingsLayer cursorTimingsLayer = Helper.getFigure(fFigure, CursorTimingsLayer.class);
+		final CursorTimingsLayer cursorTimingsLayer = RootFigure.getFigure(fFigure, CursorTimingsLayer.class);
 		cursorTimingsLayer.showTimingsFor(fFigure, me);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent me) {
-		final ITimelineStyleProvider styleProvider = Helper.getRootFigure(fFigure).getStyleProvider();
+		final ITimelineStyleProvider styleProvider = RootFigure.getRootFigure(fFigure).getStyleProvider();
 		fFigure.setForegroundColor(styleProvider.getCursorColor());
 		fFigure.setBackgroundColor(styleProvider.getCursorColor());
 
@@ -161,7 +160,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 
 	@Override
 	public void mouseMoved(MouseEvent me) {
-		final CursorTimingsLayer cursorTimingsLayer = Helper.getFigure(fFigure, CursorTimingsLayer.class);
+		final CursorTimingsLayer cursorTimingsLayer = RootFigure.getFigure(fFigure, CursorTimingsLayer.class);
 		cursorTimingsLayer.moveTimingsTo(me.getLocation());
 	}
 
@@ -171,7 +170,7 @@ public class CursorMover extends MouseMotionListener.Stub implements MouseListen
 	}
 
 	private void hideCursorTimings() {
-		final CursorTimingsLayer cursorTimingsLayer = Helper.getFigure(fFigure, CursorTimingsLayer.class);
+		final CursorTimingsLayer cursorTimingsLayer = RootFigure.getFigure(fFigure, CursorTimingsLayer.class);
 		cursorTimingsLayer.hideTimings();
 	}
 }

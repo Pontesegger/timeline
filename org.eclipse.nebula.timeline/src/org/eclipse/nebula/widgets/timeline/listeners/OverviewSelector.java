@@ -14,9 +14,9 @@ package org.eclipse.nebula.widgets.timeline.listeners;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 
 public class OverviewSelector extends MouseListener.Stub {
 
@@ -32,7 +32,7 @@ public class OverviewSelector extends MouseListener.Stub {
 	public void mouseReleased(MouseEvent me) {
 		if (me.button == 1) {
 			System.out.println("Select: " + me.x);
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(fFigure);
+			final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(fFigure);
 			final Timing eventTime = timeViewDetails.overviewCoordinatesToEventTime(new Timing(me.x - fFigure.getParent().getInsets().left, 0));
 
 			timeViewDetails.revealEvent(eventTime);

@@ -33,7 +33,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.swt.SWT;
 
 public class CursorTimingsLayer extends FreeformLayer {
@@ -87,7 +87,7 @@ public class CursorTimingsLayer extends FreeformLayer {
 	private List<CursorFigure> getAllCursors() {
 		final List<CursorFigure> cursors = new ArrayList<>();
 
-		final CursorLayer cursorLayer = Helper.getFigure(this, CursorLayer.class);
+		final CursorLayer cursorLayer = RootFigure.getFigure(this, CursorLayer.class);
 		for (final Object cursor : cursorLayer.getChildren()) {
 			if (cursor instanceof CursorFigure)
 				cursors.add((CursorFigure) cursor);

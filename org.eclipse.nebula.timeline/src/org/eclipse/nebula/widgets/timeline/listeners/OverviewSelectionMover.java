@@ -17,8 +17,8 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 
 public class OverviewSelectionMover extends MouseMotionListener.Stub implements MouseListener, MouseMotionListener {
 
@@ -61,7 +61,7 @@ public class OverviewSelectionMover extends MouseMotionListener.Stub implements 
 
 			final Dimension offset = targetLocation.getDifference(fLocation);
 			if (offset.width() != 0) {
-				final TimeBaseConverter timeDetails = Helper.getRootFigure(fFigure).getTimeViewDetails();
+				final TimeBaseConverter timeDetails = RootFigure.getRootFigure(fFigure).getTimeViewDetails();
 				if (timeDetails.translateOverviewAreaOffset(offset.width()))
 					fLocation = targetLocation;
 

@@ -16,7 +16,6 @@ import java.util.Map;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.DetailFigure;
@@ -41,11 +40,11 @@ public class GridLayer extends FreeformLayer implements IStyledFigure {
 	}
 
 	private void paintGrid(Graphics graphics) {
-		final ITimelineStyleProvider styleProvider = Helper.getFigure(this, RootFigure.class).getStyleProvider();
+		final ITimelineStyleProvider styleProvider = RootFigure.getRootFigure(this).getStyleProvider();
 		graphics.setLineStyle(styleProvider.getGridLineStyle());
 
 		final Rectangle bounds = getBounds();
-		final Map<Double, Integer> markerPositions = Helper.getFigure(this, DetailFigure.class).getMarkerPositions();
+		final Map<Double, Integer> markerPositions = RootFigure.getFigure(this, DetailFigure.class).getMarkerPositions();
 		for (final int position : markerPositions.values())
 			graphics.drawLine(position + bounds.x(), bounds.y, position + bounds.x(), bounds.y + bounds.height);
 	}

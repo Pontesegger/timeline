@@ -13,7 +13,7 @@ package org.eclipse.nebula.widgets.timeline.figures.detail.track;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.ToolbarLayout;
-import org.eclipse.nebula.widgets.timeline.Helper;
+import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 
 public class TracksLayer extends FreeformLayer {
 
@@ -32,6 +32,6 @@ public class TracksLayer extends FreeformLayer {
 	protected void layout() {
 		super.layout();
 
-		Helper.getTimeViewDetails(this).setScreenWidth(getBounds().width());
+		RootFigure.getTimeViewDetails(this).setScreenWidth(getBounds().width());
 	}
 }

@@ -56,8 +56,7 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 
 	/**
 	 * The cached value of the '{@link #getSelectedEvent() <em>Selected Event</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getSelectedEvent()
 	 * @generated
 	 * @ordered
@@ -106,8 +105,7 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -124,8 +122,7 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ITimelineEvent basicGetSelectedEvent() {
@@ -133,8 +130,7 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -177,7 +173,7 @@ public class Timeline extends MinimalEObjectImpl.Container implements ITimeline 
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated NOT
 	 */
 	@Override

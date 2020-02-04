@@ -40,7 +40,7 @@ public interface ITimelinePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://eclipse.org/nebula/timeline";
+	String eNS_URI = "http://eclipse.org/nebula/timeline/1.0";
 
 	/**
 	 * The package namespace name.

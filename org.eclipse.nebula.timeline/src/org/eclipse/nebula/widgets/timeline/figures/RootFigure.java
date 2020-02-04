@@ -37,8 +37,8 @@ import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewEventFigure;
-import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewEventLayer;
+import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewSelectionLayer;
 import org.eclipse.nebula.widgets.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
@@ -71,7 +71,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 		fTimeViewDetails = new TimeBaseConverter(this);
 
 		final BorderLayout layout = new BorderLayout();
-		layout.setVerticalSpacing(0);
+		layout.setVerticalSpacing(10);
 		setLayoutManager(layout);
 
 		setOpaque(true);

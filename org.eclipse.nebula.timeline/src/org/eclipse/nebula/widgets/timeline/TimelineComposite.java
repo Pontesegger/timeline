@@ -21,7 +21,12 @@ public class TimelineComposite extends Composite {
 
 		fResourceManager = new LocalResourceManager(JFaceResources.getResources(), this);
 
-		setLayout(new FillLayout());
+		final FillLayout layout = new FillLayout();
+		layout.marginHeight = 10;
+		layout.marginWidth = 10;
+		setLayout(layout);
+
+		setBackground(ColorConstants.black);
 
 		final Canvas canvas = new Canvas(this, SWT.DOUBLE_BUFFERED);
 		canvas.setBackground(ColorConstants.black);

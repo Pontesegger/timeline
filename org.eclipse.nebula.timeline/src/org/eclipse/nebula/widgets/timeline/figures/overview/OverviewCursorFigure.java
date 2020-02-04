@@ -26,18 +26,10 @@ public class OverviewCursorFigure extends Shape implements IStyledFigure {
 
 	@Override
 	protected void outlineShape(Graphics graphics) {
-		final float lineInset = Math.max(1.0f, getLineWidthFloat()) / 2.0f;
-		final int inset1 = (int) Math.floor(lineInset);
-		final int inset2 = (int) Math.ceil(lineInset);
-
-		final Rectangle r = Rectangle.SINGLETON.setBounds(getBounds());
-		r.x += inset1;
-		r.y += inset1;
-		r.width -= inset1 + inset2;
-		r.height -= inset1 + inset2;
+		final Rectangle bounds = getBounds();
 
 		graphics.setLineStyle(SWT.LINE_DOT);
-		graphics.drawLine(r.getTopLeft(), r.getBottomRight());
+		graphics.drawLine(bounds.getTopLeft(), bounds.getBottomLeft());
 	}
 
 	@Override

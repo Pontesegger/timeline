@@ -31,8 +31,9 @@ public class OverviewSelector extends MouseListener.Stub {
 	@Override
 	public void mouseReleased(MouseEvent me) {
 		if (me.button == 1) {
+			System.out.println("Select: " + me.x);
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(fFigure);
-			final Timing eventTime = timeViewDetails.overviewCoordinatesToEventTime(new Timing(me.x, 0));
+			final Timing eventTime = timeViewDetails.overviewCoordinatesToEventTime(new Timing(me.x - fFigure.getParent().getInsets().left, 0));
 
 			timeViewDetails.revealEvent(eventTime);
 		}

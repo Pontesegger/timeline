@@ -13,8 +13,8 @@ package org.eclipse.nebula.widgets.timeline.figures.overview;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.timeline.Helper;
@@ -34,20 +34,23 @@ public class OverviewCursorLayer extends FreeformLayer {
 		return true;
 	}
 
+	@Override
+	protected IFigure findDescendantAtExcluding(int x, int y, TreeSearch search) {
+		// do not dig deeper in the figure hierarchy
+		return null;
+	}
+
 	private class OverviewLayout extends XYLayout {
 
 		@Override
 		public Rectangle getConstraint(IFigure figure) {
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
-			// get border insets from OverviewLayer
-			final OverviewEventLayer layer = Helper.getFigure(figure, OverviewEventLayer.class);
-			final Insets insets = layer.getInsets();
+			final TimeBaseConverter timeConverter = Helper.getTimeViewDetails(figure);
 
 			final ITimed cursor = (ICursor) super.getConstraint(figure);
-			final Timing screenCoordinates = timeViewDetails.toOverviewCoordinates(cursor.getTiming());
+			final Timing screenCoordinates = timeConverter.toOverviewScreenCoordinates(cursor.getTiming());
 
-			return new PrecisionRectangle(screenCoordinates.left(), insets.top, 1, getBounds().height() - insets.getHeight());
+			return new PrecisionRectangle(screenCoordinates.left(), 0, 1, getBounds().height());
 		}
 	}
 }

@@ -24,7 +24,6 @@ import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.IStyledFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
-import org.eclipse.nebula.widgets.timeline.listeners.OverviewSelector;
 
 public class OverviewEventLayer extends FreeformLayer implements IStyledFigure {
 
@@ -35,8 +34,6 @@ public class OverviewEventLayer extends FreeformLayer implements IStyledFigure {
 		updateStyle(styleProvider);
 
 		setLayoutManager(new OverviewLayout());
-
-		new OverviewSelector(this);
 	}
 
 	public OverviewEventFigure addEvent(EventFigure eventFigure) {
@@ -54,13 +51,7 @@ public class OverviewEventLayer extends FreeformLayer implements IStyledFigure {
 	}
 
 	@Override
-	public boolean containsPoint(int x, int y) {
-		return getBounds().contains(x, y);
-	}
-
-	@Override
 	public void updateStyle(ITimelineStyleProvider styleProvider) {
-		setBorder(styleProvider.getOverviewAreaBorder());
 		fEventHeight = styleProvider.getOverviewLaneHeight();
 	}
 
@@ -74,12 +65,12 @@ public class OverviewEventLayer extends FreeformLayer implements IStyledFigure {
 
 		@Override
 		public Rectangle getConstraint(IFigure figure) {
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeConverter = Helper.getTimeViewDetails(figure);
 
 			final EventFigure eventFigure = (EventFigure) super.getConstraint(figure);
 			final ITimed event = eventFigure.getEvent();
 
-			final Timing screenCoordinates = timeViewDetails.toOverviewCoordinates(event.getTiming());
+			final Timing screenCoordinates = timeConverter.toOverviewScreenCoordinates(event.getTiming());
 			final Rectangle overviewEventArea = new PrecisionRectangle(screenCoordinates.left(),
 					OverviewFigure.VERTICAL_INDENT + ((fEventHeight + OverviewFigure.Y_PADDING) * Helper.getLaneIndex(eventFigure)),
 					screenCoordinates.getDuration(), fEventHeight);

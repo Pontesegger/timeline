@@ -19,11 +19,9 @@ import java.util.Map;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
-import org.eclipse.nebula.widgets.timeline.borders.EmptyBorder;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksFigure;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.DetailAreaListener;
@@ -39,8 +37,6 @@ public class DetailFigure extends Figure {
 		layout.setHorizontalSpacing(0);
 		layout.setVerticalSpacing(0);
 		setLayoutManager(layout);
-
-		setBorder(new EmptyBorder(new Insets(10)));
 
 		add(new TracksFigure(styleProvider), BorderLayout.CENTER);
 		add(new TimeAxisFigure(styleProvider), BorderLayout.BOTTOM);

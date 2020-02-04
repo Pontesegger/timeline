@@ -14,6 +14,7 @@ package org.eclipse.nebula.widgets.timeline.jface;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.nebula.widgets.timeline.borders.LeftRightBorder;
@@ -196,5 +197,10 @@ public class DefaultTimelineStyleProvider implements ITimelineStyleProvider {
 	@Override
 	public int getOverviewLaneHeight() {
 		return 4;
+	}
+
+	@Override
+	public Insets getOverviewInsets() {
+		return new Insets(0, 5, 0, 5);
 	}
 }

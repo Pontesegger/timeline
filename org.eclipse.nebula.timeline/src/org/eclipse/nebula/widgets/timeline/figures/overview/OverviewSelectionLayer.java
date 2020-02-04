@@ -20,6 +20,7 @@ import org.eclipse.nebula.widgets.timeline.Helper;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
+import org.eclipse.nebula.widgets.timeline.listeners.OverviewSelector;
 
 public class OverviewSelectionLayer extends FreeformLayer {
 
@@ -29,6 +30,8 @@ public class OverviewSelectionLayer extends FreeformLayer {
 		setLayoutManager(new OverviewSelectionLayerLayout());
 
 		add(new OverviewSelectionFigure(styleProvider));
+
+		new OverviewSelector(this);
 	}
 
 	@Override
@@ -36,12 +39,17 @@ public class OverviewSelectionLayer extends FreeformLayer {
 		return true;
 	}
 
+	@Override
+	public boolean containsPoint(int x, int y) {
+		return getBounds().contains(x, y);
+	}
+
 	private class OverviewSelectionLayerLayout extends XYLayout {
 		@Override
 		public Object getConstraint(IFigure figure) {
-			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
+			final TimeBaseConverter timeConverter = Helper.getTimeViewDetails(figure);
 
-			final Timing coordinates = timeViewDetails.toOverviewCoordinates(timeViewDetails.getVisibleEventArea());
+			final Timing coordinates = timeConverter.toOverviewScreenCoordinates(timeConverter.getVisibleEventArea());
 			final Rectangle bounds = new PrecisionRectangle(coordinates.left(), 0, coordinates.getDuration(), getBounds().height());
 			if (bounds.width() < MINIMUM_WIDTH)
 				bounds.setWidth(MINIMUM_WIDTH);

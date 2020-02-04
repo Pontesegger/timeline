@@ -12,6 +12,7 @@
 package org.eclipse.nebula.widgets.timeline.jface;
 
 import org.eclipse.draw2d.Border;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -177,4 +178,12 @@ public interface ITimelineStyleProvider {
 	 * @return color
 	 */
 	Color getColor(RGB rgb);
+
+	/**
+	 * Get the insets for the overview area. These insets will be applied within the border acquired from {@link #getOverviewAreaBorder()}. The top inset will
+	 * also be used for lane spacing.
+	 *
+	 * @return insets to be used for the overview area
+	 */
+	Insets getOverviewInsets();
 }

@@ -30,6 +30,9 @@ public class TimeBaseConverter {
 
 	private final RootFigure fRootFigure;
 
+	/** Physical size of the available screen area to draw on for the overview area. */
+	private int fOverviewScreenWidth = -1;
+
 	public TimeBaseConverter(RootFigure rootFigure) {
 		fRootFigure = rootFigure;
 	}
@@ -207,7 +210,7 @@ public class TimeBaseConverter {
 	 * @return scale factor
 	 */
 	private double getOverviewScaleFactor() {
-		return fScreenWidth / getEventArea().getDuration();
+		return fOverviewScreenWidth / getEventArea().getDuration();
 	}
 
 	/**
@@ -243,7 +246,7 @@ public class TimeBaseConverter {
 	 *            eventTime to convert
 	 * @return x dimension screen coordinates for given eventTime
 	 */
-	public Timing toOverviewCoordinates(Timing eventTime) {
+	public Timing toOverviewScreenCoordinates(Timing eventTime) {
 		final Timing coordinates = eventTime.copy();
 		coordinates.translate(-getEventArea().left());
 		coordinates.scale(getOverviewScaleFactor());
@@ -264,5 +267,15 @@ public class TimeBaseConverter {
 		coordinates.scale(getScaleFactor());
 
 		return coordinates;
+	}
+
+	/**
+	 * Set the width of the overview area.
+	 * 
+	 * @param widthInPixels
+	 *            overview area width in pixels
+	 */
+	public void setOverviewScreenWidth(int widthInPixels) {
+		fOverviewScreenWidth = widthInPixels;
 	}
 }

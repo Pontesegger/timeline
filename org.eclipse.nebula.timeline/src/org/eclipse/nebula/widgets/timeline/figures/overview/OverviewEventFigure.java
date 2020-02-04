@@ -12,7 +12,6 @@
 package org.eclipse.nebula.widgets.timeline.figures.overview;
 
 import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 
 public class OverviewEventFigure extends RectangleFigure {
@@ -26,9 +25,5 @@ public class OverviewEventFigure extends RectangleFigure {
 		setBackgroundColor(fBaseFigure.getBackgroundColor());
 
 		setLineWidth(2);
-	}
-
-	public ITimelineEvent getEvent() {
-		return fBaseFigure.getEvent();
 	}
 }

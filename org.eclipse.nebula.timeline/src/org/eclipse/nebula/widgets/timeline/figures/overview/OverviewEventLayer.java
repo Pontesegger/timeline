@@ -26,12 +26,12 @@ import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.OverviewSelector;
 
-public class OverviewLayer extends FreeformLayer implements IStyledFigure {
+public class OverviewEventLayer extends FreeformLayer implements IStyledFigure {
 
 	private static final int MINIMUM_WIDTH = 1;
 	private int fEventHeight = 0;
 
-	public OverviewLayer(ITimelineStyleProvider styleProvider) {
+	public OverviewEventLayer(ITimelineStyleProvider styleProvider) {
 		updateStyle(styleProvider);
 
 		setLayoutManager(new OverviewLayout());

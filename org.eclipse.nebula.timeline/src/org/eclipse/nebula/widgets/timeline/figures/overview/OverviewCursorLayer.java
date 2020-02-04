@@ -41,7 +41,7 @@ public class OverviewCursorLayer extends FreeformLayer {
 			final TimeBaseConverter timeViewDetails = Helper.getTimeViewDetails(figure);
 
 			// get border insets from OverviewLayer
-			final OverviewLayer layer = Helper.getFigure(figure, OverviewLayer.class);
+			final OverviewEventLayer layer = Helper.getFigure(figure, OverviewEventLayer.class);
 			final Insets insets = layer.getInsets();
 
 			final ITimed cursor = (ICursor) super.getConstraint(figure);

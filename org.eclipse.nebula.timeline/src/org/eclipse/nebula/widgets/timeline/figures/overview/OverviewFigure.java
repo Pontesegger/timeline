@@ -35,7 +35,7 @@ public class OverviewFigure extends LayeredPane implements IStyledFigure {
 
 		setBorder(new EmptyBorder(new Insets(0, 10, 10, 10)));
 
-		add(new OverviewLayer(styleProvider));
+		add(new OverviewEventLayer(styleProvider));
 		add(new OverviewCursorLayer());
 		add(new OverviewSelectionLayer(styleProvider));
 

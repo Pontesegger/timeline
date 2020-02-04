@@ -20,7 +20,7 @@ import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.EventFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.lane.LaneFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorLayer;
-import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewLayer;
+import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewEventLayer;
 
 /**
  * @author christian
@@ -90,7 +90,7 @@ public class Helper {
 		if (figure instanceof TracksLayer)
 			return null;
 
-		if (figure instanceof OverviewLayer)
+		if (figure instanceof OverviewEventLayer)
 			return null;
 
 		if (figure instanceof OverviewCursorLayer)

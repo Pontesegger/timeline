@@ -38,7 +38,7 @@ import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorFigure
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewCursorLayer;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewEventFigure;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewFigure;
-import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewLayer;
+import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewEventLayer;
 import org.eclipse.nebula.widgets.timeline.figures.overview.OverviewSelectionLayer;
 import org.eclipse.nebula.widgets.timeline.jface.DefaultTimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
@@ -140,7 +140,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 	 */
 	public void clear() {
 		Helper.getFigure(this, TracksLayer.class).removeAll();
-		Helper.getFigure(this, OverviewLayer.class).removeAll();
+		Helper.getFigure(this, OverviewEventLayer.class).removeAll();
 
 		Helper.getFigure(this, CursorLayer.class).removeAll();
 		Helper.getFigure(this, OverviewCursorLayer.class).removeAll();
@@ -285,7 +285,7 @@ public class RootFigure extends Figure implements IStyledFigure {
 
 		Helper.getTimeViewDetails(parent).addEvent(event);
 
-		final OverviewLayer overview = Helper.getFigure(parent, OverviewLayer.class);
+		final OverviewEventLayer overview = Helper.getFigure(parent, OverviewEventLayer.class);
 		final OverviewEventFigure overviewEventFigure = overview.addEvent(eventFigure);
 
 		fDetailToOverviewMap.put(eventFigure, overviewEventFigure);

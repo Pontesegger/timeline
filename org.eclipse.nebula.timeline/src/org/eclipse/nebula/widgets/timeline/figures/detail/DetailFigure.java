@@ -23,6 +23,7 @@ import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
 import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.RootFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksFigure;
+import org.eclipse.nebula.widgets.timeline.figures.detail.track.TracksLayer;
 import org.eclipse.nebula.widgets.timeline.jface.ITimelineStyleProvider;
 import org.eclipse.nebula.widgets.timeline.listeners.DetailAreaListener;
 
@@ -88,7 +89,7 @@ public class DetailFigure extends Figure {
 	private int getStepSize() {
 		final TimeBaseConverter timeViewDetails = RootFigure.getTimeViewDetails(this);
 
-		final double steps = timeViewDetails.fScreenWidth / MIN_STEP_SIZE;
+		final double steps = RootFigure.getFigure(this, TracksLayer.class).getBounds().width() / MIN_STEP_SIZE;
 		double stepSizeInEventTime = timeViewDetails.getVisibleEventArea().getDuration() / steps;
 		int factor = 1;
 		while (stepSizeInEventTime >= 100) {

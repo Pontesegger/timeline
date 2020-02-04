@@ -19,8 +19,7 @@ public class TimeBaseConverter {
 	private double fScaleFactor = 1;
 
 	/** Physical size of the available screen area to draw on. */
-	// FIXME needs to be private
-	public double fScreenWidth = -1;
+	private double fDetailScreenWidth = -1;
 
 	/** Minimal area needed to contain all events. From start timestamp of first event until end timestamp of last event. */
 	private Timing fRequiredEventArea = null;
@@ -48,7 +47,7 @@ public class TimeBaseConverter {
 	}
 
 	public Timing getVisibleEventArea() {
-		final Timing visibleArea = new Timing(0, fScreenWidth);
+		final Timing visibleArea = new Timing(0, fDetailScreenWidth);
 		visibleArea.scale(1 / fScaleFactor);
 		visibleArea.translate(fOffset);
 
@@ -80,8 +79,8 @@ public class TimeBaseConverter {
 
 			// first event
 			setOffset(event.getTiming().left());
-			if (fScreenWidth >= 0)
-				setScaleFactor((fScreenWidth / 3) / event.getTiming().getDuration(), false);
+			if (fDetailScreenWidth >= 0)
+				setScaleFactor((fDetailScreenWidth / 3) / event.getTiming().getDuration(), false);
 
 		} else
 			fRequiredEventArea.union(event.getTiming());
@@ -122,8 +121,8 @@ public class TimeBaseConverter {
 	}
 
 	public void setScreenWidth(double screenWidth) {
-		final boolean screenNeedsUpdate = fScreenWidth < 0;
-		fScreenWidth = screenWidth;
+		final boolean screenNeedsUpdate = fDetailScreenWidth < 0;
+		fDetailScreenWidth = screenWidth;
 
 		if (screenNeedsUpdate)
 			fRootFigure.fireTimebaseChanged();
@@ -138,8 +137,7 @@ public class TimeBaseConverter {
 		setOffset((fOffset - newEventTimeAtZoomCenter) + eventTimeAtZoomCenter);
 	}
 
-	// TODO should be private
-	public double getScaleFactor() {
+	private double getScaleFactor() {
 		return fScaleFactor;
 	}
 
@@ -169,7 +167,7 @@ public class TimeBaseConverter {
 
 		if (adjust) {
 			final double maxScaleFactor = 100;
-			final double minScaleFactor = fScreenWidth / getEventArea().getDuration();
+			final double minScaleFactor = fDetailScreenWidth / getEventArea().getDuration();
 
 			fScaleFactor = Math.max(minScaleFactor, fScaleFactor);
 			fScaleFactor = Math.min(maxScaleFactor, fScaleFactor);
@@ -192,16 +190,11 @@ public class TimeBaseConverter {
 	 */
 	public void revealEvent(Timing revealArea) {
 		if (getVisibleEventArea().getDuration() <= revealArea.getDuration())
-			fScaleFactor = fScreenWidth / (revealArea.getDuration() * 3.0d);
+			fScaleFactor = fDetailScreenWidth / (revealArea.getDuration() * 3.0d);
 
 		setOffset(revealArea.getTimestamp() - ((getVisibleEventArea().getDuration() - revealArea.getDuration()) / 2));
 
 		fRootFigure.fireTimebaseChanged();
-	}
-
-	public double getOffset() {
-		// FIXME remove method
-		return fOffset;
 	}
 
 	/**
@@ -271,7 +264,7 @@ public class TimeBaseConverter {
 
 	/**
 	 * Set the width of the overview area.
-	 * 
+	 *
 	 * @param widthInPixels
 	 *            overview area width in pixels
 	 */

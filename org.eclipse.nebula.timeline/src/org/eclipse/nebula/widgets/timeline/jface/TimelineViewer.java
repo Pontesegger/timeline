@@ -104,10 +104,22 @@ public class TimelineViewer extends StructuredViewer {
 		this(parent, SWT.NONE);
 	}
 
+	/**
+	 * Set the style provider. The style provider allows to customize the look and feel of the widget. By default a {@link DefaultTimelineStyleProvider} will be
+	 * used.
+	 *
+	 * @param styleProvider
+	 *            style provider to use or <code>null</code> to switch to the default style provider
+	 */
 	public void setStyleProvider(ITimelineStyleProvider styleProvider) {
 		getControl().getRootFigure().setStyleProvider(styleProvider);
 	}
 
+	/**
+	 * Get the current style provider
+	 *
+	 * @return style provider
+	 */
 	public ITimelineStyleProvider getStyleProvider() {
 		return getControl().getRootFigure().getStyleProvider();
 	}
@@ -124,6 +136,12 @@ public class TimelineViewer extends StructuredViewer {
 		super.inputChanged(input, oldInput);
 	}
 
+	/**
+	 * Set the content provider for this viewer.
+	 *
+	 * @param provider
+	 *            provider implementing {@link ITimelineContentProvider}
+	 */
 	@Override
 	public void setContentProvider(IContentProvider provider) {
 		if (!(provider instanceof ITimelineContentProvider))
@@ -137,6 +155,12 @@ public class TimelineViewer extends StructuredViewer {
 		return (ITimelineContentProvider) super.getContentProvider();
 	}
 
+	/**
+	 * Set the label provider for this viewer. Optional the lable provider may implement {@link IColorProvider} and {@link IToolTipProvider}.
+	 *
+	 * @param labelProvider
+	 *            provider implementing {@link ITimelineLabelProvider}
+	 */
 	@Override
 	public void setLabelProvider(IBaseLabelProvider labelProvider) {
 		if (!(labelProvider instanceof ITimelineLabelProvider))
@@ -331,7 +355,6 @@ public class TimelineViewer extends StructuredViewer {
 
 				if (Arrays.asList(getContentProvider().getCursors(getInput())).contains(element)) {
 					// this cursor is still available in the model
-					// TODO refresh cursor style
 
 				} else {
 					// cursor got deleted from the model
@@ -343,8 +366,6 @@ public class TimelineViewer extends StructuredViewer {
 				RootFigure.getFigure(rootFigure, CursorLayer.class).revalidate();
 				RootFigure.getFigure(rootFigure, OverviewCursorLayer.class).revalidate();
 			}
-
-			// TODO refresh cursors, timeevents
 
 		} else {
 			// the object does not have a figure representation
@@ -371,11 +392,7 @@ public class TimelineViewer extends StructuredViewer {
 
 	private void unregisterFigures(Collection<?> figures) {
 		for (final Object element : figures)
-			unregisterFigure(element);
-	}
-
-	private void unregisterFigure(Object modelElement) {
-		fElementToFigureMap.removeValue(modelElement);
+			fElementToFigureMap.removeValue(element);
 	}
 
 	private void registerFigure(Object modelElement, IFigure figure) {

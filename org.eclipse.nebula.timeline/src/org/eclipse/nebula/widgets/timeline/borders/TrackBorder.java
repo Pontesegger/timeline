@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2020 christian and others.
+ * Copyright (c) 2020 Christian Pontesegger and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * https://www.eclipse.org/legal/epl-2.0/
  *
  * Contributors:
- *     christian - initial API and implementation
+ *     Christian Pontesegger - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.nebula.widgets.timeline.borders;
@@ -41,7 +41,6 @@ public class TrackBorder extends AbstractLabeledBorder {
 	@Override
 	public void paint(IFigure figure, Graphics g, Insets insets) {
 		if (!getLabel().isEmpty()) {
-			// TODO check FigureUtilities.paintEdgedBorder
 			final Dimension textExtents = getTextExtents(figure);
 
 			final Rectangle area = figure.getBounds().getCopy();

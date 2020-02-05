@@ -25,9 +25,11 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.nebula.widgets.timeline.ICursor;
+import org.eclipse.nebula.widgets.timeline.ITimed;
 import org.eclipse.nebula.widgets.timeline.ITimelineEvent;
 import org.eclipse.nebula.widgets.timeline.ITimelineFactory;
 import org.eclipse.nebula.widgets.timeline.TimeBaseConverter;
+import org.eclipse.nebula.widgets.timeline.Timing;
 import org.eclipse.nebula.widgets.timeline.figures.detail.DetailFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorFigure;
 import org.eclipse.nebula.widgets.timeline.figures.detail.cursor.CursorLayer;
@@ -380,7 +382,29 @@ public class RootFigure extends Figure implements IStyledFigure {
 		if (overvievFigure != null)
 			removeFigure(overvievFigure);
 
-		// TODO recalculate total area in TimeViewDetails
+		final Timing eventTiming = eventFigure.getEvent().getTiming();
+		final Timing eventArea = getTimeViewDetails().getEventArea();
+		if ((eventTiming.left() <= eventArea.left()) || (eventTiming.right() >= eventArea.right())) {
+			// this event is at the brink of the event area, recalculate whole area
+			getTimeViewDetails().resetEventArea();
+
+			for (final LaneFigure lane : getLanes(this)) {
+				// event figures are sorted, so we only need to get the first and last event
+				final List children = lane.getChildren();
+				if (children.size() >= 2)
+					getTimeViewDetails().addEvent(((EventFigure) children.get(children.size() - 1)).getEvent());
+
+				if (children.size() >= 1)
+					getTimeViewDetails().addEvent(((EventFigure) children.get(0)).getEvent());
+			}
+
+			final CursorLayer cursorLayer = getFigure(this, CursorLayer.class);
+			for (final Object cursorFigure : cursorLayer.getChildren()) {
+				final Object cursor = cursorLayer.getLayoutManager().getConstraint((IFigure) cursorFigure);
+				if (cursor instanceof ITimed)
+					getTimeViewDetails().addEvent((ITimed) cursor);
+			}
+		}
 	}
 
 	private void removeFigure(IFigure figure) {

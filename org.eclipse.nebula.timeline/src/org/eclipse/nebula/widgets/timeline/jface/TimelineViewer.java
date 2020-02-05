@@ -114,7 +114,6 @@ public class TimelineViewer extends StructuredViewer {
 
 	@Override
 	protected void inputChanged(Object input, Object oldInput) {
-		// TODO keep set of damaged figures as small as possible
 		fElementToFigureMap.clear();
 		registerFigure(input, getControl().getRootFigure());
 
@@ -408,7 +407,7 @@ public class TimelineViewer extends StructuredViewer {
 	}
 
 	@Override
-	protected List getSelectionFromWidget() {
+	protected List<Object> getSelectionFromWidget() {
 		final EventFigure selectedFigure = getControl().getRootFigure().getSelection();
 		if (selectedFigure != null) {
 			final Object modelElement = fElementToFigureMap.getKey(selectedFigure);
@@ -416,7 +415,7 @@ public class TimelineViewer extends StructuredViewer {
 				return Arrays.asList(modelElement);
 		}
 
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	@Override
